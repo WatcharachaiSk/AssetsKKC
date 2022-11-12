@@ -10,4 +10,4 @@ export const GetSdCartoonFont = (
   return {
     fontFamily: test[family],
   };
-};
+}

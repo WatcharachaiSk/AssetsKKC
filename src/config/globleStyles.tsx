@@ -4,4 +4,4 @@ import {colors} from './colors';
 
 const globleStyles = StyleSheet.create({});
 
-export default globleStyles;
+export default globleStyles

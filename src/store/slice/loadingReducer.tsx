@@ -9,4 +9,4 @@ const loadingReducer = () => {
   )
 }
 
-export default loadingReducer
+export default loadingReducer;

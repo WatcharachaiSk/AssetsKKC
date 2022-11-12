@@ -1,2 +1,2 @@
 const json = {};
-export default json;
+export default json
