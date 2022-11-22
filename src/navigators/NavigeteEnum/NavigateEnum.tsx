@@ -11,6 +11,8 @@ export enum AppScreens {
     LoginStack = 'LoginStack',
     CategoryStack='CategoryStack',
     BottomTabStack='BottomTabStack',
+    DetailfromListStack='DetailfromListStack',
+    ListPageStack='ListPageStack'
     
 }
 
@@ -23,10 +25,12 @@ export type StackList = {
     ListPage: undefined;
     CategoryPage: undefined;
     Scanner: undefined;
+    ListPageStack: undefined;
     
     NavBottomTab: undefined;
     LoginStack: undefined;
     CategoryStack: undefined;
     BottomTabStack: undefined;
+    DetailfromListStack: undefined;
 
 }

@@ -5,6 +5,7 @@ import NavBottomTab from './NavBottomTab';
 import { AppScreens } from './NavigeteEnum/NavigateEnum';
 import LoginStack from './Stack/LoginStack/LoginStack';
 import BottomTabStack from './Stack/BottomTabStack/BottomTabStack';
+import DetailfromListStack from './Stack/DetailfromList/DetailfromList';
 
 
 const Stack = createNativeStackNavigator();
@@ -22,11 +23,19 @@ const Navigation = () => {
         <Stack.Screen
           name={AppScreens.NavBottomTab}
           component={NavBottomTab}
+          options={({ navigation, route }) => ({
+            headerShown: false,
+          })}
+
         />
-        {/* <Stack.Screen
+        <Stack.Screen
           name='BottomTab'
           component={BottomTabStack}
-          options={{ headerShown: false }} /> */}
+          options={{ headerShown: false }} />
+        <Stack.Screen
+          name='DetailfromList'
+          component={DetailfromListStack}
+          options={{ headerShown: false }} />
       </Stack.Navigator>
     </NavigationContainer>
   );

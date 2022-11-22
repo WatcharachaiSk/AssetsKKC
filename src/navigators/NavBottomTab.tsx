@@ -3,47 +3,63 @@ import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 // import icon from '../config/icon';
 import { AppScreens } from './NavigeteEnum/NavigateEnum';
-import ListPage from '../pages/ListPage/ListPage';
 import CategoryPage from '../pages/CategoryPage/CategoryPage';
 import Scanner from '../pages/Scanner/Scanner';
 import AccountUser from '../pages/AccountUser/AccountUser';
 import Entypo from "react-native-vector-icons/Entypo";
-
-
+import { colors } from '../config/colors';
+import ListPageStack from './Stack/ListPageStack/ListPageStack';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import Feather from 'react-native-vector-icons/Feather';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
 
 const NavBottomTab = () => {
     const Tab = createBottomTabNavigator();
     return (
         <Tab.Navigator screenOptions={{
             headerShown: false,
-            tabBarActiveTintColor: '#000',
-            tabBarInactiveTintColor: '#D9CDC1',
+            tabBarActiveTintColor: colors.yellow,
+            tabBarInactiveTintColor: '#000',
             tabBarLabelStyle: {
+
 
             },
             tabBarBackground: () => (
-                <View style={{ flex: 1, backgroundColor: '#FFCC63' }}></View>
+
+                <View style={{ flex: 1, backgroundColor: '#fff', }}></View>
+
+
             ),
         }}>
             <Tab.Screen
-                name={AppScreens.ListPage}
-                component={ListPage}
+                name={AppScreens.ListPageStack}
+                component={ListPageStack}
                 options={{
                     title: 'หน้าหลัก',
+                    tabBarLabelStyle: { fontSize: 12 },
                     tabBarIcon: ({ color, size }) => {
                         return (
-                          <View style={{ alignItems: "center" }}>
-                            <Entypo name="home" size={45} color={color}></Entypo>
-                          </View>
+                            <View style={{ alignItems: "center" }}>
+                                <Ionicons name="home" size={30} color={color}></Ionicons>
+                            </View>
                         );
-                      },
+                    },
                 }}
             />
             <Tab.Screen
                 name={AppScreens.CategoryPage}
                 component={CategoryPage}
                 options={{
-                    title: 'หมวดหมู่'
+                    title: 'หมวดหมู่',
+                    tabBarLabelStyle: { fontSize: 12 },
+                    tabBarIcon: ({ color, size }) => {
+                        return (
+                            <View style={{ alignItems: "center" }}>
+                                <Feather name="align-left" size={35} color={color}></Feather>
+                            </View>
+                        );
+                    },
 
                 }}
             />
@@ -51,14 +67,33 @@ const NavBottomTab = () => {
                 name={AppScreens.Scanner}
                 component={Scanner}
                 options={{
-                    title: 'สแกน'
+                    title: 'สแกน',
+                    tabBarLabelStyle: { fontSize: 12 },
+                    tabBarIcon: ({ color, size }) => {
+                        return (
+                            <View style={{ alignItems: "center" }}>
+                                <MaterialCommunityIcons name="line-scan" size={35} color={color}></MaterialCommunityIcons>
+                            </View>
+                        );
+                    },
                 }}
             />
             <Tab.Screen
                 name={AppScreens.AccountUser}
                 component={AccountUser}
                 options={{
-                    title: 'ฉัน'
+                    title: 'ฉัน',
+                    tabBarLabelStyle: { fontSize: 12 },
+                    tabBarIcon: ({ color, size }) => {
+                        return (
+                            
+                                <View style={{ alignItems: "center" }}>
+                                    <FontAwesome5 name="user-alt" size={28} color={color}></FontAwesome5>
+                                </View>
+                        
+
+                        );
+                    },
                 }}
             />
         </Tab.Navigator>

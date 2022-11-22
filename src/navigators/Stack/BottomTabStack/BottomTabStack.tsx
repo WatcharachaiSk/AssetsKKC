@@ -6,7 +6,9 @@ import CategoryPage from '../../../pages/CategoryPage/CategoryPage';
 import Scanner from '../../../pages/Scanner/Scanner';
 import AccountUser from '../../../pages/AccountUser/AccountUser';
 import LoginPage from '../../../pages/LoginPage/LoginPage';
-
+import DetailAfterScan from '../../../pages/DetailAfterScan/DetailAfterScan';
+import DetailfromList from '../../../pages/DetailfromList/DetailfromList';
+import DetailfromListStack from '../DetailfromList/DetailfromList';
 
 const BottomTabStack = () => {
     const ButtomTab = createBottomTabNavigator();
@@ -15,7 +17,7 @@ const BottomTabStack = () => {
         <ButtomTab.Navigator
             initialRouteName="ListPage"
             screenOptions={{
-                tabBarShowLabel: true,
+                tabBarShowLabel: false,
                 headerShown: false,
                 tabBarStyle: {
                     backgroundColor: '#000',
@@ -48,6 +50,17 @@ const BottomTabStack = () => {
                 component={LoginPage}
                 options={({ navigation, route }) => ({})}
             />
+              <ButtomTab.Screen
+                name="DetailAfterScan"
+                component={DetailAfterScan}
+                options={({ navigation, route }) => ({})}
+            />
+             <ButtomTab.Screen
+                name="DetailfromList"
+                component={DetailfromList}
+                options={({ navigation, route }) => ({})}
+            />
+
 
         </ButtomTab.Navigator>
     )

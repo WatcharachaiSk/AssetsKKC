@@ -85,10 +85,11 @@ project.ext.react = [
 
 apply from: "../../node_modules/react-native/react.gradle"
 project.ext.vectoricons = [
-    iconFontNames: [ 'MaterialIcons.ttf', 'EvilIcons.ttf' ] // Name of the font files you want to copy
+    iconFontNames: [ 'MaterialIcons.ttf', 'EvilIcons.ttf','Entypo.ttf','Ionicons.ttf', 'AntDesign.ttf','Feather.ttf','FontAwesome.ttf','FontAwesome5_Brands.ttf',
+    'FontAwesome5_Regular.ttf','FontAwesome5_Solid.ttf','Fontisto.ttf','Foundation.ttf','MaterialCommunityIcons.ttf','Octicons.ttf','SimpleLineIcons.ttf','Zocial.ttf',] // Name of the font files you want to copy
 ]
 
-// apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
+//apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
 
 /**
  * Set this to true to create two separate APKs instead of one:
@@ -311,7 +312,6 @@ task copyDownloadableDepsToLibs(type: Copy) {
 }
 
 apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)
-
 def isNewArchitectureEnabled() {
     // To opt-in for the New Architecture, you can either:
     // - Set `newArchEnabled` to true inside the `gradle.properties` file
