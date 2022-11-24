@@ -78,10 +78,10 @@ const BottomSheet = (props: any) => {
             <Text style={styles.fonts}>รหัสครุภัณฑ์ : </Text>
           </View>
           <View style={{ marginVertical: 5 }}>
-            <Text style={styles.fonts}>หมวดหมู่ครุภัณฑ์ : </Text>
+            <Text style={styles.fonts}>หมวดหมู่ครุภัณฑ์ :  </Text>
           </View>
           <View style={{ marginVertical: 5 }}>
-            <Text style={styles.fonts}>วันที่รับเข้า : </Text>
+            <Text style={styles.fonts}>วันที่รับเข้า :  </Text>
           </View>
           <View style={{ marginVertical: 5 }}>
             <Text style={styles.fonts}>สถานที่ : </Text>

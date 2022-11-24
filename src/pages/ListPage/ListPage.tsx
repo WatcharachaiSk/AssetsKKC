@@ -20,7 +20,7 @@ const ListPage = (props: any) => {
 
 
 
-console.log("items = ",items);
+  //console.log("items = ", items);
 
   const [searchQuery, setSearchQuery] = useState('');
   const onChangeSearch = (query: string) => setSearchQuery(query);
