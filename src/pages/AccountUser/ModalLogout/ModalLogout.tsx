@@ -2,7 +2,7 @@ import { Modal, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
 
 import LottieView from "lottie-react-native";
-// import { GetKanitFont } from "../../../config/fonts";
+import { GetKanitFont } from "../../../config/fonts";
 import { colors } from "../../../config/colors";
 
 const ModalLogout = (props: any) => {
@@ -85,12 +85,12 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontSize: 20,
     textAlign: "center",
-    // ...GetKanitFont("regular"),
+...GetKanitFont("regular"),
   },
   textQT: {
     color: "#000",
     fontSize: 20,
     textAlign: "center",
-    // ...GetKanitFont("regular"),
+    ...GetKanitFont("regular"),
   },
 });

@@ -13,6 +13,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import Feather from 'react-native-vector-icons/Feather';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
+import { GetKanitFont } from '../config/fonts';
 
 const NavBottomTab = () => {
     const Tab = createBottomTabNavigator();
@@ -22,13 +23,10 @@ const NavBottomTab = () => {
             tabBarActiveTintColor: colors.yellow,
             tabBarInactiveTintColor: '#000',
             tabBarLabelStyle: {
-
-
             },
             tabBarBackground: () => (
 
                 <View style={{ flex: 1, backgroundColor: '#fff', }}></View>
-
 
             ),
         }}>
@@ -37,7 +35,7 @@ const NavBottomTab = () => {
                 component={ListPageStack}
                 options={{
                     title: 'หน้าหลัก',
-                    tabBarLabelStyle: { fontSize: 12 },
+                    tabBarLabelStyle: { fontSize: 14 , ...GetKanitFont("regular") },
                     tabBarIcon: ({ color, size }) => {
                         return (
                             <View style={{ alignItems: "center" }}>
@@ -52,7 +50,7 @@ const NavBottomTab = () => {
                 component={CategoryPage}
                 options={{
                     title: 'หมวดหมู่',
-                    tabBarLabelStyle: { fontSize: 12 },
+                    tabBarLabelStyle: { fontSize: 14 , ...GetKanitFont("regular") },
                     tabBarIcon: ({ color, size }) => {
                         return (
                             <View style={{ alignItems: "center" }}>
@@ -68,7 +66,7 @@ const NavBottomTab = () => {
                 component={Scanner}
                 options={{
                     title: 'สแกน',
-                    tabBarLabelStyle: { fontSize: 12 },
+                    tabBarLabelStyle: { fontSize: 14 , ...GetKanitFont("regular") },
                     tabBarIcon: ({ color, size }) => {
                         return (
                             <View style={{ alignItems: "center" }}>
@@ -83,7 +81,7 @@ const NavBottomTab = () => {
                 component={AccountUser}
                 options={{
                     title: 'ฉัน',
-                    tabBarLabelStyle: { fontSize: 12 },
+                    tabBarLabelStyle: { fontSize: 14 , ...GetKanitFont("regular") },
                     tabBarIcon: ({ color, size }) => {
                         return (
                             

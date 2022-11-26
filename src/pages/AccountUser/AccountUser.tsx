@@ -7,6 +7,7 @@ import Feather from 'react-native-vector-icons/Feather'
 import ModalLogout from './ModalLogout/ModalLogout'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { BlurView } from "@react-native-community/blur";
+import { GetKanitFont } from '../../config/fonts'
 
 const { height } = Dimensions.get("window");
 const AccountUser = () => {
@@ -40,26 +41,26 @@ const AccountUser = () => {
         onClose={onClose}
         onConfirm={onConfirm}
       />
-      {showSWModal 
-      && (
-        <BlurView
-          style={styles.absolute}
-          blurType="dark"
-          blurAmount={1}
-          reducedTransparencyFallbackColor="gray" />
-      )
-    }
+      {showSWModal
+        && (
+          <BlurView
+            style={styles.absolute}
+            blurType="dark"
+            blurAmount={1}
+            reducedTransparencyFallbackColor="gray" />
+        )
+      }
       <ScrollView>
 
 
         <View style={{ padding: 25, backgroundColor: colors.Gray, marginVertical: 15 }}>
-          <Text style={{ fontSize: 20, fontWeight: 'bold', color: colors.black }}>ข้อมูลผู้ใช้งาน</Text>
+          <Text style={styles.texthead}>ข้อมูลผู้ใช้งาน</Text>
         </View>
 
 
         {/* imageProfile */}
         <View style={{ alignItems: 'center' }}>
-          <View style={{ backgroundColor: colors.black, width: widthOfWindow * 0.58, height: heightOfWindow * 0.3, borderRadius: 300 / 2, margin: 15 }}>
+          <View style={styles.viewImage}>
             <View style={{ alignSelf: 'center', marginTop: 35 }}>
               <FontAwesome5 name="user-alt" size={140} color={'#fff'}></FontAwesome5>
             </View>
@@ -72,7 +73,7 @@ const AccountUser = () => {
           <View style={{ alignItems: 'center' }}>
             <View style={styles.nameAndPhone}>
               <View style={styles.viewText}>
-                <Text style={{ fontSize: 18, textAlign: 'left' }}>isariya roopkhan</Text>
+                <Text style={styles.textShow}>isariya roopkhan</Text>
               </View>
             </View>
           </View>
@@ -83,7 +84,7 @@ const AccountUser = () => {
           <View style={{ alignItems: 'center' }}>
             <View style={styles.nameAndPhone}>
               <View style={styles.viewText}>
-                <Text style={{ fontSize: 18, textAlign: 'left' }}>099-6587489</Text>
+                <Text style={styles.textShow}>099-6587489</Text>
               </View>
 
             </View>
@@ -94,9 +95,9 @@ const AccountUser = () => {
         {/* LogOut */}
         <View style={{ alignItems: 'flex-end', left: 110 }}>
           <View style={{ flex: 1 }}>
-            <TouchableOpacity 
-            onPress={onClickSwap}
-            style={styles.logOut} >
+            <TouchableOpacity
+              onPress={onClickSwap}
+              style={styles.logOut} >
               <View style={{ justifyContent: "center", marginLeft: 10 }}>
                 <Text style={styles.textLogOut}>Logout</Text>
               </View>
@@ -156,7 +157,7 @@ const styles = StyleSheet.create({
   },
   textLogOut: {
     fontSize: 20,
-    // ...GetKanitFont("regular"),
+    ...GetKanitFont("regular"),
     textAlign: "right",
     color: "#fff",
   },
@@ -172,4 +173,19 @@ const styles = StyleSheet.create({
     right: 0,
     zIndex: 999,
   },
+  viewImage: {
+    backgroundColor: colors.black,
+    width: widthOfWindow * 0.58,
+    height: heightOfWindow * 0.3,
+    borderRadius: 300 / 2,
+    margin: 15
+  },
+  textShow: {
+    fontSize: 20,
+    textAlign: 'left',
+    ...GetKanitFont('regular')
+  },
+  texthead:{
+    fontSize: 22, color: colors.black,  ...GetKanitFont("medium") 
+  }
 })

@@ -6,5 +6,5 @@ module.exports = {
             },
         },
     },
-   // assets: ['./src/assets/Font/Kanit']
+   assets: ['./src/assets/fonts/Kanit']
 }
