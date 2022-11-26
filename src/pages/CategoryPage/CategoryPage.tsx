@@ -27,100 +27,97 @@ const CategoryPage = (props: any) => {
 
 
   return (
-    <View style={{ marginTop: 20 }}>
-      <Searchbar
-        placeholder="Search.."
-        onChangeText={onChangeSearch}
-        value={searchQuery}
-        style={{
-          marginHorizontal: 10,
-          borderRadius: 10,
-          backgroundColor: '#D9D9D9',
-          marginTop: 10,
-          marginBottom: 5
-        }}
-      />
-
-     {/* statusItems */}
-      {/* <View style={{ marginTop: 15 }}>
-        <ScrollView
-          horizontal={true}
-          showsHorizontalScrollIndicator={false}
-        >
-          <TouchStatus
-            isTouch={isTouch}
-            setTouchStatus={setTouchStatus}
-          />
-        </ScrollView>
-
-      </View> */}
+    <View style={{ flex: 1, backgroundColor: colors.white }}>
 
 
+      {/* Searchbar */}
+      <View style={{ marginTop: 20 }}>
+        <Searchbar
+          placeholder="Search.."
+          onChangeText={onChangeSearch}
+          value={searchQuery}
+          style={{
+            marginHorizontal: 10,
+            borderRadius: 10,
+            backgroundColor: '#D9D9D9',
+            marginTop: 10,
+            marginBottom: 5
+          }}
+        />
+      </View>
+
+
+      {/* line */}
       <View style={styles.line}></View>
-<ScrollView>
-      <View style={{ flexDirection: 'row', flex: 0 }}>
-     
-          <View style={{ flex: 0, backgroundColor: colors.Gray, width: widthOfWindow * 0.36,  }}>
+
+
+      <View style={{ flexDirection: 'row', flex: 1 }}>
+
+        {/* type */}
+        <View style={{ flex: 0, backgroundColor: colors.Gray, width: widthOfWindow * 0.36, }}>
+          <ScrollView contentContainerStyle={{flexGrow:1}}>
             <Touchtype
               isTouch={isTouchType}
               setTouchType={setTouchType}
-
             />
-          </View>
-
-
-
-
-        <View style={{ flex: 1,  flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center' }}>
-          <TouchableOpacity style={{ marginHorizontal: 5, backgroundColor: colors.black, width: widthOfWindow * 0.29, height: heightOfWindow * 0.2, marginTop: 5, borderRadius: 15 }}>
-
-          </TouchableOpacity>
-          <TouchableOpacity style={{ marginHorizontal: 5, backgroundColor: colors.black, width: widthOfWindow * 0.29, height: heightOfWindow * 0.2, marginTop: 5, borderRadius: 15 }}>
-
-          </TouchableOpacity>
-          <TouchableOpacity style={{ marginHorizontal: 5, backgroundColor: colors.black, width: widthOfWindow * 0.29, height: heightOfWindow * 0.2, marginTop: 5, borderRadius: 15 }}>
-
-          </TouchableOpacity>
-          <TouchableOpacity style={{ marginHorizontal: 5, backgroundColor: colors.black, width: widthOfWindow * 0.29, height: heightOfWindow * 0.2, marginTop: 5, borderRadius: 15 }}>
-
-          </TouchableOpacity>
-          <TouchableOpacity style={{ marginHorizontal: 5, backgroundColor: colors.black, width: widthOfWindow * 0.29, height: heightOfWindow * 0.2, marginTop: 5, borderRadius: 15 }}>
-
-          </TouchableOpacity>
-          <TouchableOpacity style={{ marginHorizontal: 5, backgroundColor: colors.black, width: widthOfWindow * 0.29, height: heightOfWindow * 0.2, marginTop: 5, borderRadius: 15 }}>
-
-          </TouchableOpacity>
-          <TouchableOpacity style={{ marginHorizontal: 5, backgroundColor: colors.black, width: widthOfWindow * 0.29, height: heightOfWindow * 0.2, marginTop: 5, borderRadius: 15 }}>
-
-          </TouchableOpacity>
-          <TouchableOpacity style={{ marginHorizontal: 5, backgroundColor: colors.black, width: widthOfWindow * 0.29, height: heightOfWindow * 0.2, marginTop: 5, borderRadius: 15 }}>
-
-          </TouchableOpacity>
-          <TouchableOpacity style={{ marginHorizontal: 5, backgroundColor: colors.black, width: widthOfWindow * 0.29, height: heightOfWindow * 0.2, marginTop: 5, borderRadius: 15 }}>
-
-          </TouchableOpacity>
-          <TouchableOpacity style={{ marginHorizontal: 5, backgroundColor: colors.black, width: widthOfWindow * 0.29, height: heightOfWindow * 0.2, marginTop: 5, borderRadius: 15 }}>
-
-          </TouchableOpacity>
-          <TouchableOpacity style={{ marginHorizontal: 5, backgroundColor: colors.black, width: widthOfWindow * 0.29, height: heightOfWindow * 0.2, marginTop: 5, borderRadius: 15 }}>
-
-          </TouchableOpacity>
-          <TouchableOpacity style={{ marginHorizontal: 5, backgroundColor: colors.black, width: widthOfWindow * 0.29, height: heightOfWindow * 0.2, marginTop: 5, borderRadius: 15 }}>
-
-          </TouchableOpacity>
+          </ScrollView>
         </View>
+
+          {/* items */}
+        <ScrollView contentContainerStyle={{flexGrow:1}}>
+          <View style={{ flex: 1, flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center' }}>
+
+            <TouchableOpacity style={{ marginHorizontal: 5, backgroundColor: colors.black, width: widthOfWindow * 0.29, height: heightOfWindow * 0.2, marginTop: 5, borderRadius: 15 }}>
+
+            </TouchableOpacity>
+            <TouchableOpacity style={{ marginHorizontal: 5, backgroundColor: colors.black, width: widthOfWindow * 0.29, height: heightOfWindow * 0.2, marginTop: 5, borderRadius: 15 }}>
+
+            </TouchableOpacity>
+            <TouchableOpacity style={{ marginHorizontal: 5, backgroundColor: colors.black, width: widthOfWindow * 0.29, height: heightOfWindow * 0.2, marginTop: 5, borderRadius: 15 }}>
+
+            </TouchableOpacity>
+            <TouchableOpacity style={{ marginHorizontal: 5, backgroundColor: colors.black, width: widthOfWindow * 0.29, height: heightOfWindow * 0.2, marginTop: 5, borderRadius: 15 }}>
+
+            </TouchableOpacity>
+            <TouchableOpacity style={{ marginHorizontal: 5, backgroundColor: colors.black, width: widthOfWindow * 0.29, height: heightOfWindow * 0.2, marginTop: 5, borderRadius: 15 }}>
+
+            </TouchableOpacity>
+            <TouchableOpacity style={{ marginHorizontal: 5, backgroundColor: colors.black, width: widthOfWindow * 0.29, height: heightOfWindow * 0.2, marginTop: 5, borderRadius: 15 }}>
+
+            </TouchableOpacity>
+            <TouchableOpacity style={{ marginHorizontal: 5, backgroundColor: colors.black, width: widthOfWindow * 0.29, height: heightOfWindow * 0.2, marginTop: 5, borderRadius: 15 }}>
+
+            </TouchableOpacity>
+            <TouchableOpacity style={{ marginHorizontal: 5, backgroundColor: colors.black, width: widthOfWindow * 0.29, height: heightOfWindow * 0.2, marginTop: 5, borderRadius: 15 }}>
+
+            </TouchableOpacity>
+            <TouchableOpacity style={{ marginHorizontal: 5, backgroundColor: colors.black, width: widthOfWindow * 0.29, height: heightOfWindow * 0.2, marginTop: 5, borderRadius: 15 }}>
+
+            </TouchableOpacity>
+            <TouchableOpacity style={{ marginHorizontal: 5, backgroundColor: colors.black, width: widthOfWindow * 0.29, height: heightOfWindow * 0.2, marginTop: 5, borderRadius: 15 }}>
+
+            </TouchableOpacity>
+            <TouchableOpacity style={{ marginHorizontal: 5, backgroundColor: colors.black, width: widthOfWindow * 0.29, height: heightOfWindow * 0.2, marginTop: 5, borderRadius: 15 }}>
+
+            </TouchableOpacity>
+            <TouchableOpacity style={{ marginHorizontal: 5, backgroundColor: colors.black, width: widthOfWindow * 0.29, height: heightOfWindow * 0.2, marginTop: 5, borderRadius: 15 }}>
+
+            </TouchableOpacity>
+
+          </View>
+        </ScrollView>
 
 
 
 
       </View>
-      </ScrollView>
 
 
 
 
 
 
+      {/* </ScrollView> */}
     </View>
   )
 }
