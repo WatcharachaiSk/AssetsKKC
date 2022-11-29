@@ -183,7 +183,7 @@ const styles = StyleSheet.create({
   viewItem: {
     flexDirection: 'column', margin: 10, flex: 1
   },
-  testID:{
+  textID:{
     ...GetKanitFont('regular'),fontSize:14
   }
 
