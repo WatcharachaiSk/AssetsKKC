@@ -5,6 +5,7 @@ import { widthOfWindow, heightOfWindow } from '../../../utils/getDimension';
 import { colors } from '../../../config/colors';
 import ListPage from '../../ListPage/ListPage';
 import { items } from '../../../assets/json/items';
+import { GetKanitFont } from '../../../config/fonts';
 
 
 
@@ -26,10 +27,10 @@ const BottomSheet = (props: any) => {
     <View style={{ flex: 1, justifyContent: "flex-end", alignItems: "center" }}>
       <TouchableOpacity
         onPress={() => this.Scrollable.open()}
-        style={{ borderRadius: 15, backgroundColor: '#000', padding: 30, width: widthOfWindow * 0.97, }}
+        style={styles.touchOpen}
       >
-        <Text style={{ fontSize: 20, textAlign: 'left', color: '#fff', fontWeight: 'bold' }}>MONITOR</Text>
-        <Text style={{ fontSize: 16, textAlign: 'right', color: '#fff' }}>ดูรายละเอียดเพิ่มเติม</Text>
+        <Text style={styles.textTitle}>MONITOR</Text>
+        <Text style={styles.textDetail}>ดูรายละเอียดเพิ่มเติม</Text>
       </TouchableOpacity>
 
       <RBSheet
@@ -52,8 +53,8 @@ const BottomSheet = (props: any) => {
       >
         <View style={{ flexDirection: 'row' }}>
           <View style={{ flex: 1, margin: 15, }}>
-            <Text style={{ fontSize: 24, fontWeight: 'bold', color: '#fff' }}>MONITOR</Text>
-            <Text style={{ fontSize: 18, color: '#fff' }}>#0001</Text>
+            <Text style={styles.fontTitleDT}>MONITOR</Text>
+            <Text style={styles.textID}>#0001</Text>
           </View>
           <View style={{ flex: 0, width: widthOfWindow * 0.3 }}>
             <View style={[styles.status, {
@@ -132,10 +133,41 @@ const styles = StyleSheet.create({
     alignSelf: 'center'
   },
   fontstatus: {
-    fontSize: 18, color: '#fff', textAlign: 'center'
+    fontSize: 18, color: '#fff', 
+    textAlign: 'center', 
+    ...GetKanitFont('regular')
   },
   fonts: {
-    fontSize: 18, color: '#fff',
+    fontSize: 16, color: '#fff',
+    ...GetKanitFont('regular')
+  },
+  textTitle:{
+    fontSize: 20, 
+    textAlign: 'left', 
+    color: '#fff',
+    ...GetKanitFont('medium')
+  },
+  textDetail:{
+    fontSize: 16, 
+    textAlign: 'right', 
+    color: '#fff' ,
+    ...GetKanitFont('regular')
+
+  },
+  touchOpen:{
+    borderRadius: 15, 
+    backgroundColor: colors.black,
+    padding: 30, 
+    width: widthOfWindow * 0.97, 
+  },
+  fontTitleDT:{
+    fontSize: 24,
+    ...GetKanitFont('medium')
+    , color: '#fff' 
+  },
+  textID:{
+    fontSize: 18, color: '#fff' ,
+    ...GetKanitFont('regular')
   }
 });
 

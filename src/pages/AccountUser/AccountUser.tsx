@@ -8,9 +8,15 @@ import ModalLogout from './ModalLogout/ModalLogout'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { BlurView } from "@react-native-community/blur";
 import { GetKanitFont } from '../../config/fonts'
+import { AppScreens } from '../../navigators/NavigeteEnum/NavigateEnum'
 
 const { height } = Dimensions.get("window");
-const AccountUser = () => {
+
+
+
+const AccountUser = ( props: any) => {
+
+  const navigation = props.navigation;
 
 
   const [showSWModal, setShowSWModal] = React.useState(false);
@@ -25,10 +31,12 @@ const AccountUser = () => {
   };
 
   const onConfirm = async () => {
-    setShowSWModal(false);
+     setShowSWModal(false);
+
+   
     //setShowConfirmModal(true);
     // await AsyncStorage.removeItem("accessToken");
-    // navigation.navigate("LoginPage", { isLogout: true });
+     navigation.navigate("LoginPage", { isLogout: true });
   };
 
 
@@ -40,6 +48,7 @@ const AccountUser = () => {
         showSWModal={showSWModal}
         onClose={onClose}
         onConfirm={onConfirm}
+        setShowSWModal={setShowSWModal}
       />
       {showSWModal
         && (

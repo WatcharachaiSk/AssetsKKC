@@ -4,6 +4,9 @@ import AccountUser from '../../../pages/AccountUser/AccountUser';
 import LoginPage from '../../../pages/LoginPage/LoginPage';
 import ListPage from '../../../pages/ListPage/ListPage';
 import { NavigationContainer } from '@react-navigation/native'
+import AccountStack from '../AccountStack/AccountStack';
+import AppStack from '../AppStack/AppStack';
+
 
 const stack = createNativeStackNavigator();
 const LoginStack = () => {
@@ -17,9 +20,11 @@ const LoginStack = () => {
                 options={({ navigation, route }) => ({ headerShown: false })}
             />
             <stack.Screen
-                name='ListPage'
-                component={ListPage}
+                name='AccountUser'
+                component={AccountUser}
                 options={{ headerShown: false }} />
+        
+
         </stack.Navigator>
 
     )

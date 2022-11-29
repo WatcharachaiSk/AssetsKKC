@@ -1,3 +1,5 @@
+import AccountStack from "../Stack/AccountStack/AccountStack";
+
 export enum AppScreens {
     LoginPage = 'LoginPage',
     AccountUser = 'AccountUser',
@@ -9,11 +11,15 @@ export enum AppScreens {
     MainStack = 'MainStack',
     NavBottomTab = 'NavBottomTab',
     LoginStack = 'LoginStack',
-    CategoryStack='CategoryStack',
-    BottomTabStack='BottomTabStack',
-    DetailfromListStack='DetailfromListStack',
-    ListPageStack='ListPageStack'
-    
+    CategoryStack = 'CategoryStack',
+    BottomTabStack = 'BottomTabStack',
+    DetailfromListStack = 'DetailfromListStack',
+    ListPageStack = 'ListPageStack',
+    AccountStack = 'AccountStack',
+    AppStack = 'AppStack',
+    ScannerStack = 'ScannerStack',
+    NavStack ='NavStack',
+
 }
 
 export type StackList = {
@@ -26,11 +32,14 @@ export type StackList = {
     CategoryPage: undefined;
     Scanner: undefined;
     ListPageStack: undefined;
-    
+
     NavBottomTab: undefined;
     LoginStack: undefined;
     CategoryStack: undefined;
     BottomTabStack: undefined;
     DetailfromListStack: undefined;
-
+    AccountStack: undefined;
+    AppStack: undefined;
+    ScannerStack: undefined;
+    NavStack:undefined;
 }

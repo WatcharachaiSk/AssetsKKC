@@ -5,6 +5,7 @@ import IconAntDesign from 'react-native-vector-icons/AntDesign'
 import BottomSheet from './components/BotttomSheet';
 import { heightOfWindow, widthOfWindow } from '../../utils/getDimension';
 import images from '../../config/img';
+import { GetKanitFont } from '../../config/fonts';
 
 const DetailfromList = (props: any) => {
 
@@ -16,10 +17,10 @@ const DetailfromList = (props: any) => {
   return (
     <View style={{ flex: 1, backgroundColor: colors.white }}>
       <TouchableOpacity
-        style={{ flex: 0, flexDirection: 'row', margin: 10 }}
+        style={styles.goBack}
         onPress={() => navigation.goBack()}>
         <IconAntDesign name="left" size={20} color="#AFADAD"></IconAntDesign>
-        <Text style={{ fontSize: 16 }}>ย้อนกลับ</Text>
+        <Text style={styles.textgoBack}>ย้อนกลับ</Text>
       </TouchableOpacity>
 
       <View style={{alignItems:'center'}}>
@@ -35,5 +36,11 @@ const DetailfromList = (props: any) => {
 export default DetailfromList
 
 const styles = StyleSheet.create({
+  goBack:{
+    flex: 0, flexDirection: 'row', margin: 20 
+  },
+  textgoBack:{
+    fontSize: 16 , ...GetKanitFont('regular')
+  }
 
 })

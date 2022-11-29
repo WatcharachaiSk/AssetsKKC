@@ -9,6 +9,7 @@ import LoginPage from '../../../pages/LoginPage/LoginPage';
 import DetailAfterScan from '../../../pages/DetailAfterScan/DetailAfterScan';
 import DetailfromList from '../../../pages/DetailfromList/DetailfromList';
 import DetailfromListStack from '../DetailfromList/DetailfromList';
+import NavBottomTab from '../NavStack/NavBottomTab';
 
 const BottomTabStack = () => {
     const ButtomTab = createBottomTabNavigator();
@@ -60,6 +61,12 @@ const BottomTabStack = () => {
                 component={DetailfromList}
                 options={({ navigation, route }) => ({})}
             />
+                 {/* <ButtomTab.Screen
+                name="NavBottomTab"
+                component={NavBottomTab}
+                options={({ navigation, route }) => ({})}
+            /> */}
+            
 
 
         </ButtomTab.Navigator>

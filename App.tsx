@@ -10,12 +10,14 @@ import {
   useColorScheme,
   View,
 } from 'react-native';
+import LoginPage from './src/pages/LoginPage/LoginPage';
 import Navigation from './src/navigators/navigators';
 const App = () => {
 
   return (
     <>
       <Navigation />
+      {/* <LoginPage/> */}
     </>
 
   )

@@ -4,5 +4,8 @@ const images = {
     Welcome : require('../assets/Image/Welcome.png'),
     SCANnER : require('../assets/Image/SCANnER.png'),
     monitor : require('../assets/Image/monitor.png'),
+    BG1 : require('../assets/Image/BG1.png'),
+    BG2 : require('../assets/Image/BG2.png'),
+
 };
 export default images

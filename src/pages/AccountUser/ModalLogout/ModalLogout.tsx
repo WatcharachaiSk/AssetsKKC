@@ -6,7 +6,7 @@ import { GetKanitFont } from "../../../config/fonts";
 import { colors } from "../../../config/colors";
 
 const ModalLogout = (props: any) => {
-  const { showSWModal, onClickSwap, onConfirm, onClose } = props;
+  const { showSWModal, onClickSwap, onConfirm, onClose, setShowSWModal } = props;
   return (
     <Modal
       animationType="slide"
@@ -20,7 +20,7 @@ const ModalLogout = (props: any) => {
             source={require("../../../assets/json/100705-question.json")}
             autoPlay
             loop
-            style={{ flex: 0, width: 250, height: 220,margin:20 }}
+            style={{ flex: 0, width: 250, height: 220, margin: 20 }}
             resizeMode="contain"
           />
           <View style={{ justifyContent: "center" }}>
@@ -29,7 +29,11 @@ const ModalLogout = (props: any) => {
           <View style={{ flexDirection: "row", margin: 15 }}>
             <TouchableOpacity
               onPress={() => {
-                onConfirm();
+                setShowSWModal(false)
+                setTimeout(async () => {
+                  onConfirm();
+                }, 500);
+
               }}
               style={[
                 styles.buttonModal,
@@ -40,6 +44,7 @@ const ModalLogout = (props: any) => {
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => {
+
                 onClose();
               }}
               style={[styles.buttonModal, { backgroundColor: colors.red }]}
@@ -85,7 +90,7 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontSize: 20,
     textAlign: "center",
-...GetKanitFont("regular"),
+    ...GetKanitFont("regular"),
   },
   textQT: {
     color: "#000",

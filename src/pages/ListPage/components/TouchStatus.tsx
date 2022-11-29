@@ -3,6 +3,7 @@ import React from "react";
 import { colors } from "../../../config/colors";
 import { RFPercentage } from "react-native-responsive-fontsize";
 import { widthOfWindow } from "../../../utils/getDimension";
+import { GetKanitFont } from "../../../config/fonts";
 
 const TouchStatus = (props: any) => {
   const { isTouch, setTouchStatus } = props;
@@ -41,7 +42,7 @@ const TouchStatus = (props: any) => {
           style={[
             styles.textStatus,
             {
-              color: isTouch == "true" ? colors.white : colors.blackGray,
+              color: isTouch == "true" ? colors.white : colors.black,
             },
           ]}
         >
@@ -61,7 +62,7 @@ const TouchStatus = (props: any) => {
           style={[
             styles.textStatus,
             {
-              color: isTouch == "false" ? colors.white : colors.blackGray,
+              color: isTouch == "false" ? colors.white : colors.black,
             },
           ]}
         >
@@ -93,8 +94,8 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   textStatus: {
-    // ...GetKanitFont("medium"),
+    ...GetKanitFont("medium"),
     fontSize: RFPercentage(2.2),
-    textAlign:'center'
+    textAlign:'center',
   },
 });
