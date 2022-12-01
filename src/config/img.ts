@@ -6,6 +6,6 @@ const images = {
     monitor : require('../assets/Image/monitor.png'),
     BG1 : require('../assets/Image/BG1.png'),
     BG2 : require('../assets/Image/BG2.png'),
-
+    scan : require('../assets/Image/scan.png'),
 };
 export default images

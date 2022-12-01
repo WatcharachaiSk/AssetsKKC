@@ -9,7 +9,7 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { BlurView } from "@react-native-community/blur";
 import { GetKanitFont } from '../../config/fonts'
 import { AppScreens } from '../../navigators/NavigeteEnum/NavigateEnum'
-
+import globleStyles from '../../config/globleStyles'
 const { height } = Dimensions.get("window");
 
 
@@ -62,8 +62,8 @@ const AccountUser = ( props: any) => {
       <ScrollView>
 
 
-        <View style={{ padding: 25, backgroundColor: colors.Gray, marginVertical: 15 }}>
-          <Text style={styles.texthead}>ข้อมูลผู้ใช้งาน</Text>
+        <View style={globleStyles.headers}>
+          <Text style={globleStyles.texthead}>ข้อมูลผู้ใช้งาน</Text>
         </View>
 
 
@@ -194,7 +194,5 @@ const styles = StyleSheet.create({
     textAlign: 'left',
     ...GetKanitFont('regular')
   },
-  texthead:{
-    fontSize: 22, color: colors.black,  ...GetKanitFont("medium") 
-  }
+
 })

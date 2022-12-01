@@ -28,7 +28,7 @@ const NavStack = () => {
                 },
                 tabBarBackground: () => (
 
-                    <View style={{ flex: 1, backgroundColor: '#fff', }}></View>
+                    <View style={{ flex: 1, backgroundColor: '#fff'}}></View>
 
                 ),
             }}>
@@ -72,7 +72,7 @@ const NavStack = () => {
                     tabBarIcon: ({ color, size }) => {
                         return (
                             <View style={{ alignItems: "center" }}>
-                                <MaterialCommunityIcons name="line-scan" size={35} color={color}></MaterialCommunityIcons>
+                                <MaterialCommunityIcons name="line-scan" size={32} color={color}></MaterialCommunityIcons>
                             </View>
                         );
                     },
@@ -96,7 +96,6 @@ const NavStack = () => {
                     },
                 }}
             />
-
         </ButtomTab.Navigator >
     )
 }
