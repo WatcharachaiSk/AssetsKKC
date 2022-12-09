@@ -42,31 +42,32 @@ const ListPage = (props: any) => {
 
 
      // ? ค้นหา Item
-    // useEffect(() => {
-    //   let setData = [];
-    //   if (typeProduct == "all" && isTouch == "all") {
-    //     setData = getItem;
-    //   } else if (typeProduct == typeProduct && isTouch == "all") {
-    //     setData = _.filter(getFilterItem, (data: any) => {
-    //       return data.category.code == typeProduct;
-    //     });
-    //   } else if (typeProduct == "all" && isTouch == isTouch) {
-    //     setData = _.filter(getItem, (data: any) => {
-    //       return data.item_status_to_s == "" && isTouch == "Removed"
-    //         ? data.item_status_to_s == "" || data.item_status_to_s == "Removed"
-    //         : data.item_status_to_s == isTouch;
-    //     });
-    //   } else if (typeProduct == typeProduct && isTouch == isTouch) {
-    //     setData = _.filter(getFilterItem, (data: any) => {
-    //       return (
-    //         data.category.code == typeProduct && data.item_status_to_s == isTouch
-    //       );
-    //     });
-    //   } else {
-    //     Alert.alert("ไม่พบข้อมูล", "", [{ text: "ตกลง" }]);
-    //   }
-    //   setProduct(setData);
-    // }, [typeProduct, isTouch, getItem]);
+    useEffect(() => {
+      let setData = [];
+      if (typeProduct == "all" && isTouch == "all") {
+        setData = getItem;
+      } else if (typeProduct == typeProduct && isTouch == "all") {
+        setData = _.filter(getFilterItem, (data: any) => {
+          return data.category.code == typeProduct;
+        });
+      } else if (typeProduct == "all" && isTouch == isTouch) {
+        setData = _.filter(getItem, (data: any) => {
+          return data.item_status == "" && isTouch == "Removed"
+            ? data.item_status == "" || data.item_status == "Removed"
+            : data.item_status == isTouch;
+        });
+      } else if (typeProduct == typeProduct && isTouch == isTouch) {
+        setData = _.filter(getFilterItem, (data: any) => {
+          return (
+            data.category.code == typeProduct && data.item_status == isTouch
+          );
+        });
+      } else {
+        Alert.alert("ไม่พบข้อมูล", "", [{ text: "ตกลง" }]);
+      }
+      setProduct(setData);
+    }, [typeProduct, isTouch, getItem]);
+    
 
   return (
     <View style={{ backgroundColor: '#fff', flex: 1 }}>

@@ -6,6 +6,7 @@ import { colors } from '../../../config/colors';
 import ListPage from '../../ListPage/ListPage';
 import { items } from '../../../assets/json/items';
 import { GetKanitFont } from '../../../config/fonts';
+import globleStyles from '../../../config/globleStyles';
 
 
 
@@ -53,11 +54,11 @@ const BottomSheet = (props: any) => {
       >
         <View style={{ flexDirection: 'row' }}>
           <View style={{ flex: 1, margin: 15, }}>
-            <Text style={styles.fontTitleDT}>MONITOR</Text>
-            <Text style={styles.textID}>#0001</Text>
+            <Text style={globleStyles.fontTitleDT}>MONITOR</Text>
+            <Text style={globleStyles.textID}>#0001</Text>
           </View>
           <View style={{ flex: 0, width: widthOfWindow * 0.3 }}>
-            <View style={[styles.status, {
+            <View style={[globleStyles.status, {
               backgroundColor:
                 itemShow.item_status_to_s == "true"
                   ? colors.greenConfirm
@@ -66,32 +67,32 @@ const BottomSheet = (props: any) => {
                     ? colors.red
                     : colors.red
             }]}></View>
-            <Text style={styles.fontstatus}>ชำรุด</Text>
+            <Text style={globleStyles.fontstatus}>ชำรุด</Text>
           </View>
         </View>
         <View style={styles.line}></View>
 
         <View style={{ marginHorizontal: 15 }}>
           <View style={{ marginVertical: 5 }}>
-            <Text style={styles.fonts}>ผู้ดูแล : </Text>
+            <Text style={globleStyles.fonts}>ผู้ดูแล : </Text>
           </View>
           <View style={{ marginVertical: 5 }}>
-            <Text style={styles.fonts}>รหัสครุภัณฑ์ : </Text>
+            <Text style={globleStyles.fonts}>รหัสครุภัณฑ์ : </Text>
           </View>
           <View style={{ marginVertical: 5 }}>
-            <Text style={styles.fonts}>หมวดหมู่ครุภัณฑ์ :  </Text>
+            <Text style={globleStyles.fonts}>หมวดหมู่ครุภัณฑ์ :  </Text>
           </View>
           <View style={{ marginVertical: 5 }}>
-            <Text style={styles.fonts}>วันที่รับเข้า :  </Text>
+            <Text style={globleStyles.fonts}>วันที่รับเข้า :  </Text>
           </View>
           <View style={{ marginVertical: 5 }}>
-            <Text style={styles.fonts}>สถานที่ : </Text>
+            <Text style={globleStyles.fonts}>สถานที่ : </Text>
           </View>
           <View style={{ marginVertical: 5 }}>
-            <Text style={styles.fonts}>ตรวจสอบครั้งล่าสุด : </Text>
+            <Text style={globleStyles.fonts}>ตรวจสอบครั้งล่าสุด : </Text>
           </View>
           <View style={{ marginVertical: 5 }}>
-            <Text style={styles.fonts}>หมายเหตุ : </Text>
+            <Text style={globleStyles.fonts}>หมายเหตุ : </Text>
           </View>
 
 

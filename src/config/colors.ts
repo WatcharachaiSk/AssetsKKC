@@ -6,5 +6,6 @@ export const colors = {
     greenConfirm: '#10CF11',
     red: '#FA3630',
     yellow:'#FCBF1E',
+    blackDrop: 'rgba(0,0,0,0.7)',
 
 };
