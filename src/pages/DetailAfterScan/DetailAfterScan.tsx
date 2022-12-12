@@ -1,5 +1,5 @@
 import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React, { useState } from 'react'
+import React, { useState, useMemo } from 'react'
 import { colors } from '../../config/colors'
 import { GetKanitFont } from '../../config/fonts'
 import { SafeAreaView } from 'react-native-safe-area-context'
@@ -10,6 +10,10 @@ import AntDesign from 'react-native-vector-icons/AntDesign'
 import StatusModal from './components/StatusModal'
 import { BlurView } from '@react-native-community/blur'
 import ChangeLocation from './components/ChangeLocation'
+import axios from 'axios'
+import configAxios from '../../axios/configAxios'
+import { API } from '../../axios/swr/endpoint'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 
 const DetailAfterScan = (props: any) => {
@@ -19,7 +23,7 @@ const DetailAfterScan = (props: any) => {
   const [showModal, setShowModal] = React.useState(false);
 
   const itemShow = props?.route?.params || [""];
- 
+
 
 
 
@@ -80,7 +84,7 @@ const DetailAfterScan = (props: any) => {
           <View style={{ backgroundColor: '#000', flex: 6, width: widthOfWindow * 0.95, borderRadius: 25 }}>
             {/* <View style={{ backgroundColor: colors.Gray, padding: 3, margin: 10, marginHorizontal: 150, borderRadius: 20 }}></View> */}
 
-            <View style={{ flexDirection: 'row',marginTop:20 }}>
+            <View style={{ flexDirection: 'row', marginTop: 20 }}>
               <View style={{ flex: 1, margin: 15, }}>
                 <Text style={globleStyles.fontTitleDT}>MONITOR</Text>
                 <Text style={globleStyles.textID}>#0001</Text>
@@ -108,30 +112,30 @@ const DetailAfterScan = (props: any) => {
 
             {/* รายละเอียดเพิ่มเติม */}
             <View style={{ flex: 1 }}>
-                <View style={styles.item_BoxDetail}>
-                  <View style={styles.rowDetail}>
-                    <Text style={globleStyles.fonts}>รายละเอียดครุภัณฑ์ :  Full HD LED monitor
-                      The 1920 x 1080 resolution  </Text>
-                  </View>
-                  <View style={styles.rowDetail}>
-                    <Text style={globleStyles.fonts}>วันที่รับเข้า : 10/10/2565</Text>
-                  </View>
-
-                  <View style={styles.rowDetail}>
-                    <Text style={globleStyles.fonts}>สถานที่ : อาคาร 50 ปี 18A301 </Text>
-                  </View>
-                  <View style={styles.rowDetail}>
-                    <Text style={globleStyles.fonts}>ตรวจสอบครั้งล่าสุด : 11/11/2565 </Text>
-                  </View>
-                  <View style={styles.rowDetail}>
-                    <Text style={globleStyles.fonts}>หมายเหตุ : -</Text>
-                  </View>
-
-                  {/* เปลี่ยนสถานที่ */}
-                  <ChangeLocation/>
-
+              <View style={styles.item_BoxDetail}>
+                <View style={styles.rowDetail}>
+                  <Text style={globleStyles.fonts}>รายละเอียดครุภัณฑ์ :  Full HD LED monitor
+                    The 1920 x 1080 resolution  </Text>
                 </View>
-          
+                <View style={styles.rowDetail}>
+                  <Text style={globleStyles.fonts}>วันที่รับเข้า : 10/10/2565</Text>
+                </View>
+
+                <View style={styles.rowDetail}>
+                  <Text style={globleStyles.fonts}>สถานที่ : อาคาร 50 ปี 18A301 </Text>
+                </View>
+                <View style={styles.rowDetail}>
+                  <Text style={globleStyles.fonts}>ตรวจสอบครั้งล่าสุด : 11/11/2565 </Text>
+                </View>
+                <View style={styles.rowDetail}>
+                  <Text style={globleStyles.fonts}>หมายเหตุ : -</Text>
+                </View>
+
+                {/* เปลี่ยนสถานที่ */}
+                <ChangeLocation />
+
+              </View>
+
             </View>
 
           </View>

@@ -1,5 +1,10 @@
 const REACT_ENVIRONMENT = "dev";
-const APP_API_URL_DEV = "http://localhost:3500/api";
+
+/*
+  android: "http://10.0.2.2:3500",
+  web: "http://127.0.0.1:3500",
+*/
+const APP_API_URL_DEV = "http://10.0.2.2:3500/api";
 const APP_API_URL_PROD = "";
 export const REACT_APP_VERSION = "0.0.0";
 

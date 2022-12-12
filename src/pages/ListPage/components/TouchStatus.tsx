@@ -4,17 +4,25 @@ import { colors } from "../../../config/colors";
 import { RFPercentage } from "react-native-responsive-fontsize";
 import { widthOfWindow } from "../../../utils/getDimension";
 import { GetKanitFont } from "../../../config/fonts";
+import _ from "lodash";
+import configAxios from '../../../axios/configAxios';
+import { API } from '../../../axios/swr/endpoint';
+import axios from 'axios';
 
 const TouchStatus = (props: any) => {
-  const { isTouch, setTouchStatus } = props;
+
+  const { isTouch, setTouchStatus, getItemAll } = props;
+
   return (
     <>
       <TouchableOpacity
-        onPress={() => setTouchStatus("all")}
+        onPress={() =>
+
+          setTouchStatus("all")}
         style={[
           styles.StyleTouchStatus,
           {
-            backgroundColor: isTouch == "all" ? colors.black : colors.Gray,
+            backgroundColor: isTouch === "all" ? colors.black : colors.Gray,
           },
         ]}
       >
@@ -22,7 +30,7 @@ const TouchStatus = (props: any) => {
           style={[
             styles.textStatus,
             {
-              color: isTouch == "all" ? colors.white : colors.black,
+              color: isTouch === "all" ? colors.white : colors.black,
             },
           ]}
         >
@@ -30,11 +38,11 @@ const TouchStatus = (props: any) => {
         </Text>
       </TouchableOpacity>
       <TouchableOpacity
-        onPress={() => setTouchStatus("true")}
+        onPress={() => setTouchStatus(true)}
         style={[
           styles.StyleTouchStatus,
           {
-            backgroundColor: isTouch == "true" ? colors.black : colors.Gray,
+            backgroundColor: isTouch == true ? colors.black : colors.Gray,
           },
         ]}
       >
@@ -42,7 +50,7 @@ const TouchStatus = (props: any) => {
           style={[
             styles.textStatus,
             {
-              color: isTouch == "true" ? colors.white : colors.black,
+              color: isTouch == true ? colors.white : colors.black,
             },
           ]}
         >
@@ -50,11 +58,11 @@ const TouchStatus = (props: any) => {
         </Text>
       </TouchableOpacity>
       <TouchableOpacity
-        onPress={() => setTouchStatus("false")}
+        onPress={() => setTouchStatus(false)}
         style={[
           styles.StyleTouchStatus,
           {
-            backgroundColor: isTouch == "false" ?  colors.black : colors.Gray,
+            backgroundColor: !isTouch ? colors.black : colors.Gray,
           },
         ]}
       >
@@ -62,15 +70,15 @@ const TouchStatus = (props: any) => {
           style={[
             styles.textStatus,
             {
-              color: isTouch == "false" ? colors.white : colors.black,
+              color: !isTouch ? colors.white : colors.black,
             },
           ]}
         >
           ชำรุด
         </Text>
       </TouchableOpacity>
- 
-      
+
+
     </>
   );
 };
@@ -81,8 +89,8 @@ const styles = StyleSheet.create({
   StyleTouchStatus: {
     flex: 1,
     padding: 11,
-    width: widthOfWindow*0.35,
-   // marginHorizontal: 10,
+    width: widthOfWindow * 0.35,
+    // marginHorizontal: 10,
     // borderRadius: 10,
     shadowColor: "#000",
     shadowOffset: {
@@ -96,6 +104,6 @@ const styles = StyleSheet.create({
   textStatus: {
     ...GetKanitFont("medium"),
     fontSize: RFPercentage(2.2),
-    textAlign:'center',
+    textAlign: 'center',
   },
 });

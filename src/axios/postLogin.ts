@@ -1,7 +1,7 @@
 import axios from 'axios';
-import {API} from './swr/endpoint';
+import { API } from './swr/endpoint';
 
-const postLogin = async (username?: string, password?: string) => {
+const postLogin = async (username: string, password: string) => {
   //console.log("username = " + username + " password = " + password);
 
   try {
@@ -10,7 +10,7 @@ const postLogin = async (username?: string, password?: string) => {
       password: password,
     });
 
-    var config = {
+    var config: object = {
       method: 'post',
       url: API.login,
       headers: {
@@ -19,6 +19,7 @@ const postLogin = async (username?: string, password?: string) => {
       data: data,
       timeout: 10000,
     };
+
 
     const res = await axios(config);
     // console.log("res = ", res.data);

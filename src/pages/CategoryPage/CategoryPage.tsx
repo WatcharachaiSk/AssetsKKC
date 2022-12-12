@@ -1,10 +1,11 @@
 import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import { Searchbar } from 'react-native-paper';
 import TouchStatus from '../ListPage/components/TouchStatus';
 import { heightOfWindow, widthOfWindow } from '../../utils/getDimension';
 import { colors } from '../../config/colors';
 import Touchtype from './components/Touchtype';
+import _ from 'lodash';
 
 
 const CategoryPage = (props: any) => {
@@ -12,18 +13,18 @@ const CategoryPage = (props: any) => {
 
   const [searchQuery, setSearchQuery] = useState('');
   const onChangeSearch = (query: string) => setSearchQuery(query);
-  const [isTouch, setIsTouch] = useState<any>("all");
+
   const [isTouchType, setIsTouchType] = useState<any>("all");
+  const [getItems, setGetItems] = useState<any>();
 
-
-
-  const setTouchStatus = (status: any) => {
-    setIsTouch(status);
-  };
 
   const setTouchType = (type: any) => {
     setIsTouchType(type);
   };
+
+
+  console.log(getItems);
+
 
 
   return (
@@ -55,54 +56,30 @@ const CategoryPage = (props: any) => {
 
         {/* type */}
         <View style={{ flex: 0, backgroundColor: colors.Gray, width: widthOfWindow * 0.36, }}>
-          <ScrollView contentContainerStyle={{flexGrow:1}}>
+          <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
             <Touchtype
               isTouch={isTouchType}
               setTouchType={setTouchType}
+              setGetItems={setGetItems}
             />
           </ScrollView>
         </View>
 
-          {/* items */}
-        <ScrollView contentContainerStyle={{flexGrow:1}}>
+        {/* items */}
+        <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
           <View style={{ flex: 1, flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center' }}>
 
-            <TouchableOpacity style={{ marginHorizontal: 5, backgroundColor: colors.black, width: widthOfWindow * 0.29, height: heightOfWindow * 0.2, marginTop: 5, borderRadius: 15 }}>
+            {_.map(getItems, item => {
+              return (
+                <TouchableOpacity
+                  key={item?.item_id}
+                  style={styles.items}>
+                </TouchableOpacity>
 
-            </TouchableOpacity>
-            <TouchableOpacity style={{ marginHorizontal: 5, backgroundColor: colors.black, width: widthOfWindow * 0.29, height: heightOfWindow * 0.2, marginTop: 5, borderRadius: 15 }}>
+              )
+            })}
 
-            </TouchableOpacity>
-            <TouchableOpacity style={{ marginHorizontal: 5, backgroundColor: colors.black, width: widthOfWindow * 0.29, height: heightOfWindow * 0.2, marginTop: 5, borderRadius: 15 }}>
 
-            </TouchableOpacity>
-            <TouchableOpacity style={{ marginHorizontal: 5, backgroundColor: colors.black, width: widthOfWindow * 0.29, height: heightOfWindow * 0.2, marginTop: 5, borderRadius: 15 }}>
-
-            </TouchableOpacity>
-            <TouchableOpacity style={{ marginHorizontal: 5, backgroundColor: colors.black, width: widthOfWindow * 0.29, height: heightOfWindow * 0.2, marginTop: 5, borderRadius: 15 }}>
-
-            </TouchableOpacity>
-            <TouchableOpacity style={{ marginHorizontal: 5, backgroundColor: colors.black, width: widthOfWindow * 0.29, height: heightOfWindow * 0.2, marginTop: 5, borderRadius: 15 }}>
-
-            </TouchableOpacity>
-            <TouchableOpacity style={{ marginHorizontal: 5, backgroundColor: colors.black, width: widthOfWindow * 0.29, height: heightOfWindow * 0.2, marginTop: 5, borderRadius: 15 }}>
-
-            </TouchableOpacity>
-            <TouchableOpacity style={{ marginHorizontal: 5, backgroundColor: colors.black, width: widthOfWindow * 0.29, height: heightOfWindow * 0.2, marginTop: 5, borderRadius: 15 }}>
-
-            </TouchableOpacity>
-            <TouchableOpacity style={{ marginHorizontal: 5, backgroundColor: colors.black, width: widthOfWindow * 0.29, height: heightOfWindow * 0.2, marginTop: 5, borderRadius: 15 }}>
-
-            </TouchableOpacity>
-            <TouchableOpacity style={{ marginHorizontal: 5, backgroundColor: colors.black, width: widthOfWindow * 0.29, height: heightOfWindow * 0.2, marginTop: 5, borderRadius: 15 }}>
-
-            </TouchableOpacity>
-            <TouchableOpacity style={{ marginHorizontal: 5, backgroundColor: colors.black, width: widthOfWindow * 0.29, height: heightOfWindow * 0.2, marginTop: 5, borderRadius: 15 }}>
-
-            </TouchableOpacity>
-            <TouchableOpacity style={{ marginHorizontal: 5, backgroundColor: colors.black, width: widthOfWindow * 0.29, height: heightOfWindow * 0.2, marginTop: 5, borderRadius: 15 }}>
-
-            </TouchableOpacity>
 
           </View>
         </ScrollView>
@@ -133,4 +110,11 @@ const styles = StyleSheet.create({
     marginTop: 5,
 
   },
+  items: {
+    marginHorizontal: 5,
+    backgroundColor: colors.black,
+    width: widthOfWindow * 0.29,
+    height: heightOfWindow * 0.2,
+    marginTop: 5, borderRadius: 15
+  }
 })
