@@ -1,4 +1,4 @@
-import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React, { useMemo, useState } from 'react'
 import { Searchbar } from 'react-native-paper';
 import TouchStatus from '../ListPage/components/TouchStatus';
@@ -6,17 +6,17 @@ import { heightOfWindow, widthOfWindow } from '../../utils/getDimension';
 import { colors } from '../../config/colors';
 import Touchtype from './components/Touchtype';
 import _ from 'lodash';
+import images from '../../config/img';
 
 
 const CategoryPage = (props: any) => {
 
-
-  const [searchQuery, setSearchQuery] = useState('');
-  const onChangeSearch = (query: string) => setSearchQuery(query);
-
+  const navigation = props.navigation;
+  const [search, setSearch] = useState('');
+ 
   const [isTouchType, setIsTouchType] = useState<any>("all");
   const [getItems, setGetItems] = useState<any>();
-
+  const [itemFilter, setItemFilter] = useState<any>();
 
   const setTouchType = (type: any) => {
     setIsTouchType(type);
@@ -25,6 +25,29 @@ const CategoryPage = (props: any) => {
 
   console.log(getItems);
 
+
+  const onChangeSearch = (text: string) => {
+    if (text) {
+      const newData = getItems.filter((item: any) => {
+        const itemData = item?.name ?
+          item.name.toLowerCase()
+          : ''.toLowerCase()
+
+        const textData = text.toLowerCase();
+
+
+        return itemData.indexOf(textData) > -1;
+      });
+      setItemFilter(newData)
+      setSearch(text);
+
+    }else{
+
+      setItemFilter(undefined)
+      setSearch(text);
+
+    }
+  }
 
 
   return (
@@ -36,7 +59,7 @@ const CategoryPage = (props: any) => {
         <Searchbar
           placeholder="Search.."
           onChangeText={onChangeSearch}
-          value={searchQuery}
+          value={search}
           style={{
             marginHorizontal: 10,
             borderRadius: 10,
@@ -69,11 +92,20 @@ const CategoryPage = (props: any) => {
         <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
           <View style={{ flex: 1, flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center' }}>
 
-            {_.map(getItems, item => {
+            {_.map (itemFilter == undefined ? getItems : itemFilter, item => {
               return (
                 <TouchableOpacity
+                onPress={() => {
+
+                  navigation.navigate("DetailfromList")
+                }}
                   key={item?.item_id}
                   style={styles.items}>
+                  
+                  <View style={{ alignItems: 'center' ,margin:5}}>
+                    <Image source={images.monitor} style={{ width: 100, height: 100, }} />
+                    <Text style={{ color: "#fff", fontSize: 16, textAlign: 'center' ,marginTop:10}}>{item.name}</Text>
+                  </View>
                 </TouchableOpacity>
 
               )
@@ -84,15 +116,7 @@ const CategoryPage = (props: any) => {
           </View>
         </ScrollView>
 
-
-
-
       </View>
-
-
-
-
-
 
       {/* </ScrollView> */}
     </View>
@@ -111,10 +135,19 @@ const styles = StyleSheet.create({
 
   },
   items: {
+    flex: 0,
     marginHorizontal: 5,
     backgroundColor: colors.black,
     width: widthOfWindow * 0.29,
     height: heightOfWindow * 0.2,
-    marginTop: 5, borderRadius: 15
+    marginTop: 5, borderRadius: 15,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
   }
 })

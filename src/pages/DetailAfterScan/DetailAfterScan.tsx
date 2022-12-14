@@ -22,9 +22,17 @@ const DetailAfterScan = (props: any) => {
 
   const [showModal, setShowModal] = React.useState(false);
 
-  const itemShow = props?.route?.params || [""];
+  const itemShow = props?.route?.params.getproduct || [""];
+  console.log('itemmmmmmm==', itemShow,);
 
 
+  //Set Status
+  let statusItem;
+  if (itemShow.status_item == true) {
+    statusItem = "ปกติ";
+  } else if (itemShow.status_item == false) {
+    statusItem = "ชำรุด";
+  }
 
 
   const onClickCheckStatus = () => {
@@ -85,28 +93,35 @@ const DetailAfterScan = (props: any) => {
             {/* <View style={{ backgroundColor: colors.Gray, padding: 3, margin: 10, marginHorizontal: 150, borderRadius: 20 }}></View> */}
 
             <View style={{ flexDirection: 'row', marginTop: 20 }}>
-              <View style={{ flex: 1, margin: 15, }}>
-                <Text style={globleStyles.fontTitleDT}>MONITOR</Text>
-                <Text style={globleStyles.textID}>#0001</Text>
+              <View style={{ flex: 1, margin: 20, }}>
+                <Text style={globleStyles.fontTitleDT}>{itemShow?.name}</Text>
+
               </View>
 
               {/* status */}
               <View style={{ flex: 0, width: widthOfWindow * 0.3, alignItems: 'center' }}>
-                <View style={{ width: widthOfWindow * 0.175, height: heightOfWindow * 0.09, backgroundColor: 'red', borderRadius: 60 }}></View>
-                <Text style={globleStyles.fontstatus}>ชำรุด</Text>
+                <View style={{
+                  width: widthOfWindow * 0.135, height: heightOfWindow * 0.07,
+                  backgroundColor:
+                    itemShow?.status_item
+                      ? colors.greenConfirm
+                      : colors.red,
+                  borderRadius: 60
+                }}></View>
+                <Text style={globleStyles.fontstatus}>{statusItem}</Text>
               </View>
             </View>
 
             <View style={globleStyles.line}></View>
             <View style={{ marginHorizontal: 15 }}>
               <View style={{ marginVertical: 5 }}>
-                <Text style={globleStyles.fonts}>ผู้ดูแล : Admin</Text>
+                <Text style={globleStyles.fonts}>ผู้ดูแล : {itemShow?.profile.firstname} {itemShow?.profile.lastname}</Text>
               </View>
               <View style={{ marginVertical: 5 }}>
-                <Text style={globleStyles.fonts}>รหัสครุภัณฑ์ : 3150-333-025-28-1-1/1.1-12</Text>
+                <Text style={globleStyles.fonts}>รหัสครุภัณฑ์ : {itemShow?.code}</Text>
               </View>
               <View style={{ marginVertical: 5 }}>
-                <Text style={globleStyles.fonts}>หมวดหมู่ครุภัณฑ์ : ครุภัณฑ์คอมพิวเตอร์ </Text>
+                <Text style={globleStyles.fonts}>หมวดหมู่ครุภัณฑ์ : {itemShow?.typeItem.name} </Text>
               </View>
             </View>
 
@@ -114,21 +129,20 @@ const DetailAfterScan = (props: any) => {
             <View style={{ flex: 1 }}>
               <View style={styles.item_BoxDetail}>
                 <View style={styles.rowDetail}>
-                  <Text style={globleStyles.fonts}>รายละเอียดครุภัณฑ์ :  Full HD LED monitor
-                    The 1920 x 1080 resolution  </Text>
+                  <Text style={globleStyles.fonts}>รายละเอียดครุภัณฑ์ : {itemShow?.description} </Text>
                 </View>
                 <View style={styles.rowDetail}>
-                  <Text style={globleStyles.fonts}>วันที่รับเข้า : 10/10/2565</Text>
+                  <Text style={globleStyles.fonts}>วันที่รับเข้า : {itemShow?.up_Date_Statuses[0].inspected_at}</Text>
                 </View>
 
                 <View style={styles.rowDetail}>
-                  <Text style={globleStyles.fonts}>สถานที่ : อาคาร 50 ปี 18A301 </Text>
+                  <Text style={globleStyles.fonts}>สถานที่ : {itemShow?.location.nameTH} </Text>
                 </View>
                 <View style={styles.rowDetail}>
-                  <Text style={globleStyles.fonts}>ตรวจสอบครั้งล่าสุด : 11/11/2565 </Text>
+                  <Text style={globleStyles.fonts}>ตรวจสอบครั้งล่าสุด : {itemShow?.up_Date_Statuses[0].updatedAt} </Text>
                 </View>
                 <View style={styles.rowDetail}>
-                  <Text style={globleStyles.fonts}>หมายเหตุ : -</Text>
+                  <Text style={globleStyles.fonts}>หมายเหตุ : {itemShow?.up_Date_Statuses[0].note}</Text>
                 </View>
 
                 {/* เปลี่ยนสถานที่ */}

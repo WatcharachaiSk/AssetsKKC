@@ -9,7 +9,8 @@ import { GetKanitFont } from '../../config/fonts';
 
 const DetailfromList = (props: any) => {
 
-
+  const itemShow = props?.route?.params.item || [""];
+//console.log(itemShow);
 
 
 
@@ -27,7 +28,7 @@ const DetailfromList = (props: any) => {
         <Image source={images.monitor} />
       </View>
 
-      <BottomSheet />
+      <BottomSheet itemShow={itemShow} />
 
     </View>
   )

@@ -8,6 +8,8 @@ import { BarcodeFormat, useScanBarcodes } from 'vision-camera-code-scanner';
 import { useIsFocused } from '@react-navigation/native';
 import images from '../../config/img';
 import axios from 'axios';
+import configAxios from '../../axios/configAxios';
+import { baseURL } from '../../axios/config';
 
 
 
@@ -101,7 +103,7 @@ const Scanner = (props: any) => {
               device={device}
               isActive={true}
               frameProcessor={frameProcessor}
-              frameProcessorFps={2}
+              frameProcessorFps={3}
             />
           </>
         )}
@@ -109,15 +111,38 @@ const Scanner = (props: any) => {
       {barcodes.map((barcode: any, idx) => {
         let barC = "-";
         setTimeout(async () => {
-          barC = barcode != undefined ? barcode.content.data.url : "-";
+          barC = barcode != undefined ? barcode.content.data : "-";
           // console.log(barC);
+          //console.log( baseURL + `/${barC}`);
           if (
             barcode != undefined && barC != undefined
-              
           ) {
-                  navigation.navigate("DetailAfterScan")
-                
+            try {
+              const fetchData = async () => {
+               // const res = await axios(await configAxios(`${barcode.content.data.url}`);
+                const res = await axios(await configAxios('get', baseURL + `/${barC}`));
+
+                let getproduct = res.data;
+                setTimeout(async () => {
+                  navigation.navigate("DetailAfterScan", {
+                    getproduct,
+                  });
+                }, 500);
+              };
+              fetchData();
+            } catch (error) {
+              console.log("errorrrrrrrrrrrrr",error);
+            }
+          } else {
+            setTimeout(async () => {
+              // setItemRes(undefined);
+              // setoldItem(undefined);
+              setIsFinished(true);
+            }, 500);
           }
+     
+          
+      
         });
       })}
     </SafeAreaView>

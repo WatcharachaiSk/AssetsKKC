@@ -10,7 +10,7 @@ export const API = {
   getBuilding: baseURL + `/getBuilding`,
   getLocation: baseURL + `/getLocation`,
   getTypeItem: baseURL + `/getTypeItem`,
-
+  getProfile: baseURL + `/getProfile`,
   // GETById
   getItemById: baseURL + `/getItem/`,
   getItemCategory: baseURL + `/getItemCategory/`,

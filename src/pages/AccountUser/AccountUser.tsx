@@ -1,5 +1,5 @@
 import { StyleSheet, Text, TouchableOpacity, View, Dimensions, ScrollView } from 'react-native'
-import React from 'react'
+import React, { useMemo, useState } from 'react'
 import { colors } from '../../config/colors'
 import { heightOfWindow, widthOfWindow } from '../../utils/getDimension'
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
@@ -10,14 +10,42 @@ import { BlurView } from "@react-native-community/blur";
 import { GetKanitFont } from '../../config/fonts'
 import { AppScreens } from '../../navigators/NavigeteEnum/NavigateEnum'
 import globleStyles from '../../config/globleStyles'
+import axios from 'axios'
+import configAxios from '../../axios/configAxios'
+import { API } from '../../axios/swr/endpoint'
 const { height } = Dimensions.get("window");
 
 
 
 const AccountUser = ( props: any) => {
-
+  const {itemShow} = props;
   const navigation = props.navigation;
+  const [getProfile, setGetProfile] = useState<any>();
+//   const itemShow = props?.route?.params.item || [""];
+useMemo(async () => {
+  // await AsyncStorage.setItem("accessToken", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6ImFkbWluIiwiYWRtaW4iOnRydWUsImlhdCI6MTY3MDY2MjkxMSwiZXhwIjoxNjcwNjgwOTExfQ.DiD_YTTo90DHCKyCJ4-gkC4FI5QL3oFB1girKCRD1Xo");
+  console.log();
+  const data = {
+    itemItemId: 1,
+    locationLId: 1,
+    status: 0,
+    note: "เสียหายนะ"
+  }
+  try {
+    // const res = await axios(configAxios('get',API.getItem))
+    const res = await axios(await configAxios('get', `${API.getProfile}`))
+    // const res = await postLogin("admin", "systemadministrator")
+    // const res = await axios(await configAxios('post', API.updateStetus, data))
+    // console.log(res?.data);
+    //setIsTouch(res.data[1].item_id)
+    setGetProfile(res?.data);
+//  console.log(res?.data);
+  
+  } catch (error) {
+    console.log(error);
 
+  }
+}, [])
 
   const [showSWModal, setShowSWModal] = React.useState(false);
 
@@ -82,7 +110,7 @@ const AccountUser = ( props: any) => {
           <View style={{ alignItems: 'center' }}>
             <View style={styles.nameAndPhone}>
               <View style={styles.viewText}>
-                <Text style={styles.textShow}>isariya roopkhan</Text>
+                <Text style={styles.textShow}>{getProfile?.firstname} {getProfile?.lastname}</Text>
               </View>
             </View>
           </View>
@@ -93,7 +121,7 @@ const AccountUser = ( props: any) => {
           <View style={{ alignItems: 'center' }}>
             <View style={styles.nameAndPhone}>
               <View style={styles.viewText}>
-                <Text style={styles.textShow}>099-6587489</Text>
+                <Text style={styles.textShow}>{getProfile?.telephone}</Text>
               </View>
 
             </View>

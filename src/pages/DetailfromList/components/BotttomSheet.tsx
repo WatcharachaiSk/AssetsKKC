@@ -11,14 +11,16 @@ import globleStyles from '../../../config/globleStyles';
 
 
 const BottomSheet = (props: any) => {
-  const itemShow = props?.route?.params.item || [""];
-  const ref = useRef();
+const {itemShow} = props;
+console.log(itemShow.item_id);
+  
+
 
   //Set Status
-  let statusItem: string;
-  if (itemShow.item_status_to_s == "true") {
+  let statusItem;
+  if (itemShow.status_item == true) {
     statusItem = "ปกติ";
-  } else if (itemShow.item_status_to_s == "false") {
+  } else if (itemShow.status_item == false) {
     statusItem = "ชำรุด";
   }
 
@@ -30,7 +32,7 @@ const BottomSheet = (props: any) => {
         onPress={() => this.Scrollable.open()}
         style={styles.touchOpen}
       >
-        <Text style={styles.textTitle}>MONITOR</Text>
+        <Text style={styles.textTitle}>{itemShow.name}</Text>
         <Text style={styles.textDetail}>ดูรายละเอียดเพิ่มเติม</Text>
       </TouchableOpacity>
 
@@ -54,45 +56,46 @@ const BottomSheet = (props: any) => {
       >
         <View style={{ flexDirection: 'row' }}>
           <View style={{ flex: 1, margin: 15, }}>
-            <Text style={globleStyles.fontTitleDT}>MONITOR</Text>
-            <Text style={globleStyles.textID}>#0001</Text>
+            <Text style={globleStyles.fontTitleDT}>{itemShow.name}</Text>
+          
           </View>
           <View style={{ flex: 0, width: widthOfWindow * 0.3 }}>
             <View style={[globleStyles.status, {
               backgroundColor:
-                itemShow.item_status_to_s == "true"
+                itemShow.status_item == true
                   ? colors.greenConfirm
                   : colors.greenConfirm &&
-                    itemShow.item_status_to_s == "false"
+                    itemShow.status_item == false
                     ? colors.red
                     : colors.red
             }]}></View>
-            <Text style={globleStyles.fontstatus}>ชำรุด</Text>
+            <Text style={globleStyles.fontstatus}>{statusItem}</Text>
           </View>
         </View>
         <View style={styles.line}></View>
 
         <View style={{ marginHorizontal: 15 }}>
-          <View style={{ marginVertical: 5 }}>
-            <Text style={globleStyles.fonts}>ผู้ดูแล : </Text>
+          <View style={{ marginVertical: 5 ,flexDirection:'row'}}>
+            <Text style={globleStyles.fonts}>ผู้ดูแล : {itemShow.profile.firstname} {itemShow.profile.lastname}</Text>
+           
           </View>
           <View style={{ marginVertical: 5 }}>
-            <Text style={globleStyles.fonts}>รหัสครุภัณฑ์ : </Text>
+            <Text style={globleStyles.fonts}>รหัสครุภัณฑ์ : {itemShow.code} </Text>
           </View>
           <View style={{ marginVertical: 5 }}>
-            <Text style={globleStyles.fonts}>หมวดหมู่ครุภัณฑ์ :  </Text>
+            <Text style={globleStyles.fonts}>หมวดหมู่ครุภัณฑ์ : {itemShow.typeItem.name} </Text>
           </View>
           <View style={{ marginVertical: 5 }}>
-            <Text style={globleStyles.fonts}>วันที่รับเข้า :  </Text>
+            <Text style={globleStyles.fonts}>วันที่รับเข้า : {itemShow.typeItem.createdAt} </Text>
           </View>
           <View style={{ marginVertical: 5 }}>
-            <Text style={globleStyles.fonts}>สถานที่ : </Text>
+            <Text style={globleStyles.fonts}>สถานที่ : {itemShow.location.nameTH} </Text>
           </View>
           <View style={{ marginVertical: 5 }}>
-            <Text style={globleStyles.fonts}>ตรวจสอบครั้งล่าสุด : </Text>
+            <Text style={globleStyles.fonts}>ตรวจสอบครั้งล่าสุด : {itemShow.up_Date_Statuses[0]?.inspected_at}</Text>
           </View>
           <View style={{ marginVertical: 5 }}>
-            <Text style={globleStyles.fonts}>หมายเหตุ : </Text>
+            <Text style={globleStyles.fonts}>หมายเหตุ : {itemShow.up_Date_Statuses[0]?.note} </Text>
           </View>
 
 

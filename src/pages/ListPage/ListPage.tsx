@@ -22,11 +22,11 @@ import postLogin from '../../axios/postLogin';
 
 const ListPage = (props: any) => {
   const navigation = props.navigation;
-  const [item, setItem] = useState(DataMockup);
+  // const [item, setItem] = useState(DataMockup);
   const [getItemAll, setGetItemAll] = useState<any>();
-  const [searchQuery, setSearchQuery] = useState('');
-  const onChangeSearch = (query: string) => setSearchQuery(query);
-  const [itemFilter, setItemFilter] = useState<any>();
+  const [search, setSearch] = useState('');
+  //const onChangeSearch = (query: string) => setSearchQuery(query);
+  const [itemFilter, setItemFilter] = useState<any>([]);
   const [isTouch, setIsTouch] = useState<any>("all");
 
 
@@ -63,31 +63,57 @@ const ListPage = (props: any) => {
 
   };
 
-
-
   // ? ค้นหา Item
   useEffect(() => {
-    // console.log(isTouch);
-    // console.log("ggg", getItemAll);
     if (isTouch !== 'all') {
       let setData = _.filter(getItemAll, (data: any) => {
-        //   console.log(data?.status_item);
         return data?.status_item == isTouch;
-        
-
       })
       setItemFilter(setData);
       console.log('setData+', setData[0].status_item);
-    }else {
+    } else {
       setItemFilter(undefined)
-      
+
+    }
+
+  }, [isTouch])
+
+  const onChangeSearch = (text: string) => {
+    const items = (itemFilter == undefined ? getItemAll : itemFilter)
+    if (text) {
+      const newData = items.filter((item: any) => {
+        const itemData = item?.name ?
+          item.name.toLowerCase()
+          : ''.toLowerCase()
+
+        const textData = text.toLowerCase();
+
+
+        return itemData.indexOf(textData) > -1;
+      });
+      setItemFilter(newData)
+      setSearch(text);
+
+    } else {
+      if (isTouch == true || isTouch == false) {
+        if (isTouch !== 'all') {
+          let setData = _.filter(getItemAll, (data: any) => {
+            return data?.status_item == isTouch;
+          })
+          setItemFilter(setData);
+          console.log('setData+', setData[0].status_item);
+        } else {
+          setItemFilter(undefined)
+        }
+      }
+      else {
+        setItemFilter(undefined)
+      }
+      setSearch(text);
     }
 
 
-    //console.log("ggg", getItemAll);
-
-
-  }, [isTouch])
+  }
 
 
   return (
@@ -98,7 +124,7 @@ const ListPage = (props: any) => {
       <Searchbar
         placeholder="Search.."
         onChangeText={(text) => onChangeSearch(text)}
-        value={searchQuery}
+        value={search}
         style={{
           marginHorizontal: 10,
           borderRadius: 10,
@@ -122,43 +148,47 @@ const ListPage = (props: any) => {
       <ScrollView>
         <View style={{ flex: 1 }}>
           {_.map
-          
-          (  itemFilter == undefined ? getItemAll : itemFilter
-            , (item: any) => {
-             
-            return (
-              <TouchableOpacity
-                key={item.item_id}
-                onPress={() =>{ 
-                 
-                  navigation.navigate("DetailfromList")}
-                
-              }
 
-                style={styles.view_TouchItem}
-              >
-                <View style={styles.viewItem}>
-                  <Text style={styles.fontnameItem}>{item?.name}</Text>
-                  <Text style={styles.textID}>{item?.code}</Text>
-                </View>
-                <View
-                  style={[styles.view_ContainerState, { flex: 0 }]}
-                >
-                  <View
-                    style={[
-                      styles.view_StateItem,
-                      {
-                        backgroundColor:
-                          item?.status_item
-                            ? colors.greenConfirm
-                            : colors.red
-                      },
-                    ]}
-                  ></View>
-                </View>
-              </TouchableOpacity>
-            )
-          })}
+            (itemFilter == undefined ? getItemAll : itemFilter
+              , (item: any) => {
+
+                return (
+                  <TouchableOpacity
+                    key={item.item_id}
+                    onPress={() => {
+
+                      navigation.navigate("DetailfromList" ,{
+                        item: item,
+                      })
+                  
+                    }
+
+                    }
+
+                    style={styles.view_TouchItem}
+                  >
+                    <View style={styles.viewItem}>
+                      <Text style={styles.fontnameItem}>{item?.name}</Text>
+                      {/* <Text style={styles.textID}>{item?.code}</Text> */}
+                    </View>
+                    <View
+                      style={[styles.view_ContainerState, { flex: 0 }]}
+                    >
+                      <View
+                        style={[
+                          styles.view_StateItem,
+                          {
+                            backgroundColor:
+                              item?.status_item
+                                ? colors.greenConfirm
+                                : colors.red
+                          },
+                        ]}
+                      ></View>
+                    </View>
+                  </TouchableOpacity>
+                )
+              })}
 
           {/* <FlatList
             data={filteredDataSource}
@@ -209,11 +239,12 @@ const styles = StyleSheet.create({
     marginVertical: 5,
   },
   fontnameItem: {
-    fontSize: 18,
+    fontSize: 20,
     ...GetKanitFont('medium')
   },
   viewItem: {
-    flexDirection: 'column', margin: 10, flex: 1
+    flexDirection: 'column', margin: 10, flex: 1,
+    justifyContent:'center'
   },
   textID: {
     ...GetKanitFont('regular'), fontSize: 14
@@ -221,19 +252,5 @@ const styles = StyleSheet.create({
 
 
 
-  container: {
-    backgroundColor: 'white',
-  },
-  itemStyle: {
-    padding: 10,
-  },
-  textInputStyle: {
-    height: 40,
-    borderWidth: 1,
-    paddingLeft: 20,
-    margin: 5,
-    borderColor: '#009688',
-    backgroundColor: '#FFFFFF',
-  },
 
 })

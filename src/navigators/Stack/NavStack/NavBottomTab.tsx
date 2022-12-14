@@ -19,8 +19,13 @@ import ScannerStack from '../ScannerStack/ScannerStack';
 
 
 
-const NavBottomTab = () => {
+const NavBottomTab = (props: any) => {
+   
     const Tab = createBottomTabNavigator();
+   
+  
+    
+
     return (
         <Tab.Navigator
             initialRouteName="AppStack"
@@ -83,6 +88,7 @@ const NavBottomTab = () => {
                 }}
             />
             <Tab.Screen
+             
                 name={AppScreens.AccountUser}
                 component={AccountUser}
                 options={{
