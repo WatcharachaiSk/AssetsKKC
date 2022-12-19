@@ -43,7 +43,6 @@ const ListPage = (props: any) => {
     try {
       // const res = await axios(configAxios('get',API.getItem))
       const res = await axios(await configAxios('get', `${API.getItem}`))
-      // const res = await postLogin("admin", "systemadministrator")
       // const res = await axios(await configAxios('post', API.updateStetus, data))
       // console.log(res?.data);
       //setIsTouch(res.data[1].item_id)

@@ -1,5 +1,5 @@
-import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React, { useState, useMemo } from 'react'
+import { Alert, Image, Pressable, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import React, { useState, useMemo, useEffect } from 'react'
 import { colors } from '../../config/colors'
 import { GetKanitFont } from '../../config/fonts'
 import { SafeAreaView } from 'react-native-safe-area-context'
@@ -14,64 +14,306 @@ import axios from 'axios'
 import configAxios from '../../axios/configAxios'
 import { API } from '../../axios/swr/endpoint'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-
+import Entypo from "react-native-vector-icons/Entypo";
+import { launchCamera } from "react-native-image-picker";
+import { color } from '@rneui/base'
+import ModalFinished from '../Scanner/Modal/ModalFinished'
 
 const DetailAfterScan = (props: any) => {
 
+
+
   const navigation = props.navigation;
 
-  const [showModal, setShowModal] = React.useState(false);
+
+  const [showModal, setShowModal] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [location_nameTH, setLocation_nameTH] = useState("-");
+  const [valueLocations, setValueLocations] = useState<any>();
+  const [modalLocations, setModalLocations] = useState(false);
+  const [getUpdateItem, setGetUpdateItem] = useState<[]>();
+
+  const [statusNew, setStatusNew] = useState<boolean>();
+  console.log('statusNew==== ', statusNew);
+
 
   const itemShow = props?.route?.params.getproduct || [""];
-  console.log('itemmmmmmm==', itemShow,);
+  //console.log('itemmmmmmm==', itemShow);
+
+
+
 
 
   //Set Status
   let statusItem;
-  if (itemShow.status_item == true) {
+  if (itemShow.status_item == true || statusNew == true) {
+    //console.log('statusItem=', itemShow.status_item);
     statusItem = "ปกติ";
-  } else if (itemShow.status_item == false) {
+  } else if (itemShow.status_item == false || statusNew == false) {
+    // console.log('statusItem==', itemShow.status_item);
     statusItem = "ชำรุด";
   }
 
+  useEffect(() => {
+    if (!statusNew) {
+      setStatusNew(itemShow.status_item)
+    } else {
+      setStatusNew(statusNew)
+    }
+  }, [])
+
+  // console.log('statusitem==== ', statusItem);
+
+
+
+  const onScanAgain = () => {
+    setShowSuccess(false);
+    navigation.navigate("Scanner");
+  }
+
+  const onClickSave = async () => {
+    setShowSuccess(true);
+    var data = {
+      itemItemId: itemShow?.item_id,
+      locationLId: !valueLocations ? "" : valueLocations,
+      status: statusNew,
+      note: detailProblem + " แก้ไขโดย Mobile"
+    };
+
+
+    //const note = `${detailProblem} แก้ไขโดย Mobile`;
+    const res = await axios(await configAxios('post', `${API.updateStetus}`, data));
+    setResData(res);
+    console.log('res== ', res);
+
+    setAfterSelectStatus({
+      ...afterSelectStatus,
+    });
+
+  };
 
   const onClickCheckStatus = () => {
     setShowModal(true);
+  }
+  const onConfirm = async () => {
+    setShowSuccess(false);
   };
+
   const onClose = () => {
     setShowModal(false);
-    // setShowConfirmModal(false)
+    setOpen({ ...open, showModalStatus: false })
   };
 
-
-  const onConfirm = async () => {
-    setShowModal(false);
+  const closeLocations = () => {
+    setModalLocations(false);
   };
+
+  const checkValueModal = (item: any) => {
+    setModalLocations(false);
+    setValueLocations(item.l_id);
+    setLocation_nameTH(item.nameTH);
+  };
+
+  //let nameItem = itemShow?.nameTH
+
+  const [imageProblem, setImageProblem] = useState({
+    image1: null,
+
+  });
 
   const [open, setOpen] = useState({
     showModalStatus: false,
     showExpanded: false,
   });
 
+  const [detailProblem, setDetailProblem] = useState("");
+
+  const [afterSelectStatus, setAfterSelectStatus] = useState({ showImageProblem: false, });
+
+
+
+
+  useMemo(async () => {
+    let res = await axios(await configAxios('get', `${API.getLocation}`));
+    if (res != null || res != undefined || res.status != 200) {
+      if (res.data[0].building != undefined || res.data[0].building != null) {
+        setLocation_nameTH(
+          res.data[0].nameTH +
+          " " +
+          res.data[0].building.nameTH +
+          " ชั้น" +
+          res.data[0].floor
+        );
+      } else {
+        setLocation_nameTH(res.data[0].nameTH);
+      }
+
+      setValueLocations(res.data[0].id);
+      //console.log('res.data =', res.data);
+    } else {
+      return Alert.alert("มีบางอย่างผิดปกติ");
+    }
+  }, []);
+
+
+
+
+  const onPressConfirm = async () => {
+    //setShowModal(true);
+
+
+  };
+
+  const setResData = async (res: any) => {
+    setGetUpdateItem(res);
+  };
+
+
+  const boxImage = (image: any) => {
+    return (
+      <View style={styles.imageCamera}>
+        {image ? (
+          <View style={{ flex: 1 }}>
+            <Entypo
+              name="circle-with-cross"
+              size={20}
+              color={colors.red}
+              style={styles.iconCancelImage}
+              onPress={() => {
+                image == imageProblem.image1
+                setImageProblem({ ...imageProblem, image1: null })
+              }}
+            />
+            <Image
+              source={{ uri: image.uri }}
+              style={{ flex: 1, borderRadius: 10 }}
+            />
+          </View>
+        ) : (
+          <View
+            style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+          >
+            <Entypo name="camera" size={40} />
+          </View>
+        )}
+      </View>
+    );
+  };
+
+  const openCamera = (index: any) => {
+    const option: any = {
+      mediaType: "photo",
+      quality: 1,
+    };
+    launchCamera(option, (res) => {
+      if (res.didCancel) {
+        console.log("user cancelled image");
+      } else if (res.errorCode) {
+        Alert.alert(
+          "เพิ่มรูปภาพไม่สำเร็จ",
+          "เกิดข้อผิดพลาด กรุณาลองใหม่อีกครั้ง",
+          [{ text: "OK", onPress: () => { } }]
+        );
+      } else {
+        const data = res.assets[0];
+        {
+          switch (index) {
+            case 1:
+              setImageProblem({ ...imageProblem, image1: data });
+              break;
+            default:
+              break;
+          }
+        }
+      }
+    });
+  };
+
+  const showSelectImage = () => {
+    return (
+      <View>
+        <View style={styles.line} />
+        <View>
+          <Text style={styles.titleProblem}>รูปประกอบการชำรุด</Text>
+          <View style={styles.rowImages}>
+            <Pressable onPress={() => openCamera(1)}>
+              {boxImage(imageProblem.image1)}
+            </Pressable>
+          </View>
+        </View>
+        <View style={styles.description_Container}>
+          <Text style={styles.titleProblem}>คำอธิบาย</Text>
+          <TextInput
+            placeholder="เพิ่มรายละเอียดอย่างน้อย 10 ตัวอักษร"
+            onChangeText={setDetailProblem}
+            value={detailProblem}
+            multiline
+            style={styles.inputDetailProblem}
+          />
+        </View>
+      </View>
+    );
+  };
+
+  // const conditionSave =
+  //   detailProblem.length > 10 &&
+  //   (imageProblem.image1);
+
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: colors.white }}>
+      {/* BottomSheetเปลี่ยนสถานที่ */}
+      <ChangeLocation
+        location_Old={location_nameTH}
+        modalLocations={modalLocations}
+        closeLocations={closeLocations}
+        checkValueModal={checkValueModal} />
 
       <StatusModal
+        valueLocations={valueLocations}
+        setResData={setResData}
+        idItem={itemShow != undefined ? itemShow.id : 1}
         showModal={showModal}
         onClose={onClose}
-        // onConfirm={onConfirm}
-        setShowModal={setShowModal}
+        closeModal={() => setOpen({ ...open, showModalStatus: false })}
+        setStatusNew={setStatusNew}
 
+        showImportImages={(props: any) =>
+          setAfterSelectStatus({
+            ...afterSelectStatus,
+            showImageProblem: true,
+          })
+        }
       />
+
       {showModal
         && (
           <BlurView
             style={styles.absolute}
             blurType="dark"
             blurAmount={1}
-            reducedTransparencyFallbackColor="gray" />
+            reducedTransparencyFallbackColor="gray"
+          />
         )}
+      <ModalFinished
+        showSuccess={showSuccess}
+        statusNew={statusNew}
+        setShowSuccess={setShowSuccess}
+        onClose={onClose}
+        onScanAgain={onScanAgain}
+        oldItem={itemShow}
+
+      />{showSuccess
+        && (
+          <BlurView
+            style={styles.absolute}
+            blurType="dark"
+            blurAmount={1}
+            reducedTransparencyFallbackColor="gray"
+          />
+        )}
+
+
 
       <ScrollView>
         <View style={globleStyles.headers}>
@@ -103,25 +345,25 @@ const DetailAfterScan = (props: any) => {
                 <View style={{
                   width: widthOfWindow * 0.135, height: heightOfWindow * 0.07,
                   backgroundColor:
-                    itemShow?.status_item
+                    statusNew == true
                       ? colors.greenConfirm
                       : colors.red,
                   borderRadius: 60
                 }}></View>
-                <Text style={globleStyles.fontstatus}>{statusItem}</Text>
+                <Text style={globleStyles.fontstatus}>{statusNew ? "ปกติ" : "ชำรุด"}</Text>
               </View>
             </View>
 
             <View style={globleStyles.line}></View>
             <View style={{ marginHorizontal: 15 }}>
               <View style={{ marginVertical: 5 }}>
-                <Text style={globleStyles.fonts}>ผู้ดูแล : {itemShow?.profile.firstname} {itemShow?.profile.lastname}</Text>
+                <Text style={globleStyles.fonts}>ผู้ดูแล : {itemShow?.profile?.firstname} {itemShow?.profile?.lastname}</Text>
               </View>
               <View style={{ marginVertical: 5 }}>
                 <Text style={globleStyles.fonts}>รหัสครุภัณฑ์ : {itemShow?.code}</Text>
               </View>
               <View style={{ marginVertical: 5 }}>
-                <Text style={globleStyles.fonts}>หมวดหมู่ครุภัณฑ์ : {itemShow?.typeItem.name} </Text>
+                <Text style={globleStyles.fonts}>หมวดหมู่ครุภัณฑ์ : {itemShow?.typeItem?.name} </Text>
               </View>
             </View>
 
@@ -136,7 +378,7 @@ const DetailAfterScan = (props: any) => {
                 </View>
 
                 <View style={styles.rowDetail}>
-                  <Text style={globleStyles.fonts}>สถานที่ : {itemShow?.location.nameTH} </Text>
+                  <Text style={globleStyles.fonts}>สถานที่ : {location_nameTH} </Text>
                 </View>
                 <View style={styles.rowDetail}>
                   <Text style={globleStyles.fonts}>ตรวจสอบครั้งล่าสุด : {itemShow?.up_Date_Statuses[0].updatedAt} </Text>
@@ -145,8 +387,44 @@ const DetailAfterScan = (props: any) => {
                   <Text style={globleStyles.fonts}>หมายเหตุ : {itemShow?.up_Date_Statuses[0].note}</Text>
                 </View>
 
-                {/* เปลี่ยนสถานที่ */}
-                <ChangeLocation />
+
+                {/* List Detail */}
+                {statusNew == false
+                  &&
+                  afterSelectStatus.showImageProblem && showSelectImage()
+                }
+
+                {/* button */}
+                <View style={{ flexDirection: 'row', margin: 5, justifyContent: 'center' }}>
+
+                  {/* เปลี่ยนสถานที่ */}
+
+                  <TouchableOpacity
+                    onPress={() => this.Scrollable.open()}
+
+                    style={[styles.buttonStatus, { backgroundColor: '#fff' }]}>
+                    <Text style={styles.fontBTStatus}>เปลี่ยนสถานที่</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    onPress={() => {
+                      setTimeout(async () => {
+                        //onPressConfirm();
+                        onClickCheckStatus();
+
+                      }, 500);
+                    }}
+                    style={[styles.buttonStatus,
+                    {
+                      backgroundColor: colors.Gray
+                    }]}
+                  >
+
+                    <Text style={styles.fontBTStatus}>
+                      ตรวจสอบสถานะ
+
+                    </Text>
+                  </TouchableOpacity>
+                </View>
 
               </View>
 
@@ -155,21 +433,28 @@ const DetailAfterScan = (props: any) => {
           </View>
         </View>
 
-        {/* button */}
-        <View>
+
+        {/* buttonSave */}
+        <View style={{ justifyContent: 'center', alignContent: 'center' }}>
           <TouchableOpacity
-            onPress={onClickCheckStatus}
-            style={{ backgroundColor: colors.Gray, padding: 20, marginHorizontal: 40, margin: 10, borderRadius: 10 }}>
-            <Text style={{ fontSize: 20, ...GetKanitFont('medium'), textAlign: 'center', color: '#000' }}>ตรวจสอบสถานะครุภัณฑ์</Text>
+            onPress={() => {
+              onPressConfirm();
+              onClickSave()
+            }}
+
+            style={[styles.btnConfirm,
+            {
+              backgroundColor: colors.greenConfirm
+            }]}
+          >
+            <Text style={[styles.fontBTStatus, {
+              color: colors.white, fontSize: 20
+            }
+            ]}>
+              บันทึก
+            </Text>
           </TouchableOpacity>
         </View>
-
-
-
-
-
-
-
 
 
 
@@ -185,8 +470,7 @@ const styles = StyleSheet.create({
   item_BoxDetail: {
     marginBottom: 5,
     marginHorizontal: 15,
-    // padding: 15,
-    // backgroundColor: "red",
+
   },
   rowDetail: {
     marginBottom: 5,
@@ -209,6 +493,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginBottom: 10,
     ...GetKanitFont("regular"),
+    color: '#fff'
   },
   rowImages: {
     flexDirection: "row",
@@ -221,6 +506,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     borderColor: colors.Gray,
     ...GetKanitFont("regular"),
+    backgroundColor: colors.white
   },
   iconCancelImage: {
     position: "absolute",
@@ -243,4 +529,53 @@ const styles = StyleSheet.create({
     right: 0,
     zIndex: 999,
   },
+  buttonStatus: {
+    //backgroundColor: colors.Gray,
+    padding: 12,
+    //marginHorizontal: 40,
+    margin: 2,
+    borderRadius: 10,
+    width: widthOfWindow * 0.43,
+    height: heightOfWindow * 0.07,
+
+
+  },
+  fontBTStatus: {
+    fontSize: 18,
+    ...GetKanitFont('regular'),
+    textAlign: 'center',
+    color: '#000'
+  },
+  centerView: {
+    justifyContent: "center",
+    alignItems: "center",
+    margin: 10,
+    zIndex: 999,
+  },
+  btnConfirm: {
+    flex: 0,
+    width: widthOfWindow * 0.9,
+    height: heightOfWindow * 0.08,
+    paddingVertical: 15,
+    // justifyContent: "center",
+    // alignItems: "center",
+    borderRadius: 10,
+    elevation: 6,
+    margin: 20,
+
+  },
+  line: {
+    height: 1,
+    backgroundColor: "gray",
+    marginVertical: 10,
+  },
+  textBtn: {
+    fontSize: 18,
+    ...GetKanitFont("medium"),
+    color: colors.white,
+  },
+  description_Container: {
+    marginVertical: 10,
+  },
+
 })

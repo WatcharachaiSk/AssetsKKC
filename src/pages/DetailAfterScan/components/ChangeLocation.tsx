@@ -1,5 +1,5 @@
-import { Dimensions, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React, { useState } from 'react'
+import { Alert, Dimensions, StyleSheet, Text, TouchableOpacity, View, Modal } from 'react-native'
+import React, { useMemo, useState } from 'react'
 import { GetKanitFont } from '../../../config/fonts'
 import globleStyles from '../../../config/globleStyles'
 import { widthOfWindow } from '../../../utils/getDimension'
@@ -9,71 +9,106 @@ import Entypo from "react-native-vector-icons/Entypo";
 import Icon from "react-native-vector-icons/AntDesign";
 import { colors } from '../../../config/colors'
 import _ from 'lodash'
+import { API } from '../../../axios/swr/endpoint'
 import { RFPercentage } from 'react-native-responsive-fontsize'
+import axios from 'axios'
+import configAxios from '../../../axios/configAxios'
+import { ArrDropDownLocations } from '../../../config/arrDropDown'
 
 
 const ChangeLocation = (props: any) => {
-    const { modalLocations, closeLocations, location_Old, checkValueModal } =
+    const { modalLocations, closeLocations, location_Old, checkValueModal, } =
         props;
+
+    const [visible, setVisible] = useState(false);
+
+    const toggleBottomNavigationView = () => {
+        //Toggling the visibility state of the bottom sheet
+        setVisible(!visible);
+    };
 
     const [openLocations, setOpenLocations] = useState(false);
     const [valueLocations, setValueLocations] = useState(null);
     const [itemsLocations, setItemsLocations] = useState([]);
     const [location_New, setLocation_New] = useState("-");
+    //const [getLocation, setGetLocation] = useState<any>();
+
+    console.log(valueLocations);
+   // console.log(itemsLocations);
+
+
+
+    useMemo(async () => {
+        let res = await axios(await configAxios('get', `${API.getLocation}`));
+        if (res != null || res != undefined || res.status != 200) {
+
+            let dataJoin = await ArrDropDownLocations(res.data);
+            setItemsLocations(dataJoin);
+        } else {
+            return Alert.alert("มีบางอย่างผิดปกติ");
+        }
+    }, []);
+
+
     const changeName = (value: number) => {
+        console.log(value);
+
         let nameNew = null;
         nameNew = _.filter(itemsLocations, (data: any) => {
             return data.value == value;
         });
         setLocation_New(nameNew[0].label);
     };
-    const sendDetail = (nameTH: string, location_id: number) => {
+    //console.log(location_New);
+
+    const sendDetail = (nameTH: string, l_id: number) => {
         let joinLocation = [];
         joinLocation.push({
             nameTH: nameTH,
-            location_id: location_id,
+            l_id: l_id,
         });
         checkValueModal(joinLocation[0]);
     };
 
     return (
         <View style={{ flex: 1, margin: 10 }}>
-            <TouchableOpacity
-                onPress={() => this.Scrollable.open()}
-                style={{ backgroundColor: '#fff', padding: 12, borderRadius: 10, }}>
-                <Text style={{ ...GetKanitFont('regular'), fontSize: 18, color: '#000', textAlign: 'center' }}>เปลี่ยนสถานที่</Text>
-            </TouchableOpacity>
-            <RBSheet
 
+            <RBSheet
+                closeDuration={350}
+                // visible={modalLocations || false}
                 ref={ref => {
                     this.Scrollable = ref;
                 }}
-                closeOnDragDown
-                animationType='slide'
+                // closeOnPressMask={true}
+                closeOnDragDown={true}
+                openDuration={250}
+                tionType='slide'
                 customStyles={{
                     container: {
                         borderTopLeftRadius: 30,
                         borderTopRightRadius: 30,
                         backgroundColor: '#fff',
                         height: 550,
-                        flex: 0
                     }
 
                 }}
 
+
             >
-                <View style={{ flex: 1 }} >
+                <View style={{ flex: 8 }} >
                     <View style={{ flex: 1, margin: 15, }}>
                         <Text style={[globleStyles.fontTitleDT, { color: '#000', textAlign: 'center' }]}>กรุณาเลือกสถานที่</Text>
                         <Text style={[globleStyles.textID, { color: '#000', textAlign: 'left', margin: 10 }]}>สถานที่เดิม</Text>
 
                         <View style={{ flex: 0, justifyContent: 'center', margin: 15 }}>
-                            <Text style={{ fontSize: 24, textAlign: 'center', ...GetKanitFont('regular') }}>อาคาร3</Text>
+                            <Text style={{ fontSize: 24, textAlign: 'center', ...GetKanitFont('regular') }}>{location_Old}</Text>
                         </View>
 
                         <Text style={[globleStyles.textID, { color: '#000', textAlign: 'left', margin: 10 }]}>ต้องการเปลี่ยนเป็น</Text>
                         <View style={{ flex: 0, justifyContent: 'center', margin: 15 }}>
+
                             <DropDownPicker
+                                // key={}
                                 zIndex={999}
                                 listMode="SCROLLVIEW"
                                 textStyle={{
@@ -93,7 +128,7 @@ const ChangeLocation = (props: any) => {
                                 items={itemsLocations}
                                 setOpen={setOpenLocations}
                                 setValue={setValueLocations}
-                                setItems={setItemsLocations}
+                                //setItems={setItemsLocations}
                                 placeholder={"Locations"}
                                 onChangeValue={() => {
                                     changeName(valueLocations);
@@ -116,12 +151,18 @@ const ChangeLocation = (props: any) => {
                                 )}
                             />
 
+
+
+
                             <View style={styles.view_Save}>
                                 <TouchableOpacity
-                                    onPress={() => {
+                                    onPress={() =>
                                         valueLocations != null &&
-                                            sendDetail(location_New, valueLocations);
-                                    }}
+                                        [sendDetail(location_New, valueLocations),
+                                        this.Scrollable.close(),
+                                    ]
+                                    }
+
                                     style={[
                                         styles.touch_Save,
                                         {
@@ -142,18 +183,7 @@ const ChangeLocation = (props: any) => {
 
                     </View>
 
-
-
-
-
                 </View>
-
-
-
-
-
-
-
 
             </RBSheet>
         </View>
