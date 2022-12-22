@@ -4,7 +4,9 @@ module.exports = {
             platforms: {
                 ios: null,
             },
+            
         },
     },
+    
    assets: ['./src/assets/fonts/Kanit']
 }
