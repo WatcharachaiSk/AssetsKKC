@@ -363,7 +363,7 @@ const DetailAfterScan = (props: any) => {
                 <Text style={globleStyles.fonts}>รหัสครุภัณฑ์ : {itemShow?.code}</Text>
               </View>
               <View style={{ marginVertical: 5 }}>
-                <Text style={globleStyles.fonts}>หมวดหมู่ครุภัณฑ์ : {itemShow?.typeItem?.name} </Text>
+                <Text style={globleStyles.fonts}>หมวดหมู่ครุภัณฑ์ : {itemShow?.typeitem?.name} </Text>
               </View>
             </View>
 
@@ -374,17 +374,17 @@ const DetailAfterScan = (props: any) => {
                   <Text style={globleStyles.fonts}>รายละเอียดครุภัณฑ์ : {itemShow?.description} </Text>
                 </View>
                 <View style={styles.rowDetail}>
-                  <Text style={globleStyles.fonts}>วันที่รับเข้า : {itemShow?.up_Date_Statuses[0].inspected_at}</Text>
+                  <Text style={globleStyles.fonts}>วันที่รับเข้า : {itemShow?.up_date_statuses[0].inspected_at}</Text>
                 </View>
 
                 <View style={styles.rowDetail}>
                   <Text style={globleStyles.fonts}>สถานที่ : {location_nameTH} </Text>
                 </View>
                 <View style={styles.rowDetail}>
-                  <Text style={globleStyles.fonts}>ตรวจสอบครั้งล่าสุด : {itemShow?.up_Date_Statuses[0].updatedAt} </Text>
+                  <Text style={globleStyles.fonts}>ตรวจสอบครั้งล่าสุด : {itemShow?.up_date_statuses[0].updatedAt} </Text>
                 </View>
                 <View style={styles.rowDetail}>
-                  <Text style={globleStyles.fonts}>หมายเหตุ : {itemShow?.up_Date_Statuses[0].note}</Text>
+                  <Text style={globleStyles.fonts}>หมายเหตุ : {itemShow?.up_date_statuses[0].note}</Text>
                 </View>
 
 

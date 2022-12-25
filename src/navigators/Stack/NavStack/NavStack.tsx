@@ -12,6 +12,7 @@ import { GetKanitFont } from '../../../config/fonts';
 import { AppScreens } from '../../NavigeteEnum/NavigateEnum';
 import AppStack from '../AppStack/AppStack';
 import ScannerStack from '../ScannerStack/ScannerStack';
+import CategoryStack from '../CategoryStack/CategoryStack';
 
 const NavStack = () => {
 
@@ -48,8 +49,8 @@ const NavStack = () => {
                 }}
             />
             <ButtomTab.Screen
-                name={"CategoryPage"}
-                component={CategoryPage}
+                name={"CategoryStack"}
+                component={CategoryStack}
                 options={{
                     title: 'หมวดหมู่',
                     tabBarLabelStyle: { fontSize: 14, ...GetKanitFont("regular") },

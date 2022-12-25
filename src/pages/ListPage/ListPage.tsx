@@ -28,7 +28,7 @@ const ListPage = (props: any) => {
   //const onChangeSearch = (query: string) => setSearchQuery(query);
   const [itemFilter, setItemFilter] = useState<any>([]);
   const [isTouch, setIsTouch] = useState<any>("all");
-
+  const [fetching, setFetching] = useState(true);
 
 
   useMemo(async () => {
@@ -52,6 +52,15 @@ const ListPage = (props: any) => {
 
     }
   }, [])
+
+  // ? focus navigation
+  useEffect(() => {
+    const unsubscribe = navigation.addListener("focus", async () => {
+      // await mutate();
+      setFetching(true);
+    });
+    return unsubscribe;
+  }, [navigation]);
 
   //console.log("items = ", items);
 
@@ -156,10 +165,11 @@ const ListPage = (props: any) => {
                     key={item.item_id}
                     onPress={() => {
 
-                      navigation.navigate("DetailfromList" ,{
+                      navigation.navigate("DetailfromList", {
                         item: item,
                       })
-                  
+                      // console.log(item);
+
                     }
 
                     }
@@ -243,7 +253,7 @@ const styles = StyleSheet.create({
   },
   viewItem: {
     flexDirection: 'column', margin: 10, flex: 1,
-    justifyContent:'center'
+    justifyContent: 'center'
   },
   textID: {
     ...GetKanitFont('regular'), fontSize: 14

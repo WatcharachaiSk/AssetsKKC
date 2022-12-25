@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { AppScreens } from '../../NavigeteEnum/NavigateEnum';
 import ListPage from '../../../pages/ListPage/ListPage';
 import DetailfromList from '../../../pages/DetailfromList/DetailfromList';
+import CategoryPage from '../../../pages/CategoryPage/CategoryPage';
 
 const Stack = createNativeStackNavigator();
 const ListPageStack = () => {
@@ -19,6 +20,11 @@ const ListPageStack = () => {
         component={DetailfromList}
         options={({navigation, route}) => ({headerShown: false})}
       />
+         {/* <Stack.Screen
+        name={AppScreens.CategoryPage}
+        component={CategoryPage}
+        options={({navigation, route}) => ({headerShown: false})}
+      /> */}
     </Stack.Navigator>
   );
 }

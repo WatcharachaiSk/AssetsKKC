@@ -13,7 +13,7 @@ const CategoryPage = (props: any) => {
 
   const navigation = props.navigation;
   const [search, setSearch] = useState('');
- 
+
   const [isTouchType, setIsTouchType] = useState<any>("all");
   const [getItems, setGetItems] = useState<any>();
   const [itemFilter, setItemFilter] = useState<any>();
@@ -23,8 +23,9 @@ const CategoryPage = (props: any) => {
   };
 
 
-  console.log(getItems);
+  // console.log('getItems==',getItems);
 
+  //console.log(getItems);
 
   const onChangeSearch = (text: string) => {
     if (text) {
@@ -41,7 +42,7 @@ const CategoryPage = (props: any) => {
       setItemFilter(newData)
       setSearch(text);
 
-    }else{
+    } else {
 
       setItemFilter(undefined)
       setSearch(text);
@@ -92,19 +93,34 @@ const CategoryPage = (props: any) => {
         <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
           <View style={{ flex: 1, flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center' }}>
 
-            {_.map (itemFilter == undefined ? getItems : itemFilter, item => {
+            {_.map(itemFilter == undefined ? getItems : itemFilter, item => {
               return (
                 <TouchableOpacity
-                onPress={() => {
+                  onPress={() => {
 
-                  navigation.navigate("DetailfromList")
-                }}
+                    navigation.navigate("DetailfromList", {
+                      item: item, isPage: "Category"
+                    })
+                    // console.log('item=',item);
+
+                  }}
                   key={item?.item_id}
-                  style={styles.items}>
+                  style={styles.items}
+
+
+                >
+                  <View style={[styles.status,{
+                    backgroundColor: item.status_item == true 
+                    ? colors.greenConfirm
+                    : colors.red
+                  }]}>
                   
-                  <View style={{ alignItems: 'center' ,margin:5}}>
-                    <Image source={images.monitor} style={{ width: 100, height: 100, }} />
-                    <Text style={{ color: "#fff", fontSize: 16, textAlign: 'center' ,marginTop:10}}>{item.name}</Text>
+                  </View>
+
+                  <View style={{ alignItems: 'center', margin: 5 }}>
+
+                    <Image source={images.monitor} style={{ width: 80, height: 80, }} />
+                    <Text style={{ color: "#fff", fontSize: 16, textAlign: 'center', marginTop: 10 }}>{item.name}</Text>
                   </View>
                 </TouchableOpacity>
 
@@ -149,5 +165,8 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
+  },
+  status :{
+    padding: 12,width:20,borderRadius:12 ,alignSelf:'flex-end',margin:5
   }
 })

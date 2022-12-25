@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { AppScreens } from '../../NavigeteEnum/NavigateEnum';
 import CategoryPage from '../../../pages/CategoryPage/CategoryPage';
 import DetailfromList from '../../../pages/DetailfromList/DetailfromList';
+import AppStack from '../AppStack/AppStack';
 
 
 const Stack = createNativeStackNavigator();

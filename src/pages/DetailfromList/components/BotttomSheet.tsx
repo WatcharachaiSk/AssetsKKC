@@ -11,103 +11,113 @@ import globleStyles from '../../../config/globleStyles';
 
 
 const BottomSheet = (props: any) => {
-const {itemShow} = props;
-console.log(itemShow.item_id);
-  
+  const { itemShow } = props;
+
+  //console.log(itemShow.item_id);
+
 
 
   //Set Status
   let statusItem;
-  if (itemShow.status_item == true) {
+  if (itemShow?.status_item == true) {
     statusItem = "ปกติ";
-  } else if (itemShow.status_item == false) {
+  } else if (itemShow?.status_item == false) {
     statusItem = "ชำรุด";
   }
 
 
 
   return (
+
     <View style={{ flex: 1, justifyContent: "flex-end", alignItems: "center" }}>
       <TouchableOpacity
         onPress={() => this.Scrollable.open()}
         style={styles.touchOpen}
       >
-        <Text style={styles.textTitle}>{itemShow.name}</Text>
+        <Text style={styles.textTitle}>{itemShow?.name}</Text>
         <Text style={styles.textDetail}>ดูรายละเอียดเพิ่มเติม</Text>
       </TouchableOpacity>
 
-      <RBSheet
+        <RBSheet
 
-        ref={ref => {
-          this.Scrollable = ref;
-        }}
-        closeOnDragDown
-        animationType='slide'
-        customStyles={{
-          container: {
-            borderTopLeftRadius: 30,
-            borderTopRightRadius: 30,
-            backgroundColor: '#000',
-            height: 400,
-          }
+          ref={ref => {
+            this.Scrollable = ref;
+          }}
+          closeOnDragDown
+          animationType='slide'
+          customStyles={{
+            container: {
+              borderTopLeftRadius: 30,
+              borderTopRightRadius: 30,
+              backgroundColor: '#000',
+              height: 400,
+            }
 
-        }}
+          }}
 
-      >
-        <View style={{ flexDirection: 'row' }}>
-          <View style={{ flex: 1, margin: 15, }}>
-            <Text style={globleStyles.fontTitleDT}>{itemShow.name}</Text>
-          
+        >
+
+          <View style={{ flexDirection: 'row' }}>
+
+            <View style={{ flex: 1, margin: 15, }}>
+              <Text style={globleStyles.fontTitleDT}>{itemShow?.name}</Text>
+
+            </View>
+            <View style={{ flex: 0, width: widthOfWindow * 0.3 }}>
+              <View style={[globleStyles.status, {
+                backgroundColor:
+                  itemShow?.status_item == true
+                    ? colors.greenConfirm
+                    : colors.greenConfirm &&
+                      itemShow.status_item == false
+                      ? colors.red
+                      : colors.red
+              }]}></View>
+              <Text style={globleStyles.fontstatus}>{statusItem}</Text>
+            </View>
           </View>
-          <View style={{ flex: 0, width: widthOfWindow * 0.3 }}>
-            <View style={[globleStyles.status, {
-              backgroundColor:
-                itemShow.status_item == true
-                  ? colors.greenConfirm
-                  : colors.greenConfirm &&
-                    itemShow.status_item == false
-                    ? colors.red
-                    : colors.red
-            }]}></View>
-            <Text style={globleStyles.fontstatus}>{statusItem}</Text>
-          </View>
-        </View>
-        <View style={styles.line}></View>
+          <View style={styles.line}></View>
 
-        <View style={{ marginHorizontal: 15 }}>
-          <View style={{ marginVertical: 5 ,flexDirection:'row'}}>
-            <Text style={globleStyles.fonts}>ผู้ดูแล : {itemShow.profile.firstname} {itemShow.profile.lastname}</Text>
-           
-          </View>
-          <View style={{ marginVertical: 5 }}>
-            <Text style={globleStyles.fonts}>รหัสครุภัณฑ์ : {itemShow.code} </Text>
-          </View>
-          <View style={{ marginVertical: 5 }}>
-            <Text style={globleStyles.fonts}>หมวดหมู่ครุภัณฑ์ : {itemShow.typeItem.name} </Text>
-          </View>
-          <View style={{ marginVertical: 5 }}>
-            <Text style={globleStyles.fonts}>วันที่รับเข้า : {itemShow.typeItem.createdAt} </Text>
-          </View>
-          <View style={{ marginVertical: 5 }}>
-            <Text style={globleStyles.fonts}>สถานที่ : {itemShow.location.nameTH} </Text>
-          </View>
-          <View style={{ marginVertical: 5 }}>
-            <Text style={globleStyles.fonts}>ตรวจสอบครั้งล่าสุด : {itemShow.up_Date_Statuses[0]?.inspected_at}</Text>
-          </View>
-          <View style={{ marginVertical: 5 }}>
-            <Text style={globleStyles.fonts}>หมายเหตุ : {itemShow.up_Date_Statuses[0]?.note} </Text>
+          <View style={{ marginHorizontal: 15 }}>
+            <View style={{ marginVertical: 5, flexDirection: 'row' }}>
+              <Text style={globleStyles.fonts}>ผู้ดูแล : {itemShow?.profile?.firstname} {itemShow.profile?.lastname}</Text>
+
+            </View>
+            <View style={{ marginVertical: 5 }}>
+              <Text style={globleStyles.fonts}>รหัสครุภัณฑ์ : {itemShow?.code} </Text>
+            </View>
+            <View style={{ marginVertical: 5 }}>
+              <Text style={globleStyles.fonts}>หมวดหมู่ครุภัณฑ์ :
+                {itemShow?.typeitem == null
+                  ? "-"
+                  : itemShow?.typeitem.name} </Text>
+            </View>
+            <View style={{ marginVertical: 5 }}>
+              <Text style={globleStyles.fonts}>วันที่รับเข้า : {itemShow?.typeitem == null
+                ? "-"
+                : itemShow?.typeitem.reatedAt} </Text>
+            </View>
+            <View style={{ marginVertical: 5 }}>
+              <Text style={globleStyles.fonts}>สถานที่ : {itemShow?.location.nameTH} </Text>
+            </View>
+            <View style={{ marginVertical: 5 }}>
+              <Text style={globleStyles.fonts}>ตรวจสอบครั้งล่าสุด : {itemShow?.up_date_statuses[0]?.inspected_at}</Text>
+            </View>
+            <View style={{ marginVertical: 5 }}>
+              <Text style={globleStyles.fonts}>หมายเหตุ : {itemShow?.up_date_statuses[0]?.note} </Text>
+            </View>
+
+
+
+
           </View>
 
 
 
+        </RBSheet >
 
+    </View >
 
-        </View>
-
-
-
-      </RBSheet>
-    </View>
   );
 };
 
@@ -137,40 +147,40 @@ const styles = StyleSheet.create({
     alignSelf: 'center'
   },
   fontstatus: {
-    fontSize: 18, color: '#fff', 
-    textAlign: 'center', 
+    fontSize: 18, color: '#fff',
+    textAlign: 'center',
     ...GetKanitFont('regular')
   },
   fonts: {
     fontSize: 16, color: '#fff',
     ...GetKanitFont('regular')
   },
-  textTitle:{
-    fontSize: 20, 
-    textAlign: 'left', 
+  textTitle: {
+    fontSize: 20,
+    textAlign: 'left',
     color: '#fff',
     ...GetKanitFont('medium')
   },
-  textDetail:{
-    fontSize: 16, 
-    textAlign: 'right', 
-    color: '#fff' ,
+  textDetail: {
+    fontSize: 16,
+    textAlign: 'right',
+    color: '#fff',
     ...GetKanitFont('regular')
 
   },
-  touchOpen:{
-    borderRadius: 15, 
+  touchOpen: {
+    borderRadius: 15,
     backgroundColor: colors.black,
-    padding: 30, 
-    width: widthOfWindow * 0.97, 
+    padding: 30,
+    width: widthOfWindow * 0.97,
   },
-  fontTitleDT:{
+  fontTitleDT: {
     fontSize: 24,
     ...GetKanitFont('medium')
-    , color: '#fff' 
+    , color: '#fff'
   },
-  textID:{
-    fontSize: 18, color: '#fff' ,
+  textID: {
+    fontSize: 18, color: '#fff',
     ...GetKanitFont('regular')
   }
 });
