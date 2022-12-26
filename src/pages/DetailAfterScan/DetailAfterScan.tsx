@@ -34,15 +34,7 @@ const DetailAfterScan = (props: any) => {
   const [getUpdateItem, setGetUpdateItem] = useState<[]>();
 
   const [statusNew, setStatusNew] = useState<boolean>();
-  console.log('statusNew==== ', statusNew);
-
-
   const itemShow = props?.route?.params.getproduct || [""];
-  //console.log('itemmmmmmm==', itemShow);
-
-
-
-
 
   //Set Status
   let statusItem;
@@ -50,7 +42,6 @@ const DetailAfterScan = (props: any) => {
     //console.log('statusItem=', itemShow.status_item);
     statusItem = "ปกติ";
   } else if (itemShow.status_item == false || statusNew == false) {
-    // console.log('statusItem==', itemShow.status_item);
     statusItem = "ชำรุด";
   }
 
@@ -62,7 +53,7 @@ const DetailAfterScan = (props: any) => {
     }
   }, [])
 
-  // console.log('statusitem==== ', statusItem);
+
 
 
 
@@ -84,7 +75,7 @@ const DetailAfterScan = (props: any) => {
     //const note = `${detailProblem} แก้ไขโดย Mobile`;
     const res = await axios(await configAxios('post', `${API.updateStetus}`, data));
     setResData(res);
-    console.log('res== ', res);
+    //console.log('res== ', res);
 
     setAfterSelectStatus({
       ...afterSelectStatus,
@@ -207,7 +198,7 @@ const DetailAfterScan = (props: any) => {
     };
     launchCamera(option, (res) => {
       if (res.didCancel) {
-        console.log("user cancelled image");
+        //console.log("user cancelled image");
       } else if (res.errorCode) {
         Alert.alert(
           "เพิ่มรูปภาพไม่สำเร็จ",

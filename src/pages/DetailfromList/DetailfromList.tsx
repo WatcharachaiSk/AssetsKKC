@@ -18,14 +18,13 @@ const DetailfromList = (props: any) => {
 
   const [getItemByID, setGetItemByID] = useState<any>(undefined);
 
-  console.log('getItemByID=', getItemByID);
-  // console.log('isPage=', isPage);
-  // console.log('item=',item.item_id );
+  //console.log('getItemByID=', getItemByID);
+
 
   useMemo(async () => {
     if (isPage == "Category")
       try {
-        const res = await axios(await configAxios('get', `${API.getItemById} ${item.item_id}`,))
+        const res = await axios(await configAxios('get', `${API.getItemById} ${item.item_id}`))
         setGetItemByID(res?.data)
         // console.log("",res?.data);
 

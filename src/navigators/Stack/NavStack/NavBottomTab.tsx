@@ -22,10 +22,6 @@ import ScannerStack from '../ScannerStack/ScannerStack';
 const NavBottomTab = (props: any) => {
    
     const Tab = createBottomTabNavigator();
-   
-  
-    
-
     return (
         <Tab.Navigator
             initialRouteName="AppStack"

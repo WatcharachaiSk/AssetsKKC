@@ -26,8 +26,8 @@ const ModalFinished = (props: any) => {
     // console.log("fn");
     setAnimationFn(true);
   };
-console.log('oldItem== ',oldItem?.status_item);
-console.log('statusNew== ',statusNew);
+// console.log('oldItem== ',oldItem?.status_item);
+// console.log('statusNew== ',statusNew);
 
 
 

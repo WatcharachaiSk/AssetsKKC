@@ -13,6 +13,7 @@ import globleStyles from '../../config/globleStyles'
 import axios from 'axios'
 import configAxios from '../../axios/configAxios'
 import { API } from '../../axios/swr/endpoint'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 const { height } = Dimensions.get("window");
 
 
@@ -24,7 +25,7 @@ const AccountUser = ( props: any) => {
 //   const itemShow = props?.route?.params.item || [""];
 useMemo(async () => {
   // await AsyncStorage.setItem("accessToken", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6ImFkbWluIiwiYWRtaW4iOnRydWUsImlhdCI6MTY3MDY2MjkxMSwiZXhwIjoxNjcwNjgwOTExfQ.DiD_YTTo90DHCKyCJ4-gkC4FI5QL3oFB1girKCRD1Xo");
-  console.log();
+
   const data = {
     itemItemId: 1,
     locationLId: 1,
@@ -60,10 +61,7 @@ useMemo(async () => {
 
   const onConfirm = async () => {
      setShowSWModal(false);
-
-   
-    //setShowConfirmModal(true);
-    // await AsyncStorage.removeItem("accessToken");
+     await AsyncStorage.removeItem("accessToken");
      navigation.navigate("LoginPage", { isLogout: true });
   };
 

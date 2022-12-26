@@ -33,7 +33,7 @@ const ChangeLocation = (props: any) => {
     const [location_New, setLocation_New] = useState("-");
     //const [getLocation, setGetLocation] = useState<any>();
 
-    console.log(valueLocations);
+    //console.log(valueLocations);
    // console.log(itemsLocations);
 
 
@@ -51,7 +51,7 @@ const ChangeLocation = (props: any) => {
 
 
     const changeName = (value: number) => {
-        console.log(value);
+        //console.log(value);
 
         let nameNew = null;
         nameNew = _.filter(itemsLocations, (data: any) => {

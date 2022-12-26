@@ -6,6 +6,8 @@ import ListPage from '../../../pages/ListPage/ListPage';
 import { NavigationContainer } from '@react-navigation/native'
 import AccountStack from '../AccountStack/AccountStack';
 import AppStack from '../AppStack/AppStack';
+import { AppScreens } from '../../NavigeteEnum/NavigateEnum';
+import NavStack from '../NavStack/NavStack';
 
 
 const stack = createNativeStackNavigator();
@@ -20,10 +22,10 @@ const LoginStack = () => {
                 options={({ navigation, route }) => ({ headerShown: false })}
             />
             <stack.Screen
-                name='AccountUser'
-                component={AccountUser}
-                options={{ headerShown: false }} />
-        
+                name={AppScreens.NavStack}
+                component={NavStack}
+                options={{ headerShown: false }}
+            />
 
         </stack.Navigator>
 

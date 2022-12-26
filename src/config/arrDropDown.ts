@@ -87,7 +87,7 @@ export const ArrDropDownFloor = async (resData: any) => {
 };
 
 export const ArrDropDownLocations = async (resData: any) => {
-    console.log(resData);
+    //console.log(resData);
     
     let nameTH = [],
         number_Id = [];

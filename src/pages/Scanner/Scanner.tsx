@@ -283,7 +283,7 @@ const Scanner = (props: any) => {
           )}
         </View> */}
 
-      {device && permission && isFocused ? renderScanner() : renderLoading()}
+      {device && permission && isFocused && renderScanner() }
       {!permission && renderSetting()}
 
     </SafeAreaView>                                                                                   

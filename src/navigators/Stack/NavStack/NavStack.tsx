@@ -2,7 +2,6 @@ import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { colors } from '../../../config/colors';
-import AccountUser from '../../../pages/AccountUser/AccountUser';
 import CategoryPage from '../../../pages/CategoryPage/CategoryPage';
 import Feather from 'react-native-vector-icons/Feather';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
@@ -13,14 +12,13 @@ import { AppScreens } from '../../NavigeteEnum/NavigateEnum';
 import AppStack from '../AppStack/AppStack';
 import ScannerStack from '../ScannerStack/ScannerStack';
 import CategoryStack from '../CategoryStack/CategoryStack';
+import AccountUser from '../../../pages/AccountUser/AccountUser';
 
 const NavStack = () => {
-
-
     const ButtomTab = createBottomTabNavigator();
     return (
         <ButtomTab.Navigator
-            initialRouteName="AppStack"
+            initialRouteName={AppScreens.AppStack}
             screenOptions={{
                 headerShown: false,
                 tabBarActiveTintColor: colors.yellow,
@@ -29,12 +27,12 @@ const NavStack = () => {
                 },
                 tabBarBackground: () => (
 
-                    <View style={{ flex: 1, backgroundColor: '#fff'}}></View>
+                    <View style={{ flex: 1, backgroundColor: '#fff' }}></View>
 
                 ),
             }}>
             <ButtomTab.Screen
-                name={"AppStack"}
+                name={AppScreens.AppStack}
                 component={AppStack}
                 options={{
                     title: 'หน้าหลัก',
@@ -48,6 +46,8 @@ const NavStack = () => {
                     },
                 }}
             />
+            {/* <ButtomTab.Screen/> */}
+
             <ButtomTab.Screen
                 name={"CategoryStack"}
                 component={CategoryStack}
@@ -80,7 +80,7 @@ const NavStack = () => {
                 }}
             />
             <ButtomTab.Screen
-                name={"AccountUser"}
+                name={AppScreens.AccountUser}
                 component={AccountUser}
                 options={{
                     title: 'ฉัน',

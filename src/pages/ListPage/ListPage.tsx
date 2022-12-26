@@ -32,8 +32,7 @@ const ListPage = (props: any) => {
 
 
   useMemo(async () => {
-    // await AsyncStorage.setItem("accessToken", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6ImFkbWluIiwiYWRtaW4iOnRydWUsImlhdCI6MTY3MDY2MjkxMSwiZXhwIjoxNjcwNjgwOTExfQ.DiD_YTTo90DHCKyCJ4-gkC4FI5QL3oFB1girKCRD1Xo");
-    console.log();
+
     const data = {
       itemItemId: 1,
       locationLId: 1,
@@ -41,17 +40,12 @@ const ListPage = (props: any) => {
       note: "เสียหายนะ"
     }
     try {
-      // const res = await axios(configAxios('get',API.getItem))
       const res = await axios(await configAxios('get', `${API.getItem}`))
-      // const res = await axios(await configAxios('post', API.updateStetus, data))
-      // console.log(res?.data);
-      //setIsTouch(res.data[1].item_id)
       setGetItemAll(res?.data);
     } catch (error) {
       console.log(error);
-
     }
-  }, [])
+  }, [fetching])
 
   // ? focus navigation
   useEffect(() => {
@@ -78,7 +72,7 @@ const ListPage = (props: any) => {
         return data?.status_item == isTouch;
       })
       setItemFilter(setData);
-      console.log('setData+', setData[0].status_item);
+      //console.log('setData+', setData[0].status_item);
     } else {
       setItemFilter(undefined)
 
@@ -109,7 +103,7 @@ const ListPage = (props: any) => {
             return data?.status_item == isTouch;
           })
           setItemFilter(setData);
-          console.log('setData+', setData[0].status_item);
+          //console.log('setData+', setData[0].status_item);
         } else {
           setItemFilter(undefined)
         }
@@ -168,7 +162,6 @@ const ListPage = (props: any) => {
                       navigation.navigate("DetailfromList", {
                         item: item,
                       })
-                      // console.log(item);
 
                     }
 

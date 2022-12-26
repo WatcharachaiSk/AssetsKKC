@@ -61,11 +61,11 @@ const BottomTabStack = () => {
                 component={DetailfromList}
                 options={({ navigation, route }) => ({})}
             />
-                 {/* <ButtomTab.Screen
+                 <ButtomTab.Screen
                 name="NavBottomTab"
                 component={NavBottomTab}
                 options={({ navigation, route }) => ({})}
-            /> */}
+            />
             
 
 
