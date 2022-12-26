@@ -8,6 +8,8 @@ buildscript {
         targetSdkVersion = 31
         ndkVersion = "21.4.7075529"
         kotlin_version = '1.6.10' //
+        VisionCameraCodeScanner_targetSdkVersion = 31 //add
+        VisionCameraCodeScanner_compileSdkVersion = 31 //add
 
         if (System.properties['os.arch'] == "aarch64") {
             // For M1 Users we need to use the NDK 24 which added support for aarch64
