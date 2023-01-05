@@ -6,6 +6,11 @@ const REACT_ENVIRONMENT:string = "testApi";
 */
 const APP_API_URL_DEV = "http://10.0.2.2:3500/api";
 const APP_API_URL_PROD = "http://203.158.201.118/api";
+
+export const PATH_IMAGE_ITEM= "/images/items/"
+export const PATH_IMAGE_ITEM_DAMAGED= "/images/damaged/"
+export const PATH_IMAGE_PROFILE= "/images/profiles/";
 export const REACT_APP_VERSION = "0.0.0";
+
 
 export const baseURL = REACT_ENVIRONMENT === "dev" ? APP_API_URL_DEV : APP_API_URL_PROD;

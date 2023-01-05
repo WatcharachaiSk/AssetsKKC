@@ -10,6 +10,9 @@ import CategoryPage from '../CategoryPage/CategoryPage';
 import axios from 'axios';
 import configAxios from '../../axios/configAxios';
 import { API } from '../../axios/swr/endpoint';
+import { baseURL, PATH_IMAGE_ITEM } from '../../axios/config';
+
+
 
 const DetailfromList = (props: any) => {
 
@@ -17,14 +20,13 @@ const DetailfromList = (props: any) => {
   const { item, isPage } = props?.route?.params || [""];
 
   const [getItemByID, setGetItemByID] = useState<any>(undefined);
-
-  //console.log('getItemByID=', getItemByID);
+//console.log( `${baseURL}${PATH_IMAGE_ITEM}${item.name_image_item}`);
 
 
   useMemo(async () => {
     if (isPage == "Category")
       try {
-        const res = await axios(await configAxios('get', `${API.getItemById} ${item.item_id}`))
+        const res = await axios(await configAxios('get', `${API.getItemById}${item.item_id}`))
         setGetItemByID(res?.data)
         // console.log("",res?.data);
 
@@ -44,8 +46,9 @@ const DetailfromList = (props: any) => {
         <Text style={styles.textgoBack}>ย้อนกลับ</Text>
       </TouchableOpacity>
 
-      <View style={{ alignItems: 'center' }}>
-        <Image source={images.monitor} />
+      <View style={{ alignItems: 'center',justifyContent:'flex-end' }}>
+        <Image style={{width: widthOfWindow*0.9 ,height: heightOfWindow*0.4,flex:0}} 
+        source={{uri: `${baseURL}${PATH_IMAGE_ITEM}${item.name_image_item}`}} />
       </View>
 
       {/* <BottomSheet itemShow={getItemByID != undefined ? getItemByID : item}  /> */}

@@ -171,7 +171,7 @@ const ListPage = (props: any) => {
                   >
                     <View style={styles.viewItem}>
                       <Text style={styles.fontnameItem}>{item?.name}</Text>
-                      {/* <Text style={styles.textID}>{item?.code}</Text> */}
+                      <Text style={styles.textID}>{item?.code}</Text>
                     </View>
                     <View
                       style={[styles.view_ContainerState, { flex: 0 }]}

@@ -7,6 +7,8 @@ import { colors } from '../../config/colors';
 import Touchtype from './components/Touchtype';
 import _ from 'lodash';
 import images from '../../config/img';
+import { GetKanitFont } from '../../config/fonts';
+import { baseURL, PATH_IMAGE_ITEM } from '../../axios/config';
 
 
 const CategoryPage = (props: any) => {
@@ -25,7 +27,7 @@ const CategoryPage = (props: any) => {
 
   // console.log('getItems==',getItems);
 
-  //console.log(getItems);
+
 
   const onChangeSearch = (text: string) => {
     if (text) {
@@ -94,6 +96,7 @@ const CategoryPage = (props: any) => {
           <View style={{ flex: 1, flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center' }}>
 
             {_.map(itemFilter == undefined ? getItems : itemFilter, item => {
+              //console.log(item.name_image_item);
               return (
                 <TouchableOpacity
                   onPress={() => {
@@ -109,19 +112,32 @@ const CategoryPage = (props: any) => {
 
 
                 >
-                  <View style={[styles.status,{
-                    backgroundColor: item.status_item == true 
-                    ? colors.greenConfirm
-                    : colors.red
+                  <View style={[styles.status, {
+                    backgroundColor: item.status_item == true
+                      ? colors.greenConfirm
+                      : colors.red
                   }]}>
-                  
+
                   </View>
+
 
                   <View style={{ alignItems: 'center', margin: 5 }}>
+                    {item.name_image_item ?
+                      <Image
+                        style={{ width: widthOfWindow * 0.2, height: heightOfWindow * 0.1, }}
+                        source={{ uri: `${baseURL}${PATH_IMAGE_ITEM}${item.name_image_item}` }} />
+                      : <>
+                        <Image
+                          style={{ width: widthOfWindow*0.2, height: heightOfWindow * 0.1 }}
+                          source={images.up_img} />
+                      </>}
 
-                    <Image source={images.monitor} style={{ width: 80, height: 80, }} />
-                    <Text style={{ color: "#fff", fontSize: 16, textAlign: 'center', marginTop: 10 }}>{item.name}</Text>
+
+                    <Text style={{ color: "#fff", fontSize: 16, textAlign: 'center', marginTop: 10, ...GetKanitFont("regular") }}>{item.name}</Text>
+
                   </View>
+
+
                 </TouchableOpacity>
 
               )
@@ -166,7 +182,7 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
     elevation: 5,
   },
-  status :{
-    padding: 12,width:20,borderRadius:12 ,alignSelf:'flex-end',margin:5
+  status: {
+    padding: 12, width: 20, borderRadius: 12, alignSelf: 'flex-end', margin: 5
   }
 })

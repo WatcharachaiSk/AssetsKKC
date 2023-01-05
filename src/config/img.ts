@@ -8,5 +8,6 @@ const images = {
     BG2 : require('../assets/Image/BG2.png'),
     scan : require('../assets/Image/scan.png'),
     scan_Web: "https://sv1.picz.in.th/images/2022/09/14/aJ9mNI.png",
+    up_img: require('../assets/Image/no-image-icon-4.png'),
 };
 export default images

@@ -8,6 +8,7 @@ import configAxios from '../../../axios/configAxios';
 import { API } from '../../../axios/swr/endpoint';
 import _ from 'lodash';
 import { items } from '../../../assets/json/items';
+import { GetKanitFont } from '../../../config/fonts';
 
 
 const Touchtype = (props: any) => {
@@ -98,6 +99,7 @@ const styles = StyleSheet.create({
     textType: {
         // ...GetKanitFont("medium"),
         fontSize: RFPercentage(2.2),
-        textAlign: 'left'
+        textAlign: 'left',
+        ...GetKanitFont("regular") 
     },
 })
