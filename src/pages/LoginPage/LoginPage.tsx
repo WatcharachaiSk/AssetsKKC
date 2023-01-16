@@ -57,12 +57,6 @@ const LoginPage = (props: any) => {
       // console.log(props.route.params);
    }, [props.route.params]);
 
-   // console.log('isloading', isLoading)
-   // if (isLoading == true) {
-   //    <View>
-   //       <Text>123456798</Text>
-   //    </View>
-   // }
 
 
 

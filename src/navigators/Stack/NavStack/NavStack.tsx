@@ -18,7 +18,7 @@ const NavStack = () => {
     const ButtomTab = createBottomTabNavigator();
     return (
         <ButtomTab.Navigator
-            initialRouteName={AppScreens.AppStack}
+            initialRouteName="AppStack"
             screenOptions={{
                 headerShown: false,
                 tabBarActiveTintColor: colors.yellow,

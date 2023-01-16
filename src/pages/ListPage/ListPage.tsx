@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image, ScrollView, TouchableOpacity, Alert, FlatList } from 'react-native'
+import { StyleSheet, Text, View, Image, ScrollView, TouchableOpacity, Alert, FlatList, RefreshControl } from 'react-native'
 import images from '../../config/img'
 import React, { useEffect, useMemo, useState } from 'react'
 import { Searchbar } from 'react-native-paper';
@@ -29,29 +29,34 @@ const ListPage = (props: any) => {
   const [itemFilter, setItemFilter] = useState<any>([]);
   const [isTouch, setIsTouch] = useState<any>("all");
   const [fetching, setFetching] = useState(true);
+  // const [isLoading, setIsLoading] = useState(false);
 
 
   useMemo(async () => {
-
-    const data = {
-      itemItemId: 1,
-      locationLId: 1,
-      status: 0,
-      note: "เสียหายนะ"
-    }
+    // console.log('fets');
     try {
-      const res = await axios(await configAxios('get', `${API.getItem}`))
-      setGetItemAll(res?.data);
+      if (fetching) {
+        const res = await axios(await configAxios('get', `${API.getItem}`))
+        setGetItemAll(res?.data);
+        setFetching(false)
+      }
+
+
     } catch (error) {
       console.log(error);
     }
   }, [fetching])
 
+
   // ? focus navigation
   useEffect(() => {
+    //console.log('tessssssssss');
+
     const unsubscribe = navigation.addListener("focus", async () => {
+      const res = await axios(await configAxios('get', `${API.getItem}`))
+      setGetItemAll(res?.data);
       // await mutate();
-      setFetching(true);
+
     });
     return unsubscribe;
   }, [navigation]);
@@ -62,7 +67,7 @@ const ListPage = (props: any) => {
 
   const setTouchStatus = (status_item: any) => {
     setIsTouch(status_item);
-
+    // setTimeout(()=>{},100);
   };
 
   // ? ค้นหา Item
@@ -147,7 +152,16 @@ const ListPage = (props: any) => {
           />
         </ScrollView>
       </View>
-      <ScrollView>
+      <ScrollView
+        refreshControl={
+          <RefreshControl
+            refreshing={fetching}
+            onRefresh={() => {
+              setFetching(true);
+            }}
+          />
+        }
+      >
         <View style={{ flex: 1 }}>
           {_.map
 

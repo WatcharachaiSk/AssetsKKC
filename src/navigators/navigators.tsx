@@ -18,7 +18,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const Stack = createNativeStackNavigator();
 const Navigation = () => {
   return (
-    // <NavigationContainer>
+   //<NavigationContainer>
     <Stack.Navigator initialRouteName='NavStack'>
 
 
@@ -66,7 +66,7 @@ const Navigation = () => {
         component={Scanner}
         options={{ headerShown: false }} />
     </Stack.Navigator>
-    //  </NavigationContainer>
+  //</NavigationContainer>
   );
 };
 

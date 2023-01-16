@@ -20,6 +20,7 @@ import ListPage from './src/pages/ListPage/ListPage';
 import NavStack from './src/navigators/Stack/NavStack/NavStack';
 import AppStack from './src/navigators/Stack/AppStack/AppStack';
 import LoginStack from './src/navigators/Stack/LoginStack/LoginStack';
+
 const Stack = createNativeStackNavigator();
 const App = (props: any) => {
 

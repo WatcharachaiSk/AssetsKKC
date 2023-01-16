@@ -1,5 +1,5 @@
 import { StyleSheet, Text, TouchableOpacity, View, Dimensions, ScrollView } from 'react-native'
-import React, { useMemo, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { colors } from '../../config/colors'
 import { heightOfWindow, widthOfWindow } from '../../utils/getDimension'
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
@@ -18,35 +18,47 @@ const { height } = Dimensions.get("window");
 
 
 
-const AccountUser = ( props: any) => {
-  const {itemShow} = props;
+const AccountUser = (props: any) => {
+  const [fetching, setFetching] = useState(true);
+  const { itemShow } = props;
   const navigation = props.navigation;
   const [getProfile, setGetProfile] = useState<any>();
-//   const itemShow = props?.route?.params.item || [""];
-useMemo(async () => {
-  // await AsyncStorage.setItem("accessToken", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6ImFkbWluIiwiYWRtaW4iOnRydWUsImlhdCI6MTY3MDY2MjkxMSwiZXhwIjoxNjcwNjgwOTExfQ.DiD_YTTo90DHCKyCJ4-gkC4FI5QL3oFB1girKCRD1Xo");
 
-  const data = {
-    itemItemId: 1,
-    locationLId: 1,
-    status: 0,
-    note: "เสียหายนะ"
-  }
-  try {
-    // const res = await axios(configAxios('get',API.getItem))
-    const res = await axios(await configAxios('get', `${API.getProfile}`))
-    // const res = await postLogin("admin", "systemadministrator")
-    // const res = await axios(await configAxios('post', API.updateStetus, data))
-    // console.log(res?.data);
-    //setIsTouch(res.data[1].item_id)
-    setGetProfile(res?.data);
-//  console.log(res?.data);
+  useMemo(async () => {
+    // await AsyncStorage.setItem("accessToken", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6ImFkbWluIiwiYWRtaW4iOnRydWUsImlhdCI6MTY3MDY2MjkxMSwiZXhwIjoxNjcwNjgwOTExfQ.DiD_YTTo90DHCKyCJ4-gkC4FI5QL3oFB1girKCRD1Xo");
+
+    // const data = {
+    //   itemItemId: 1,
+    //   locationLId: 1,
+    //   status: 0,
+    //   note: "เสียหายนะ"
+    // }
+    try {
+      if (fetching) {
+        const res = await axios(await configAxios('get', `${API.getProfile}`))
+        setGetProfile(res?.data);
+        setFetching(false)
+      }
+
+
+    } catch (error) {
+      console.log(error);
+
+    }
+  }, [fetching])
   
-  } catch (error) {
-    console.log(error);
-
-  }
-}, [])
+    // ? focus navigation
+    useEffect(() => {
+      //console.log('tessssssssss');
+  
+      const unsubscribe = navigation.addListener("focus", async () => {
+        const res = await axios(await configAxios('get', `${API.getProfile}`))
+        setGetProfile(res?.data);
+        // await mutate();
+  
+      });
+      return unsubscribe;
+    }, [navigation]);
 
   const [showSWModal, setShowSWModal] = React.useState(false);
 
@@ -60,9 +72,9 @@ useMemo(async () => {
   };
 
   const onConfirm = async () => {
-     setShowSWModal(false);
-     await AsyncStorage.removeItem("accessToken");
-     navigation.navigate("LoginPage", { isLogout: true });
+    setShowSWModal(false);
+    await AsyncStorage.removeItem("accessToken");
+    navigation.navigate("LoginPage", { isLogout: true });
   };
 
 
