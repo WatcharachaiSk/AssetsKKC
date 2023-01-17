@@ -2,7 +2,7 @@ import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import React from "react";
 import { colors } from "../../../config/colors";
 import { RFPercentage } from "react-native-responsive-fontsize";
-import { widthOfWindow } from "../../../utils/getDimension";
+import { heightOfWindow, widthOfWindow } from "../../../utils/getDimension";
 import { GetKanitFont } from "../../../config/fonts";
 import _ from "lodash";
 import configAxios from '../../../axios/configAxios';
@@ -77,7 +77,26 @@ const TouchStatus = (props: any) => {
           ชำรุด
         </Text>
       </TouchableOpacity>
-
+      <TouchableOpacity
+        onPress={() => setTouchStatus(false)}
+        style={[
+          styles.StyleTouchStatus,
+          {
+            backgroundColor: !isTouch ? colors.black : colors.Gray,
+          },
+        ]}
+      >
+        <Text
+          style={[
+            styles.textStatus,
+            {
+              color: !isTouch ? colors.white : colors.black,
+            },
+          ]}
+        >
+          รอจำหน่าย
+        </Text>
+      </TouchableOpacity>
 
     </>
   );
@@ -88,7 +107,7 @@ export default TouchStatus;
 const styles = StyleSheet.create({
   StyleTouchStatus: {
     flex: 1,
-    padding: 11,
+    padding: heightOfWindow * 0.015,
     width: widthOfWindow * 0.35,
     // marginHorizontal: 10,
     // borderRadius: 10,
@@ -103,7 +122,7 @@ const styles = StyleSheet.create({
   },
   textStatus: {
     ...GetKanitFont("medium"),
-    fontSize: RFPercentage(2.2),
+    fontSize: RFPercentage(2.3),
     textAlign: 'center',
   },
 });

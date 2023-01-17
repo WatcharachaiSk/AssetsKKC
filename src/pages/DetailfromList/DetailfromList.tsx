@@ -1,4 +1,4 @@
-import { StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native'
+import { StyleSheet, Text, TouchableOpacity, View, Image, Dimensions } from 'react-native'
 import React, { useEffect, useMemo, useState } from 'react'
 import { colors } from '../../config/colors';
 import IconAntDesign from 'react-native-vector-icons/AntDesign'
@@ -11,9 +11,10 @@ import axios from 'axios';
 import configAxios from '../../axios/configAxios';
 import { API } from '../../axios/swr/endpoint';
 import { baseURL, PATH_IMAGE_ITEM } from '../../axios/config';
+import { RFPercentage } from 'react-native-responsive-fontsize';
 
 
-
+const { height } = Dimensions.get("window");
 const DetailfromList = (props: any) => {
 
   // const {itemFC} =props;
@@ -66,10 +67,10 @@ export default DetailfromList
 
 const styles = StyleSheet.create({
   goBack: {
-    flex: 0, flexDirection: 'row', margin: 20
+    flex: 0, flexDirection: 'row', margin: widthOfWindow*0.05
   },
   textgoBack: {
-    fontSize: 16, ...GetKanitFont('regular')
+    fontSize: RFPercentage(2.5), ...GetKanitFont('regular')
   }
 
 })

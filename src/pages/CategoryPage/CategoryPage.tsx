@@ -25,7 +25,7 @@ const CategoryPage = (props: any) => {
   };
 
 
-  // console.log('getItems==',getItems);
+
 
 
 
@@ -136,6 +136,7 @@ const CategoryPage = (props: any) => {
                     <Text style={{ color: "#fff", fontSize: 16, textAlign: 'center', marginTop: 10, ...GetKanitFont("regular") }}>{item.name}</Text>
 
                   </View>
+                  
 
 
                 </TouchableOpacity>

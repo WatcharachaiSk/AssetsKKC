@@ -1,14 +1,14 @@
-import { StyleSheet, Text, View, Image, ScrollView, TouchableOpacity, Alert, FlatList, RefreshControl } from 'react-native'
+import { StyleSheet, Text, View, Image, ScrollView, TouchableOpacity, Alert, FlatList, RefreshControl, Dimensions } from 'react-native'
 import images from '../../config/img'
 import React, { useEffect, useMemo, useState } from 'react'
-import { Searchbar } from 'react-native-paper';
+import { Searchbar, TextInput } from 'react-native-paper';
 import DetailfromList from '../DetailfromList/DetailfromList';
 import TouchStatus from './components/TouchStatus';
 import { colors } from '../../config/colors';
 import { AppScreens } from '../../navigators/NavigeteEnum/NavigateEnum';
-import { heightOfWindow } from '../../utils/getDimension';
+import { heightOfWindow, widthOfWindow } from '../../utils/getDimension';
 import DataMockup from './components/DataMockup';
-import _, { keys } from 'lodash'
+import _, { keys, size } from 'lodash'
 import Icons from 'react-native-vector-icons/EvilIcons'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import { items } from '../../assets/json/items';
@@ -18,8 +18,9 @@ import axios from 'axios';
 import configAxios from '../../axios/configAxios';
 import { API } from '../../axios/swr/endpoint';
 import postLogin from '../../axios/postLogin';
+import { RFPercentage } from 'react-native-responsive-fontsize';
 
-
+  const { height } = Dimensions.get("window");
 const ListPage = (props: any) => {
   const navigation = props.navigation;
   // const [item, setItem] = useState(DataMockup);
@@ -125,7 +126,7 @@ const ListPage = (props: any) => {
 
   return (
     <View style={{ backgroundColor: '#fff', flex: 1 }}>
-      <View style={{ flex: 0, marginVertical: 30, alignItems: 'center' }}>
+      <View style={{ flex: 0, marginVertical: heightOfWindow*0.04, alignItems: 'center' }}>
         <Image source={images.SCANnER} />
       </View>
       <Searchbar
@@ -133,11 +134,14 @@ const ListPage = (props: any) => {
         onChangeText={(text) => onChangeSearch(text)}
         value={search}
         style={{
-          marginHorizontal: 10,
+          marginHorizontal: widthOfWindow * 0.04,
+          height: heightOfWindow * 0.08,
           borderRadius: 10,
           backgroundColor: '#D9D9D9',
           marginTop: 10,
           marginBottom: 5,
+
+
 
         }}
       />
@@ -226,7 +230,7 @@ export default ListPage
 
 const styles = StyleSheet.create({
   view_TouchItem: {
-    height: heightOfWindow * 0.1,
+    //height: heightOfWindow * 0.14,
     backgroundColor: colors.white,
     marginVertical: 8,
     marginHorizontal: 5,
@@ -250,20 +254,22 @@ const styles = StyleSheet.create({
   },
   view_StateItem: {
     borderRadius: 50,
-    width: 25,
-    height: 25,
-    marginVertical: 5,
+    width: height > 600 ? 30 : 22,
+    height: height > 600 ? 30 : 22,
+    //marginVertical: heightOfWindow*5,
   },
   fontnameItem: {
-    fontSize: 20,
-    ...GetKanitFont('medium')
+    fontSize: RFPercentage(2.8),
+    ...GetKanitFont('medium'),
+    color:colors.black
   },
   viewItem: {
-    flexDirection: 'column', margin: 10, flex: 1,
-    justifyContent: 'center'
+    flexDirection: 'column', margin: 10, flex: 2,
+   
   },
   textID: {
-    ...GetKanitFont('regular'), fontSize: 14
+    ...GetKanitFont('regular'), fontSize: RFPercentage(2.4),
+    color:colors.blackGray
   },
 
 

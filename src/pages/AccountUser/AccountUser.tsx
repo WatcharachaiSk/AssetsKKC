@@ -1,4 +1,4 @@
-import { StyleSheet, Text, TouchableOpacity, View, Dimensions, ScrollView } from 'react-native'
+import { StyleSheet, Text, TouchableOpacity, View, Dimensions, ScrollView, Image } from 'react-native'
 import React, { useEffect, useMemo, useState } from 'react'
 import { colors } from '../../config/colors'
 import { heightOfWindow, widthOfWindow } from '../../utils/getDimension'
@@ -14,8 +14,13 @@ import axios from 'axios'
 import configAxios from '../../axios/configAxios'
 import { API } from '../../axios/swr/endpoint'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { baseURL, PATH_IMAGE_PROFILE } from '../../axios/config';
+import images from '../../config/img'
+import { items } from '../../assets/json/items'
+import { RFPercentage } from "react-native-responsive-fontsize";
 const { height } = Dimensions.get("window");
 
+//console.log(`${baseURL}${PATH_IMAGE_PROFILE}${getProfile.name_image}`);
 
 
 const AccountUser = (props: any) => {
@@ -23,6 +28,8 @@ const AccountUser = (props: any) => {
   const { itemShow } = props;
   const navigation = props.navigation;
   const [getProfile, setGetProfile] = useState<any>();
+
+  const { item, isPage } = props?.route?.params || [""];
 
   useMemo(async () => {
     // await AsyncStorage.setItem("accessToken", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6ImFkbWluIiwiYWRtaW4iOnRydWUsImlhdCI6MTY3MDY2MjkxMSwiZXhwIjoxNjcwNjgwOTExfQ.DiD_YTTo90DHCKyCJ4-gkC4FI5QL3oFB1girKCRD1Xo");
@@ -46,19 +53,19 @@ const AccountUser = (props: any) => {
 
     }
   }, [fetching])
-  
-    // ? focus navigation
-    useEffect(() => {
-      //console.log('tessssssssss');
-  
-      const unsubscribe = navigation.addListener("focus", async () => {
-        const res = await axios(await configAxios('get', `${API.getProfile}`))
-        setGetProfile(res?.data);
-        // await mutate();
-  
-      });
-      return unsubscribe;
-    }, [navigation]);
+
+  // ? focus navigation
+  useEffect(() => {
+    //console.log('tessssssssss');
+
+    const unsubscribe = navigation.addListener("focus", async () => {
+      const res = await axios(await configAxios('get', `${API.getProfile}`))
+      setGetProfile(res?.data);
+      // await mutate();
+
+    });
+    return unsubscribe;
+  }, [navigation]);
 
   const [showSWModal, setShowSWModal] = React.useState(false);
 
@@ -107,16 +114,26 @@ const AccountUser = (props: any) => {
 
         {/* imageProfile */}
         <View style={{ alignItems: 'center' }}>
-          <View style={styles.viewImage}>
-            <View style={{ alignSelf: 'center', marginTop: 35 }}>
-              <FontAwesome5 name="user-alt" size={140} color={'#fff'}></FontAwesome5>
-            </View>
+
+          <View style={{ alignSelf: 'center', marginTop: 25 }}>
+            {getProfile?.name_image ?
+              <Image style={styles.viewImage}
+                source={{ uri: `${baseURL}${PATH_IMAGE_PROFILE}${getProfile.name_image}` }}
+              />
+              : <>
+                <View style={styles.viewImage}>
+                  <FontAwesome5 name="user-alt" size={140} color={'#fff'}></FontAwesome5>
+                </View>
+              </>
+            }
+
           </View>
+
         </View>
 
 
         <View style={{ margin: 10 }}>
-          <Text style={{ fontSize: 16, fontWeight: 'bold' }}>Username</Text>
+          <Text style={{ fontSize: RFPercentage(2.5), fontWeight: 'bold' }}>Username</Text>
           <View style={{ alignItems: 'center' }}>
             <View style={styles.nameAndPhone}>
               <View style={styles.viewText}>
@@ -127,7 +144,7 @@ const AccountUser = (props: any) => {
         </View>
 
         <View style={{ marginVertical: 10, margin: 10 }}>
-          <Text style={{ fontSize: 16, fontWeight: 'bold' }}>Phone Number</Text>
+          <Text style={{ fontSize:  RFPercentage(2.5), fontWeight: 'bold' }}>Phone Number</Text>
           <View style={{ alignItems: 'center' }}>
             <View style={styles.nameAndPhone}>
               <View style={styles.viewText}>
@@ -151,7 +168,7 @@ const AccountUser = (props: any) => {
               <View style={styles.viewIcon_LO}>
                 <Feather
                   name="log-out"
-                  size={30}
+                  size={heightOfWindow*0.04}
                   style={{ color: "#fff" }}
                 />
               </View>
@@ -203,7 +220,7 @@ const styles = StyleSheet.create({
 
   },
   textLogOut: {
-    fontSize: 20,
+    fontSize: RFPercentage(2.5),
     ...GetKanitFont("regular"),
     textAlign: "right",
     color: "#fff",
@@ -225,10 +242,20 @@ const styles = StyleSheet.create({
     width: widthOfWindow * 0.58,
     height: heightOfWindow * 0.3,
     borderRadius: 300 / 2,
-    margin: 15
+    margin: 15,
+    alignItems: 'center',
+    justifyContent:'center',
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
   },
   textShow: {
-    fontSize: 20,
+    fontSize: RFPercentage(3),
     textAlign: 'left',
     ...GetKanitFont('regular')
   },

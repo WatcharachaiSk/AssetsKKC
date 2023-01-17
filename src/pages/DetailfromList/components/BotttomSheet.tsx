@@ -1,5 +1,5 @@
-import React, { useCallback, useMemo, useRef } from 'react';
-import { View, Text, StyleSheet, Button, ScrollView, TouchableOpacity } from 'react-native';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { View, Text, StyleSheet, Button, ScrollView, TouchableOpacity, Dimensions } from 'react-native';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import { widthOfWindow, heightOfWindow } from '../../../utils/getDimension';
 import { colors } from '../../../config/colors';
@@ -7,12 +7,15 @@ import ListPage from '../../ListPage/ListPage';
 import { items } from '../../../assets/json/items';
 import { GetKanitFont } from '../../../config/fonts';
 import globleStyles from '../../../config/globleStyles';
+import { RFPercentage } from 'react-native-responsive-fontsize';
 
+const { height } = Dimensions.get("window");
 
 
 const BottomSheet = (props: any) => {
   const { itemShow } = props;
-
+  const [currentDate, setCurrentDate] = useState('');
+  const [createdAtdate, setCreatedAtDate] = useState('');
   //console.log(itemShow.item_id);
 
 
@@ -24,6 +27,34 @@ const BottomSheet = (props: any) => {
   } else if (itemShow?.status_item == false) {
     statusItem = "ชำรุด";
   }
+
+  useEffect(() => {
+    var date = new Date(itemShow?.up_date_statuses[0]?.inspected_at).getDate(); //Current Date
+    var month = new Date(itemShow?.up_date_statuses[0]?.inspected_at).getMonth() + 1; //Current Month
+    var year = new Date(itemShow?.up_date_statuses[0]?.inspected_at).getFullYear(); //Current Year
+    var hours = new Date(itemShow?.up_date_statuses[0]?.inspected_at).getHours(); //Current Hours
+    var min = new Date(itemShow?.up_date_statuses[0]?.inspected_at).getMinutes(); //Current Minutes
+    var sec = new Date(itemShow?.up_date_statuses[0]?.inspected_at).getSeconds(); //Current Seconds
+    setCurrentDate(
+      'วันที่ ' + date + '/' + month + '/' + year
+      + '  ' + 'เวลา ' + hours + ':' + min + ':' + sec + ' น.'
+    );
+  }, []);
+
+  useEffect(() => {
+    var date = new Date(itemShow?.typeitem.createdAt).getDate(); //Current Date
+    var month = new Date(itemShow?.typeitem.createdAt).getMonth() + 1; //Current Month
+    var year = new Date(itemShow?.typeitem.createdAt).getFullYear(); //Current Year
+    var hours = new Date(itemShow?.typeitem.createdAt).getHours(); //Current Hours
+    var min = new Date(itemShow?.typeitem.createdAt).getMinutes(); //Current Minutes
+    var sec = new Date(itemShow?.typeitem.createdAt).getSeconds(); //Current Seconds
+    setCreatedAtDate(
+      'วันที่ ' + date + '/' + month + '/' + year
+      + '  ' + 'เวลา ' + hours + ':' + min + ':' + sec + ' น.'
+    );
+  }, []);
+
+  //console.log(currentDate);
 
 
 
@@ -38,45 +69,47 @@ const BottomSheet = (props: any) => {
         <Text style={styles.textDetail}>ดูรายละเอียดเพิ่มเติม</Text>
       </TouchableOpacity>
 
-        <RBSheet
+      <RBSheet
 
-          ref={ref => {
-            this.Scrollable = ref;
-          }}
-          closeOnDragDown
-          animationType='slide'
-          customStyles={{
-            container: {
-              borderTopLeftRadius: 30,
-              borderTopRightRadius: 30,
-              backgroundColor: '#000',
-              height: 400,
-            }
+        ref={ref => {
+          this.Scrollable = ref;
+        }}
+        closeOnDragDown
+        animationType='slide'
+        customStyles={{
+          container: {
+            borderTopLeftRadius: 30,
+            borderTopRightRadius: 30,
+            backgroundColor: '#000',
+            height: height > 600 ? 450 : 350,
+          }
 
-          }}
+        }}
 
-        >
+      >
 
-          <View style={{ flexDirection: 'row' }}>
+        <View style={{ flexDirection: 'row' }}>
 
-            <View style={{ flex: 1, margin: 15, }}>
-              <Text style={globleStyles.fontTitleDT}>{itemShow?.name}</Text>
+          <View style={{ flex: 1, margin: 15, }}>
+            <Text style={globleStyles.fontTitleDT}>{itemShow?.name}</Text>
 
-            </View>
-            <View style={{ flex: 0, width: widthOfWindow * 0.3 }}>
-              <View style={[globleStyles.status, {
-                backgroundColor:
-                  itemShow?.status_item == true
-                    ? colors.greenConfirm
-                    : colors.greenConfirm &&
-                      itemShow.status_item == false
-                      ? colors.red
-                      : colors.red
-              }]}></View>
-              <Text style={globleStyles.fontstatus}>{statusItem}</Text>
-            </View>
           </View>
-          <View style={styles.line}></View>
+          <View style={{ flex: 0, width: widthOfWindow * 0.3 }}>
+            <View style={[styles.status, {
+              backgroundColor:
+                itemShow?.status_item == true
+                  ? colors.greenConfirm
+                  : colors.greenConfirm &&
+                    itemShow.status_item == false
+                    ? colors.red
+                    : colors.red
+            }]}></View>
+            <Text style={globleStyles.fontstatus}>{statusItem}</Text>
+          </View>
+        </View>
+
+        <View style={styles.line}></View>
+        <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
 
           <View style={{ marginHorizontal: 15 }}>
             <View style={{ marginVertical: 5, flexDirection: 'row' }}>
@@ -95,13 +128,17 @@ const BottomSheet = (props: any) => {
             <View style={{ marginVertical: 5 }}>
               <Text style={globleStyles.fonts}>วันที่รับเข้า : {itemShow?.typeitem == null
                 ? "-"
-                : itemShow?.typeitem.reatedAt} </Text>
+                : createdAtdate} </Text>
             </View>
             <View style={{ marginVertical: 5 }}>
               <Text style={globleStyles.fonts}>สถานที่ : {itemShow?.location.nameTH} </Text>
             </View>
             <View style={{ marginVertical: 5 }}>
-              <Text style={globleStyles.fonts}>ตรวจสอบครั้งล่าสุด : {itemShow?.up_date_statuses[0]?.inspected_at}</Text>
+              
+                <Text style={globleStyles.fonts}>ตรวจสอบครั้งล่าสุด : {itemShow?.up_date_statuses[0]?.inspected_at  != null ? currentDate : "-" } </Text>
+           
+            
+             
             </View>
             <View style={{ marginVertical: 5 }}>
               <Text style={globleStyles.fonts}>หมายเหตุ : {itemShow?.up_date_statuses[0]?.note} </Text>
@@ -112,9 +149,11 @@ const BottomSheet = (props: any) => {
 
           </View>
 
+        </ScrollView>
 
 
-        </RBSheet >
+
+      </RBSheet >
 
     </View >
 
@@ -142,8 +181,8 @@ const styles = StyleSheet.create({
   status: {
 
     borderRadius: 50,
-    width: widthOfWindow * 0.16,
-    height: heightOfWindow * 0.08,
+    width: height > 600 ? 60 : 45,
+    height: height > 600 ? 60 : 45,
     alignSelf: 'center'
   },
   fontstatus: {
@@ -156,22 +195,22 @@ const styles = StyleSheet.create({
     ...GetKanitFont('regular')
   },
   textTitle: {
-    fontSize: 20,
+    fontSize: RFPercentage(3.1),
     textAlign: 'left',
     color: '#fff',
     ...GetKanitFont('medium')
   },
   textDetail: {
-    fontSize: 16,
+    fontSize: RFPercentage(2.5),
     textAlign: 'right',
-    color: '#fff',
+    color: colors.yellow,
     ...GetKanitFont('regular')
 
   },
   touchOpen: {
     borderRadius: 15,
     backgroundColor: colors.black,
-    padding: 30,
+    padding: heightOfWindow * 0.05,
     width: widthOfWindow * 0.97,
   },
   fontTitleDT: {

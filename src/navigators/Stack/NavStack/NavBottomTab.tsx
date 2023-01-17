@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Image } from 'react-native'
+import { View, Text, StyleSheet, Image,Dimensions } from 'react-native'
 import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 // import icon from '../config/icon';
@@ -16,11 +16,10 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
 import { GetKanitFont } from '../../../config/fonts';
 import AppStack from '../AppStack/AppStack';
 import ScannerStack from '../ScannerStack/ScannerStack';
-
+import { RFPercentage } from "react-native-responsive-fontsize";
 
 
 const NavBottomTab = (props: any) => {
-   
     const Tab = createBottomTabNavigator();
     return (
         <Tab.Navigator
