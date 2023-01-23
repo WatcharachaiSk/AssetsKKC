@@ -78,8 +78,10 @@ const Touchtype = (props: any) => {
                                 },
                                 ]}
                             >
-                                {item?.name}
+                                {item?.name} 
                             </Text>
+                            <Text style={[styles.textType,{fontSize:RFPercentage(2)}]}>หน่วยงาน {item?.department?.nameTH}</Text>
+
                         </TouchableOpacity>
                     )
                 })}

@@ -7,5 +7,9 @@ export const colors = {
     red: '#FA3630',
     yellow:'#FCBF1E',
     blackDrop: 'rgba(0,0,0,0.7)',
+    statusColor0: "#FA3630",
+    statusColor1: "#10CF11",
+    statusColor2: "#FCBF1E",
+    statusColor3: "#175dff",
 
 };

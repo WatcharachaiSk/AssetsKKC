@@ -21,7 +21,7 @@ const DetailfromList = (props: any) => {
   const { item, isPage } = props?.route?.params || [""];
 
   const [getItemByID, setGetItemByID] = useState<any>(undefined);
-//console.log( `${baseURL}${PATH_IMAGE_ITEM}${item.name_image_item}`);
+  //console.log( `${baseURL}${PATH_IMAGE_ITEM}${item.name_image_item}`);
 
 
   useMemo(async () => {
@@ -47,9 +47,14 @@ const DetailfromList = (props: any) => {
         <Text style={styles.textgoBack}>ย้อนกลับ</Text>
       </TouchableOpacity>
 
-      <View style={{ alignItems: 'center',justifyContent:'flex-end' }}>
-        <Image style={{width: widthOfWindow*0.9 ,height: heightOfWindow*0.4,flex:0}} 
-        source={{uri: `${baseURL}${PATH_IMAGE_ITEM}${item.name_image_item}`}} />
+      <View style={{ alignItems: 'center', justifyContent: 'flex-end' ,marginTop: 30}}>
+        {item.name_image_item ?
+          <Image style={{ width: widthOfWindow * 0.9, height: heightOfWindow * 0.4, flex: 0 }}
+            source={{ uri: `${baseURL}${PATH_IMAGE_ITEM}${item.name_image_item}` }} />
+          :
+          <Image style={{ width: widthOfWindow * 0.85, height: heightOfWindow * 0.4, flex: 0 }}
+            source={images.up_img} />
+        }
       </View>
 
       {/* <BottomSheet itemShow={getItemByID != undefined ? getItemByID : item}  /> */}
@@ -67,7 +72,7 @@ export default DetailfromList
 
 const styles = StyleSheet.create({
   goBack: {
-    flex: 0, flexDirection: 'row', margin: widthOfWindow*0.05
+    flex: 0, flexDirection: 'row', margin: widthOfWindow * 0.05
   },
   textgoBack: {
     fontSize: RFPercentage(2.5), ...GetKanitFont('regular')

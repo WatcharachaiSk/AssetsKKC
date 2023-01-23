@@ -9,6 +9,7 @@ import { GetKanitFont } from '../../../config/fonts';
 import globleStyles from '../../../config/globleStyles';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import { baseURL, PATH_IMAGE_ITEM, PATH_IMAGE_ITEM_DAMAGED } from '../../../axios/config';
+import { chackStatusItemColor,chackStatusItem } from '../../../config/chackItemStatus';
 
 const { height } = Dimensions.get("window");
 
@@ -23,11 +24,15 @@ const BottomSheet = (props: any) => {
 
   //Set Status
   let statusItem;
-  if (itemShow?.status_item == true) {
-    statusItem = "ปกติ";
-  } else if (itemShow?.status_item == false) {
-    statusItem = "ชำรุด";
-  }
+  // if (itemShow?.status_item == true) {
+  //   statusItem = "ปกติ";
+  // } else if (itemShow?.status_item == false) {
+  //   statusItem = "ชำรุด";
+  // } else if (itemShow?.status_item == 2) {
+  //   statusItem = "รอจำหน่าย";
+  // } else if (itemShow?.status_item == 3) {
+  //   statusItem = "จำหน่ายเเล้ว";
+  // }
 
   // format วันที่ตรวจสอบล่าสุด
   useEffect(() => {
@@ -41,21 +46,24 @@ const BottomSheet = (props: any) => {
       'วันที่ ' + date + '/' + month + '/' + year
       + '  ' + 'เวลา ' + hours + ':' + min + ':' + sec + ' น.'
     );
+
+
   }, []);
 
 
   // format วันที่รับเข้า
   useEffect(() => {
-    var date = new Date(itemShow?.typeitem.createdAt).getDate(); //Current Date
-    var month = new Date(itemShow?.typeitem.createdAt).getMonth() + 1; //Current Month
-    var year = new Date(itemShow?.typeitem.createdAt).getFullYear(); //Current Year
-    var hours = new Date(itemShow?.typeitem.createdAt).getHours(); //Current Hours
-    var min = new Date(itemShow?.typeitem.createdAt).getMinutes(); //Current Minutes
-    var sec = new Date(itemShow?.typeitem.createdAt).getSeconds(); //Current Seconds
+    var date = new Date(itemShow?.createdAt).getDate(); //Current Date
+    var month = new Date(itemShow?.createdAt).getMonth() + 1; //Current Month
+    var year = new Date(itemShow?.createdAt).getFullYear() + 543; //Current Year
+    var hours = new Date(itemShow?.createdAt).getHours(); //Current Hours
+    var min = new Date(itemShow?.createdAt).getMinutes(); //Current Minutes
+    var sec = new Date(itemShow?.createdAt).getSeconds(); //Current Seconds
     setCreatedAtDate(
       'วันที่ ' + date + '/' + month + '/' + year
-      + '  ' + 'เวลา ' + hours + ':' + min + ':' + sec + ' น.'
+      + '  ' + 'เวลา ' + hours + ':' + min + ':' +' น.'
     );
+ 
   }, []);
 
   //console.log(currentDate);
@@ -100,15 +108,9 @@ const BottomSheet = (props: any) => {
           </View>
           <View style={{ flex: 0, width: widthOfWindow * 0.3 }}>
             <View style={[styles.status, {
-              backgroundColor:
-                itemShow?.status_item == true
-                  ? colors.greenConfirm
-                  : colors.greenConfirm &&
-                    itemShow.status_item == false
-                    ? colors.red
-                    : colors.red
+              backgroundColor: chackStatusItemColor(itemShow?.status_item)
             }]}></View>
-            <Text style={globleStyles.fontstatus}>{statusItem}</Text>
+            <Text style={globleStyles.fontstatus}>{chackStatusItem(itemShow?.status_item)}</Text>
           </View>
         </View>
 
@@ -149,7 +151,7 @@ const BottomSheet = (props: any) => {
             </View>
 
             <View style={{ margin: 10, marginBottom: 10, alignItems: 'center', justifyContent: 'flex-end' }}>
-              <Image style={{ width: height > 600 ? widthOfWindow * 0.5 : widthOfWindow * 0.5, height: height > 600 ?  heightOfWindow * 0.25 : heightOfWindow *0.3, flex: 0 }}
+              <Image style={{ width: height > 600 ? widthOfWindow * 0.5 : widthOfWindow * 0.5, height: height > 600 ? heightOfWindow * 0.25 : heightOfWindow * 0.3, flex: 0 }}
                 source={{ uri: `${baseURL}${PATH_IMAGE_ITEM_DAMAGED}${itemShow?.name_image_damaged}` }} />
 
 

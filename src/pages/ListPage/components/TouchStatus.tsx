@@ -62,7 +62,7 @@ const TouchStatus = (props: any) => {
         style={[
           styles.StyleTouchStatus,
           {
-            backgroundColor: !isTouch ? colors.black : colors.Gray,
+            backgroundColor: isTouch == false ? colors.black : colors.Gray,
           },
         ]}
       >
@@ -70,7 +70,7 @@ const TouchStatus = (props: any) => {
           style={[
             styles.textStatus,
             {
-              color: !isTouch ? colors.white : colors.black,
+              color: isTouch == false ? colors.white : colors.black,
             },
           ]}
         >
@@ -78,11 +78,11 @@ const TouchStatus = (props: any) => {
         </Text>
       </TouchableOpacity>
       <TouchableOpacity
-        onPress={() => setTouchStatus(false)}
+        onPress={() => setTouchStatus(2)}
         style={[
           styles.StyleTouchStatus,
           {
-            backgroundColor: !isTouch ? colors.black : colors.Gray,
+            backgroundColor: isTouch == 2 ? colors.black : colors.Gray,
           },
         ]}
       >
@@ -90,11 +90,31 @@ const TouchStatus = (props: any) => {
           style={[
             styles.textStatus,
             {
-              color: !isTouch ? colors.white : colors.black,
+              color: isTouch == 2 ? colors.white : colors.black,
             },
           ]}
         >
           รอจำหน่าย
+        </Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        onPress={() => setTouchStatus(3)}
+        style={[
+          styles.StyleTouchStatus,
+          {
+            backgroundColor: isTouch == 3 ? colors.black : colors.Gray,
+          },
+        ]}
+      >
+        <Text
+          style={[
+            styles.textStatus,
+            {
+              color: isTouch == 3 ? colors.white : colors.black,
+            },
+          ]}
+        >
+          จำหน่ายแล้ว
         </Text>
       </TouchableOpacity>
 

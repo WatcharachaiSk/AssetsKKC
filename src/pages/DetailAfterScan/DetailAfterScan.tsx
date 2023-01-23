@@ -21,7 +21,7 @@ import ModalFinished from '../Scanner/Modal/ModalFinished'
 import { baseURL, PATH_IMAGE_ITEM } from '../../axios/config'
 import { RFPercentage } from 'react-native-responsive-fontsize'
 
-
+import { chackStatusItemColor, chackStatusItem } from '../../config/chackItemStatus'
 
 const { height } = Dimensions.get("window");
 const DetailAfterScan = (props: any) => {
@@ -38,7 +38,7 @@ const DetailAfterScan = (props: any) => {
   const [modalLocations, setModalLocations] = useState(false);
   const [getUpdateItem, setGetUpdateItem] = useState<[]>();
 
-  const [statusNew, setStatusNew] = useState<boolean>();
+  const [statusNew, setStatusNew] = useState();
   const itemShow = props?.route?.params.getproduct || [""];
 
   //Set Status
@@ -48,6 +48,10 @@ const DetailAfterScan = (props: any) => {
     statusItem = "ปกติ";
   } else if (itemShow.status_item == false || statusNew == false) {
     statusItem = "ชำรุด";
+  } else if (itemShow.status_item == 2 || statusNew == 2) {
+    statusItem = "รอจำหน่าย";
+  } else if (itemShow.status_item == 3 || statusNew == 3) {
+    statusItem = "จำหน่ายแล้ว";
   }
 
   useEffect(() => {
@@ -68,18 +72,18 @@ const DetailAfterScan = (props: any) => {
   }
 
   const onClickSave = async () => {
-    if (conditionSave) {
-      setShowSuccess(true);
-      var data = {
-        itemItemId: itemShow?.item_id,
-        locationLId: !valueLocations ? "" : valueLocations,
-        status: statusNew,
-        note: detailProblem + " แก้ไขโดย Mobile"
-      };
-    } else {
-      Alert.alert('กรุณากรอกรายละเอียดให้ครบถ้วน')
-    }
-
+    // if (conditionSave) {
+    //   setShowSuccess(true);
+    //   var data = {
+    //     itemItemId: itemShow?.item_id,
+    //     locationLId: !valueLocations ? "" : valueLocations,
+    //     status: statusNew,
+    //     note: detailProblem + " แก้ไขโดย Mobile"
+    //   };
+    // } else {
+    //   Alert.alert('กรุณากรอกรายละเอียดให้ครบถ้วน')
+    // }
+    setShowSuccess(true);
 
 
     //const note = `${detailProblem} แก้ไขโดย Mobile`;
@@ -360,13 +364,10 @@ const DetailAfterScan = (props: any) => {
               <View style={{ flex: 0, width: widthOfWindow * 0.3, alignItems: 'center' }}>
                 <View style={{
                   width: widthOfWindow * 0.14, height: heightOfWindow * 0.07,
-                  backgroundColor:
-                    statusNew == true
-                      ? colors.greenConfirm
-                      : colors.red,
+                  backgroundColor: chackStatusItemColor(statusNew),
                   borderRadius: 60
                 }}></View>
-                <Text style={globleStyles.fontstatus}>{statusNew ? "ปกติ" : "ชำรุด"}</Text>
+                <Text style={globleStyles.fontstatus}>{chackStatusItem(statusNew)}</Text>
               </View>
             </View>
 
@@ -467,9 +468,9 @@ const DetailAfterScan = (props: any) => {
 
             style={[styles.btnConfirm,
             {
-              backgroundColor: conditionSave ?
+              backgroundColor:
                 colors.greenConfirm
-                : colors.blackGray,
+
             }]}
           >
             <Text style={[styles.fontBTStatus, {

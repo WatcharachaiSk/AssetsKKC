@@ -10,6 +10,7 @@ import images from '../../config/img';
 import { GetKanitFont } from '../../config/fonts';
 import { baseURL, PATH_IMAGE_ITEM } from '../../axios/config';
 import { RFPercentage } from 'react-native-responsive-fontsize';
+import { chackStatusItemColor } from '../../config/chackItemStatus';
 const { height } = Dimensions.get("window");
 
 const CategoryPage = (props: any) => {
@@ -116,9 +117,7 @@ const CategoryPage = (props: any) => {
 
                 >
                   <View style={[styles.status, {
-                    backgroundColor: item.status_item == true
-                      ? colors.greenConfirm
-                      : colors.red
+                    backgroundColor: chackStatusItemColor(item?.status_item)
                   }]}>
 
                   </View>
@@ -187,6 +186,10 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   status: {
-    padding: height > 600 ?  12 : 10, width: 20, borderRadius: 12, alignSelf: 'flex-end', margin: 5
+    padding: height > 600 ?  12 : 10, 
+    width: 20, 
+    borderRadius: 12, 
+    alignSelf: 'flex-end', 
+    margin: 5
   }
 })

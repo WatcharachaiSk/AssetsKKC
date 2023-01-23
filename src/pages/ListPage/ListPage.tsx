@@ -18,8 +18,9 @@ import configAxios from '../../axios/configAxios';
 import { API } from '../../axios/swr/endpoint';
 import postLogin from '../../axios/postLogin';
 import { RFPercentage } from 'react-native-responsive-fontsize';
+import { chackStatusItemColor,chackStatusItem } from '../../config/chackItemStatus';
 
-  const { height } = Dimensions.get("window");
+const { height } = Dimensions.get("window");
 const ListPage = (props: any) => {
   const navigation = props.navigation;
   // const [item, setItem] = useState(DataMockup);
@@ -61,29 +62,72 @@ const ListPage = (props: any) => {
     return unsubscribe;
   }, [navigation]);
 
-  //console.log("items = ", items);
+
 
 
 
   const setTouchStatus = (status_item: any) => {
     setIsTouch(status_item);
-    // setTimeout(()=>{},100);
   };
 
   // ? ค้นหา Item
+  // useEffect(() => {
+  //   let setData =[];
+  //   if (isTouch !== 'all') {
+  //     setData = _.filter(getItemAll, (data: any) => {
+  //       return data?.status_item == isTouch;
+  //     })
+  //     setItemFilter(setData);
+  // //console.log('setData+', setData[0].status_item);
+  //   } else {
+
+  //   setItemFilter(undefined)
+
+  //   }
+
+  // }, [isTouch])
+
   useEffect(() => {
-    if (isTouch !== 'all') {
-      let setData = _.filter(getItemAll, (data: any) => {
+    let setData = [];
+    if (isTouch == 'all') {
+      setData = getItemAll;
+      setItemFilter(setData);
+    } else if (isTouch == true || isTouch == 1) {
+      setData = _.filter(getItemAll, (data: any) => {
         return data?.status_item == isTouch;
       })
       setItemFilter(setData);
-      //console.log('setData+', setData[0].status_item);
-    } else {
-      setItemFilter(undefined)
+      console.log('setDataaaaa', setData[0].status_item);
+
+    } else if (isTouch == false || isTouch == 0) {
+      setData = _.filter(getItemAll, (data: any) => {
+        return data?.status_item == isTouch;
+      })
+      setItemFilter(setData);
+      console.log('setDataaaaa', setData[0].status_item);
+
+    } else if (isTouch == 2) {
+      setData = _.filter(getItemAll, (data: any) => {
+        return data?.status_item == isTouch;
+      })
+      setItemFilter(setData);
+      console.log('setDataaaaaderjaaaaaaaaaaaaaaaaaaaaa', setData);
+
+    } else if (isTouch == 3) {
+      setData = _.filter(getItemAll, (data: any) => {
+        return data?.status_item == isTouch;
+      })
+      setItemFilter(setData);
+      console.log('setD', setData);
 
     }
 
+
+
+
   }, [isTouch])
+
+
 
   const onChangeSearch = (text: string) => {
     const items = (itemFilter == undefined ? getItemAll : itemFilter)
@@ -125,7 +169,7 @@ const ListPage = (props: any) => {
 
   return (
     <View style={{ backgroundColor: '#fff', flex: 1 }}>
-      <View style={{ flex: 0, marginVertical: heightOfWindow*0.04, alignItems: 'center' }}>
+      <View style={{ flex: 0, marginVertical: heightOfWindow * 0.04, alignItems: 'center' }}>
         <Image source={images.SCANnER} />
       </View>
       <Searchbar
@@ -146,8 +190,9 @@ const ListPage = (props: any) => {
       />
       <View style={{ flexDirection: "row", marginTop: 15 }}>
         <ScrollView
+        // showsHorizontalScrollIndicator
           horizontal={true}
-          showsHorizontalScrollIndicator={false}
+          showsHorizontalScrollIndicator={true}
         >
           <TouchStatus
             isTouch={isTouch}
@@ -197,10 +242,7 @@ const ListPage = (props: any) => {
                         style={[
                           styles.view_StateItem,
                           {
-                            backgroundColor:
-                              item?.status_item
-                                ? colors.greenConfirm
-                                : colors.red
+                            backgroundColor:chackStatusItemColor(item?.status_item)
                           },
                         ]}
                       ></View>
@@ -260,15 +302,15 @@ const styles = StyleSheet.create({
   fontnameItem: {
     fontSize: RFPercentage(2.8),
     ...GetKanitFont('medium'),
-    color:colors.black
+    color: colors.black
   },
   viewItem: {
     flexDirection: 'column', margin: 10, flex: 2,
-   
+
   },
   textID: {
     ...GetKanitFont('regular'), fontSize: RFPercentage(2.4),
-    color:colors.blackGray
+    color: colors.blackGray
   },
 
 
