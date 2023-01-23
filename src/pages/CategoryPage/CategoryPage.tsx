@@ -1,4 +1,4 @@
-import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Dimensions, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React, { useMemo, useState } from 'react'
 import { Searchbar } from 'react-native-paper';
 import TouchStatus from '../ListPage/components/TouchStatus';
@@ -9,7 +9,8 @@ import _ from 'lodash';
 import images from '../../config/img';
 import { GetKanitFont } from '../../config/fonts';
 import { baseURL, PATH_IMAGE_ITEM } from '../../axios/config';
-
+import { RFPercentage } from 'react-native-responsive-fontsize';
+const { height } = Dimensions.get("window");
 
 const CategoryPage = (props: any) => {
 
@@ -64,7 +65,8 @@ const CategoryPage = (props: any) => {
           onChangeText={onChangeSearch}
           value={search}
           style={{
-            marginHorizontal: 10,
+            marginHorizontal: widthOfWindow * 0.04,
+            height: heightOfWindow * 0.075,
             borderRadius: 10,
             backgroundColor: '#D9D9D9',
             marginTop: 10,
@@ -93,6 +95,7 @@ const CategoryPage = (props: any) => {
 
         {/* items */}
         <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+          {/* <Text>ปกติ   ชิ้น</Text> */}
           <View style={{ flex: 1, flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center' }}>
 
             {_.map(itemFilter == undefined ? getItems : itemFilter, item => {
@@ -125,7 +128,7 @@ const CategoryPage = (props: any) => {
                     {item.name_image_item ?
                       <Image
                         style={{ width: widthOfWindow * 0.2, height: heightOfWindow * 0.1, }}
-                        source={{ uri: `${baseURL}${PATH_IMAGE_ITEM}${item.name_image_item}` }} />
+                        source={{ uri: `${baseURL}${PATH_IMAGE_ITEM}${item?.name_image_item}` }} />
                       : <>
                         <Image
                           style={{ width: widthOfWindow*0.2, height: heightOfWindow * 0.1 }}
@@ -133,7 +136,7 @@ const CategoryPage = (props: any) => {
                       </>}
 
 
-                    <Text style={{ color: "#fff", fontSize: 16, textAlign: 'center', marginTop: 10, ...GetKanitFont("regular") }}>{item.name}</Text>
+                    <Text style={{ color: "#fff", fontSize: RFPercentage(2.2), textAlign: 'center', marginTop: 10, ...GetKanitFont("regular") }}>{item?.name}</Text>
 
                   </View>
                   
@@ -171,8 +174,8 @@ const styles = StyleSheet.create({
     flex: 0,
     marginHorizontal: 5,
     backgroundColor: colors.black,
-    width: widthOfWindow * 0.29,
-    height: heightOfWindow * 0.2,
+    width: height > 600 ?  widthOfWindow * 0.29 : widthOfWindow * 0.27,
+    height:  height > 600 ?  heightOfWindow * 0.2 : heightOfWindow *0.22,
     marginTop: 5, borderRadius: 15,
     shadowColor: "#000",
     shadowOffset: {
@@ -184,6 +187,6 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   status: {
-    padding: 12, width: 20, borderRadius: 12, alignSelf: 'flex-end', margin: 5
+    padding: height > 600 ?  12 : 10, width: 20, borderRadius: 12, alignSelf: 'flex-end', margin: 5
   }
 })

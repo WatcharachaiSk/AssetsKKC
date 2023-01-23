@@ -21,11 +21,11 @@ const LoginStack = () => {
                 component={LoginPage}
                 options={({ navigation, route }) => ({ headerShown: false })}
             />
-            {/* <stack.Screen
+            <stack.Screen
                 name={AppScreens.NavStack}
                 component={NavStack}
                 options={{ headerShown: false }}
-            /> */}
+            />
             {/* <stack.Screen
                 name={AppScreens.ListPage}
                 component={ListPage}

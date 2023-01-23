@@ -7,7 +7,6 @@ import TouchStatus from './components/TouchStatus';
 import { colors } from '../../config/colors';
 import { AppScreens } from '../../navigators/NavigeteEnum/NavigateEnum';
 import { heightOfWindow, widthOfWindow } from '../../utils/getDimension';
-import DataMockup from './components/DataMockup';
 import _, { keys, size } from 'lodash'
 import Icons from 'react-native-vector-icons/EvilIcons'
 import Ionicons from 'react-native-vector-icons/Ionicons'

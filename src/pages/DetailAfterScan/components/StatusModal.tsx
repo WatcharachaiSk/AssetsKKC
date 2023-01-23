@@ -131,7 +131,7 @@ const styles = StyleSheet.create({
 
   },
   itemStatus: {
-    width: widthOfWindow * 0.23,
+    width: widthOfWindow * 0.24,
     height: heightOfWindow * 0.12,
     borderRadius: 50,
     margin: 10

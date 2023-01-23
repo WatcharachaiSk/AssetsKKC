@@ -1,4 +1,4 @@
-import { Alert, Image, Pressable, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { Alert, Dimensions, Image, Pressable, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import React, { useState, useMemo, useEffect } from 'react'
 import { colors } from '../../config/colors'
 import { GetKanitFont } from '../../config/fonts'
@@ -18,7 +18,12 @@ import Entypo from "react-native-vector-icons/Entypo";
 import { launchCamera } from "react-native-image-picker";
 import { color } from '@rneui/base'
 import ModalFinished from '../Scanner/Modal/ModalFinished'
+import { baseURL, PATH_IMAGE_ITEM } from '../../axios/config'
+import { RFPercentage } from 'react-native-responsive-fontsize'
 
+
+
+const { height } = Dimensions.get("window");
 const DetailAfterScan = (props: any) => {
 
 
@@ -63,13 +68,18 @@ const DetailAfterScan = (props: any) => {
   }
 
   const onClickSave = async () => {
-    setShowSuccess(true);
-    var data = {
-      itemItemId: itemShow?.item_id,
-      locationLId: !valueLocations ? "" : valueLocations,
-      status: statusNew,
-      note: detailProblem + " แก้ไขโดย Mobile"
-    };
+    if (conditionSave) {
+      setShowSuccess(true);
+      var data = {
+        itemItemId: itemShow?.item_id,
+        locationLId: !valueLocations ? "" : valueLocations,
+        status: statusNew,
+        note: detailProblem + " แก้ไขโดย Mobile"
+      };
+    } else {
+      Alert.alert('กรุณากรอกรายละเอียดให้ครบถ้วน')
+    }
+
 
 
     //const note = `${detailProblem} แก้ไขโดย Mobile`;
@@ -109,6 +119,8 @@ const DetailAfterScan = (props: any) => {
 
   const [imageProblem, setImageProblem] = useState({
     image1: null,
+    image2: null,
+    image3: null,
 
   });
 
@@ -149,11 +161,7 @@ const DetailAfterScan = (props: any) => {
 
 
 
-  const onPressConfirm = async () => {
-    //setShowModal(true);
 
-
-  };
 
   const setResData = async (res: any) => {
     setGetUpdateItem(res);
@@ -172,7 +180,10 @@ const DetailAfterScan = (props: any) => {
               style={styles.iconCancelImage}
               onPress={() => {
                 image == imageProblem.image1
-                setImageProblem({ ...imageProblem, image1: null })
+                  ? setImageProblem({ ...imageProblem, image1: null })
+                  : image == imageProblem.image2
+                    ? setImageProblem({ ...imageProblem, image2: null })
+                    : setImageProblem({ ...imageProblem, image3: null });
               }}
             />
             <Image
@@ -212,6 +223,12 @@ const DetailAfterScan = (props: any) => {
             case 1:
               setImageProblem({ ...imageProblem, image1: data });
               break;
+            case 2:
+              setImageProblem({ ...imageProblem, image2: data });
+              break;
+            case 3:
+              setImageProblem({ ...imageProblem, image3: data });
+              break;
             default:
               break;
           }
@@ -230,6 +247,13 @@ const DetailAfterScan = (props: any) => {
             <Pressable onPress={() => openCamera(1)}>
               {boxImage(imageProblem.image1)}
             </Pressable>
+            <Pressable onPress={() => openCamera(2)}
+              style={{ marginHorizontal: 4 }}>
+              {boxImage(imageProblem.image2)}
+            </Pressable>
+            <Pressable onPress={() => openCamera(3)}>
+              {boxImage(imageProblem.image3)}
+            </Pressable>
           </View>
         </View>
         <View style={styles.description_Container}>
@@ -246,9 +270,9 @@ const DetailAfterScan = (props: any) => {
     );
   };
 
-  // const conditionSave =
-  //   detailProblem.length > 10 &&
-  //   (imageProblem.image1);
+  const conditionSave =
+    detailProblem.length > 10 &&
+    (imageProblem.image1 || imageProblem.image2 || imageProblem.image3);
 
 
   return (
@@ -314,9 +338,10 @@ const DetailAfterScan = (props: any) => {
         {/* ---content--- */}
 
         {/* image */}
-        <View style={{ flex: 2, alignItems: 'center' }}>
-          <View style={{ backgroundColor: colors.white, flex: 1, width: widthOfWindow * 0.9, height: heightOfWindow * 0.3, alignItems: 'center', justifyContent: 'center' }}>
-            <Image source={images.monitor} style={{ width: widthOfWindow * 0.8, height: heightOfWindow * 0.3 }} />
+        <View style={{ flex: 2, alignItems: 'center', margin: 10 }}>
+          <View style={{ flex: 1, width: widthOfWindow * 0.9, height: heightOfWindow * 0.32, alignItems: 'center', justifyContent: 'center' }}>
+            <Image style={{ width: widthOfWindow * 0.7, height: heightOfWindow * 0.32, flex: 1 }}
+              source={{ uri: `${baseURL}${PATH_IMAGE_ITEM}${itemShow.name_image_item}` }} />
           </View>
         </View>
 
@@ -334,7 +359,7 @@ const DetailAfterScan = (props: any) => {
               {/* status */}
               <View style={{ flex: 0, width: widthOfWindow * 0.3, alignItems: 'center' }}>
                 <View style={{
-                  width: widthOfWindow * 0.135, height: heightOfWindow * 0.07,
+                  width: widthOfWindow * 0.14, height: heightOfWindow * 0.07,
                   backgroundColor:
                     statusNew == true
                       ? colors.greenConfirm
@@ -376,13 +401,13 @@ const DetailAfterScan = (props: any) => {
                 <View style={styles.rowDetail}>
                   <Text style={globleStyles.fonts}>ตรวจสอบครั้งล่าสุด : {itemShow?.up_date_statuses[0] == null
                     ? "-"
-                    : itemShow?.up_date_statuses[0].updatedAt}
+                    : itemShow?.up_date_statuses[0]?.updatedAt}
                   </Text>
                 </View>
                 <View style={styles.rowDetail}>
                   <Text style={globleStyles.fonts}>หมายเหตุ : {itemShow?.up_date_statuses[0] == null
                     ? "-"
-                    : itemShow?.up_date_statuses[0].note}</Text>
+                    : itemShow?.up_date_statuses[0]?.note}</Text>
                 </View>
 
 
@@ -436,17 +461,19 @@ const DetailAfterScan = (props: any) => {
         <View style={{ justifyContent: 'center', alignContent: 'center' }}>
           <TouchableOpacity
             onPress={() => {
-              onPressConfirm();
+              //onPressConfirm();
               onClickSave()
             }}
 
             style={[styles.btnConfirm,
             {
-              backgroundColor: colors.greenConfirm
+              backgroundColor: conditionSave ?
+                colors.greenConfirm
+                : colors.blackGray,
             }]}
           >
             <Text style={[styles.fontBTStatus, {
-              color: colors.white, fontSize: 20
+              color: colors.white, fontSize: RFPercentage(3)
             }
             ]}>
               บันทึก
@@ -529,17 +556,17 @@ const styles = StyleSheet.create({
   },
   buttonStatus: {
     //backgroundColor: colors.Gray,
-    padding: 12,
+    padding: height > 600 ? 12 : 10,
     //marginHorizontal: 40,
     margin: 2,
-    borderRadius: 10,
+    borderRadius: height > 600 ? 10 : 8,
     width: widthOfWindow * 0.43,
     height: heightOfWindow * 0.07,
 
 
   },
   fontBTStatus: {
-    fontSize: 18,
+    fontSize: RFPercentage(2.5),
     ...GetKanitFont('regular'),
     textAlign: 'center',
     color: '#000'
@@ -551,10 +578,10 @@ const styles = StyleSheet.create({
     zIndex: 999,
   },
   btnConfirm: {
-    flex: 0,
+    flex: 1,
     width: widthOfWindow * 0.9,
     height: heightOfWindow * 0.08,
-    paddingVertical: 15,
+    paddingVertical: height > 600 ? 15 : 10,
     // justifyContent: "center",
     // alignItems: "center",
     borderRadius: 10,
@@ -567,11 +594,11 @@ const styles = StyleSheet.create({
     backgroundColor: "gray",
     marginVertical: 10,
   },
-  textBtn: {
-    fontSize: 18,
-    ...GetKanitFont("medium"),
-    color: colors.white,
-  },
+  // textBtn: {
+  //   fontSize: RFPercentage(2.5),
+  //   ...GetKanitFont("medium"),
+  //   color: colors.white,
+  // },
   description_Container: {
     marginVertical: 10,
   },

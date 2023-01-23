@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { View, Text, StyleSheet, Button, ScrollView, TouchableOpacity, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, Button, ScrollView, TouchableOpacity, Image, Dimensions } from 'react-native';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import { widthOfWindow, heightOfWindow } from '../../../utils/getDimension';
 import { colors } from '../../../config/colors';
@@ -8,6 +8,7 @@ import { items } from '../../../assets/json/items';
 import { GetKanitFont } from '../../../config/fonts';
 import globleStyles from '../../../config/globleStyles';
 import { RFPercentage } from 'react-native-responsive-fontsize';
+import { baseURL, PATH_IMAGE_ITEM, PATH_IMAGE_ITEM_DAMAGED } from '../../../axios/config';
 
 const { height } = Dimensions.get("window");
 
@@ -28,6 +29,7 @@ const BottomSheet = (props: any) => {
     statusItem = "ชำรุด";
   }
 
+  // format วันที่ตรวจสอบล่าสุด
   useEffect(() => {
     var date = new Date(itemShow?.up_date_statuses[0]?.inspected_at).getDate(); //Current Date
     var month = new Date(itemShow?.up_date_statuses[0]?.inspected_at).getMonth() + 1; //Current Month
@@ -41,6 +43,8 @@ const BottomSheet = (props: any) => {
     );
   }, []);
 
+
+  // format วันที่รับเข้า
   useEffect(() => {
     var date = new Date(itemShow?.typeitem.createdAt).getDate(); //Current Date
     var month = new Date(itemShow?.typeitem.createdAt).getMonth() + 1; //Current Month
@@ -81,7 +85,7 @@ const BottomSheet = (props: any) => {
             borderTopLeftRadius: 30,
             borderTopRightRadius: 30,
             backgroundColor: '#000',
-            height: height > 600 ? 450 : 350,
+            height: height > 600 ? 450 : 400,
           }
 
         }}
@@ -134,17 +138,22 @@ const BottomSheet = (props: any) => {
               <Text style={globleStyles.fonts}>สถานที่ : {itemShow?.location.nameTH} </Text>
             </View>
             <View style={{ marginVertical: 5 }}>
-              
-                <Text style={globleStyles.fonts}>ตรวจสอบครั้งล่าสุด : {itemShow?.up_date_statuses[0]?.inspected_at  != null ? currentDate : "-" } </Text>
-           
-            
-             
+
+              <Text style={globleStyles.fonts}>ตรวจสอบครั้งล่าสุด : {itemShow?.up_date_statuses[0]?.inspected_at != null ? currentDate : "-"} </Text>
+
+
+
             </View>
             <View style={{ marginVertical: 5 }}>
               <Text style={globleStyles.fonts}>หมายเหตุ : {itemShow?.up_date_statuses[0]?.note} </Text>
             </View>
 
+            <View style={{ margin: 10, marginBottom: 10, alignItems: 'center', justifyContent: 'flex-end' }}>
+              <Image style={{ width: height > 600 ? widthOfWindow * 0.5 : widthOfWindow * 0.5, height: height > 600 ?  heightOfWindow * 0.25 : heightOfWindow *0.3, flex: 0 }}
+                source={{ uri: `${baseURL}${PATH_IMAGE_ITEM_DAMAGED}${itemShow?.name_image_damaged}` }} />
 
+
+            </View>
 
 
           </View>
