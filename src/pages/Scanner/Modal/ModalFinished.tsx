@@ -18,6 +18,7 @@ import json from "../../../config/json";
 import { GetKanitFont } from "../../../config/fonts";
 import IconMaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { heightOfWindow, widthOfWindow } from "../../../utils/getDimension";
+import { chackStatusItemColor,chackStatusItem } from "../../../config/chackItemStatus";
 
 const ModalFinished = (props: any) => {
   const { showSuccess, onClickSwap, onScanAgain, oldItem, itemRes, location_nameTH, onClickSave, setShowSuccess,statusNew } = props;
@@ -98,17 +99,12 @@ const ModalFinished = (props: any) => {
                   style={[
                     styles.font_Status,
                     {
-                      color:
-                        oldItem?.status_item == true
-                          ? colors.greenConfirm
-                          : colors.greenConfirm
-                            && oldItem?.status_item == false
-                            ? colors.red
-                            : colors.red,
+                      color: chackStatusItemColor( oldItem?.status_item )
+                       
                     },
                   ]}
                 >
-                  {oldItem?.status_item == true ? "ปกติ" : "ชำรุด"}
+                 {chackStatusItem(oldItem?.status_item)}
                 </Text>
                 {/* Icon */}
                 <View style={{ top: 2, marginHorizontal: 20 }}>
@@ -123,17 +119,11 @@ const ModalFinished = (props: any) => {
                   style={[
                     styles.font_Status,
                     {
-                      color:
-                        statusNew == true
-                          ? colors.greenConfirm
-                          : colors.greenConfirm &&
-                            statusNew == false
-                            ? colors.red
-                            : colors.red,
+                      color:chackStatusItemColor(statusNew)
                     },
                   ]}
                 >
-                  {statusNew == true ? "ปกติ" : "ชำรุด"}
+                  {chackStatusItem(statusNew)}
                 </Text>
               </View>
             </View>

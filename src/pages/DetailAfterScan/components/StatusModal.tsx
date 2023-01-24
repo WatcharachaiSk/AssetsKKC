@@ -7,6 +7,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign'
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import { heightOfWindow, widthOfWindow } from '../../../utils/getDimension';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import axios from 'axios';
 import configAxios from '../../../axios/configAxios';
 import { API } from '../../../axios/swr/endpoint';
@@ -25,7 +26,7 @@ const StatusModal = (props: any) => {
     closeModal,
     valueLocations,
     showImportImages,
-    setStatusNew,itemShow } = props;
+    setStatusNew, itemShow } = props;
 
 
   const productHaveProblem = () => {
@@ -62,40 +63,76 @@ const StatusModal = (props: any) => {
 
 
             {/* status */}
-            <View style={{ flex: 0, flexDirection: 'row' }}>
-              <View style={{ flex: 0, margin: 10, }}>
+            <View style={{ flex: 1, margin: 5,alignItems:'center'}}>
+              <View style={styles.status}>
                 <TouchableOpacity
                   onPress={() => {
                     setStatusNew(true)
                     onClose()
                   }}
+                  style={{flexDirection:'row'}}
                 >
                   <View style={[styles.itemStatus, {
                     backgroundColor:
-                      colors.greenConfirm
+                      colors.greenConfirm,
                   }]}>
                     <View style={styles.viewIcon}>
-                      <AntDesign name='check' size={60} color={'#000'} />
+                      <AntDesign name='check' size={30} color={'#000'} />
                     </View>
                   </View>
-                  <View style={{ alignItems: 'center' }} >
+                  <View style={{ alignItems: 'center',justifyContent:'center' }} >
                     <Text style={styles.texts}>ปกติ</Text>
                   </View>
+
                 </TouchableOpacity>
 
               </View>
 
-              <View style={{ flex: 0, margin: 10, }}>
+              <View style={styles.status}>
                 <TouchableOpacity
                   onPress={() => productHaveProblem()}
+                  style={{flexDirection:'row'}}
                 >
                   <View style={[styles.itemStatus, { backgroundColor: colors.red }]}>
                     <View style={styles.viewIcon}>
-                      <FontAwesome5 name='tools' size={40} color={'#000'} />
+                      <FontAwesome5 name='tools' size={20} color={'#000'} />
                     </View>
                   </View>
-                  <View style={{ alignItems: 'center' }} >
+                  <View style={{ alignItems: 'center',justifyContent:'center' }} >
                     <Text style={styles.texts}>ชำรุด</Text>
+                  </View>
+                </TouchableOpacity>
+              </View>
+              <View style={styles.status}>
+                <TouchableOpacity
+                  onPress={() =>  
+                   { setStatusNew(2)
+                    onClose()}}
+                  style={{flexDirection:'row'}}
+                >
+                  <View style={[styles.itemStatus, { backgroundColor: colors.statusColor2 }]}>
+                    <View style={styles.viewIcon}>
+                      <AntDesign name='CodeSandbox' size={25} color={'#000'} />
+                    </View>
+                  </View>
+                  <View style={{ alignItems: 'center' ,justifyContent:'center'}} >
+                    <Text style={styles.texts}>รอจำหน่าย</Text>
+                  </View>
+                </TouchableOpacity>
+              </View>
+              <View style={styles.status}>
+                <TouchableOpacity
+                  onPress={() => { setStatusNew(3)
+                    onClose()}}
+                  style={{flexDirection:'row'}}
+                >
+                  <View style={[styles.itemStatus, { backgroundColor: colors.statusColor3 }]}>
+                    <View style={styles.viewIcon}>
+                      <MaterialCommunityIcons name='cart-check' size={25} color={'#000'} />
+                    </View>
+                  </View>
+                  <View style={{ alignItems: 'center',justifyContent:'center' }} >
+                    <Text style={styles.texts}>จำหน่ายแล้ว</Text>
                   </View>
                 </TouchableOpacity>
               </View>
@@ -115,7 +152,7 @@ const styles = StyleSheet.create({
 
 
   containerModal: {
-    flex: 1,
+    flex:2,
     alignItems: "center",
     justifyContent: "center",
 
@@ -125,16 +162,24 @@ const styles = StyleSheet.create({
     flex: 0,
     backgroundColor: colors.white,
     alignItems: "center",
-    margin: 20,
+    // backgroundColor:'red',
+    //  margin: 30,
     borderRadius: 20,
-    width: widthOfWindow * 0.85,
+    width: widthOfWindow * 0.9,
+    height: heightOfWindow * 0.48,
+   justifyContent:'center'
+
 
   },
   itemStatus: {
-    width: widthOfWindow * 0.24,
-    height: heightOfWindow * 0.12,
+    width: widthOfWindow * 0.10,
+    height: heightOfWindow * 0.05,
     borderRadius: 50,
-    margin: 10
+    margin: 5,
+    flex:0,
+
+   
+
   },
   viewIcon: {
     alignItems: 'center',
@@ -142,6 +187,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   texts: {
-    ...GetKanitFont('regular'), fontSize: 18
+    ...GetKanitFont('regular'), fontSize: RFPercentage(2.3)
+  },
+  status : {
+    flex: 0,
+    borderColor: colors.Gray ,
+    borderWidth:1 ,
+    margin:5,
+    borderRadius:10,
+    width:widthOfWindow*0.7,
   }
 })

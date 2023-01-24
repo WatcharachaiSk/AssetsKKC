@@ -221,7 +221,7 @@ const DetailAfterScan = (props: any) => {
           [{ text: "OK", onPress: () => { } }]
         );
       } else {
-        const data = res.assets[0];
+        const data = res?.assets[0];
         {
           switch (index) {
             case 1:
@@ -418,38 +418,43 @@ const DetailAfterScan = (props: any) => {
                   afterSelectStatus.showImageProblem && showSelectImage()
                 }
 
-                {/* button */}
-                <View style={{ flexDirection: 'row', margin: 5, justifyContent: 'center' }}>
+                {itemShow?.status_item != 3 &&
 
-                  {/* เปลี่ยนสถานที่ */}
+                  <>
+                    {/* button */}
+                    <View style={{ flexDirection: 'row', margin: 5, justifyContent: 'center' }}>
 
-                  <TouchableOpacity
-                    onPress={() => this.Scrollable.open()}
+                      {/* เปลี่ยนสถานที่ */}
 
-                    style={[styles.buttonStatus, { backgroundColor: '#fff' }]}>
-                    <Text style={styles.fontBTStatus}>เปลี่ยนสถานที่</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    onPress={() => {
-                      setTimeout(async () => {
-                        //onPressConfirm();
-                        onClickCheckStatus();
+                      <TouchableOpacity
+                        onPress={() => this.Scrollable.open()}
 
-                      }, 500);
-                    }}
-                    style={[styles.buttonStatus,
-                    {
-                      backgroundColor: colors.Gray
-                    }]}
-                  >
+                        style={[styles.buttonStatus, { backgroundColor: '#fff' }]}>
+                        <Text style={styles.fontBTStatus}>เปลี่ยนสถานที่</Text>
+                      </TouchableOpacity>
+                      <TouchableOpacity
+                        onPress={() => {
+                          setTimeout(async () => {
+                            //onPressConfirm();
+                            onClickCheckStatus();
 
-                    <Text style={styles.fontBTStatus}>
-                      ตรวจสอบสถานะ
+                          }, 500);
+                        }}
+                        style={[styles.buttonStatus,
+                        {
+                          backgroundColor: colors.Gray
+                        }]}
+                      >
 
-                    </Text>
-                  </TouchableOpacity>
-                </View>
+                        <Text style={styles.fontBTStatus}>
+                          ตรวจสอบสถานะ
 
+                        </Text>
+                      </TouchableOpacity>
+                    </View>
+                  </>
+
+                }
               </View>
 
             </View>

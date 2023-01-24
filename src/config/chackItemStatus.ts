@@ -24,7 +24,7 @@ export const chackStatusItem = (status: any) => {
     } else if (status == 2) {
       statusItemString = "รอจำหน่าย";
     } else if (status == 3) {
-      statusItemString = "จำหน่ายออก";
+      statusItemString = "จำหน่ายแล้ว";
     }
     return statusItemString;
   };

@@ -21,7 +21,7 @@ const globleStyles = StyleSheet.create({
     color: '#fff'
   },
   textID: {
-    fontSize: 18, color: '#fff',
+    fontSize: RFPercentage(2.8), color: '#fff',
     ...GetKanitFont('regular')
   },
   status: {

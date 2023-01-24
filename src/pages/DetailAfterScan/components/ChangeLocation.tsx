@@ -39,10 +39,10 @@ const ChangeLocation = (props: any) => {
 
 
     useMemo(async () => {
-        let res = await axios(await configAxios('get', `${API.getLocation}`));
+        let res:any = await axios(await configAxios('get', `${API.getLocation}`));
         if (res != null || res != undefined || res.status != 200) {
 
-            let dataJoin = await ArrDropDownLocations(res.data);
+            let dataJoin:any = await ArrDropDownLocations(res.data);
             setItemsLocations(dataJoin);
         } else {
             return Alert.alert("มีบางอย่างผิดปกติ");
@@ -101,7 +101,7 @@ const ChangeLocation = (props: any) => {
                         <Text style={[globleStyles.textID, { color: '#000', textAlign: 'left', margin: 10 }]}>สถานที่เดิม</Text>
 
                         <View style={{ flex: 0, justifyContent: 'center', margin: 15 }}>
-                            <Text style={{ fontSize: 24, textAlign: 'center', ...GetKanitFont('regular') }}>{location_Old}</Text>
+                            <Text style={{ fontSize: RFPercentage(3.2), textAlign: 'center', ...GetKanitFont('regular') }}>{location_Old}</Text>
                         </View>
 
                         <Text style={[globleStyles.textID, { color: '#000', textAlign: 'left', margin: 10 }]}>ต้องการเปลี่ยนเป็น</Text>

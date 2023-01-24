@@ -55,6 +55,7 @@ const Scanner = (props: any) => {
     })();
   }, []);
 
+  
   // useEffect(() => {
   //   if (props.route.params != undefined && isFinished == false) {
   //     setTimeout(async () => {
@@ -69,7 +70,6 @@ const Scanner = (props: any) => {
 
 
   useEffect(() => {
-    //console.log(PERMISSIONS.ANDROID.CAMERA);
     checkMultiple([PERMISSIONS.ANDROID.CAMERA]).then(
       async (statuses: any) => {
         const status = statuses[PERMISSIONS.ANDROID.CAMERA];
@@ -200,88 +200,12 @@ const Scanner = (props: any) => {
     );
   };
 
-  
-  // return (
-  //   <SafeAreaView style={{ flex: 1, backgroundColor: '#000' }} >
-  //     {device != null &&
-  //       hasPermission && (
-  //         <>
-  //           <Camera
-  //             style={[StyleSheet.absoluteFill, { marginVertical: height / 5 }]}
-  //             device={device}
-  //             isActive={true}
-  //             frameProcessor={frameProcessor}
-  //             frameProcessorFps={1}
-  //           />
-  //         </>
-  //       )}
-
-  //     {barcodes.map((barcode: any, id) => {
-  //       let barC = "-";
-  //       setTimeout(async () => {
-  //         barC = barcode != undefined ? barcode.content.data : "-";
-  //         // console.log(barC);
-  //         //console.log( baseURL + `/${barC}`);
-  //         if (
-  //           barcode != undefined && barC != undefined
-  //         ) {
-  //           try {
-  //             const fetchData = async () => {
-  //               const res = await axios(await configAxios('get', baseURL + `/${barC}`));
-
-  //               let getproduct = res.data;
-  //               setTimeout(async () => {
-  //                 navigation.navigate("DetailAfterScan", {
-  //                   getproduct,
-  //                 });
-  //               }, 500);
-  //             };
-  //             fetchData();
-  //           } catch (error) {
-  //             console.log("errorrrrrrrrrrrrr", error);
-  //           }
-  //         } else {
-  //           setTimeout(async () => {
-  //             // setItemRes(undefined);
-  //             // setoldItem(undefined);
-  //             setIsFinished(true);
-  //           }, 500);
-  //         }
-  //       });
-  //     })}
-  //   </SafeAreaView>
-  // )
 
   return (
     <SafeAreaView style={{   flex: 1,
       backgroundColor: colors.black,}}>
 
 
-      {/* <View style={{ backgroundColor: 'red' }}><Text>1222222222222222222222222</Text>
-       
-      </View> */}
-      {/* <View style={{ zIndex: 100 }}>
-          {props.route.params != undefined && (
-            <TouchableOpacity
-              onPress={() => {
-                setTimeout(async () => {
-                  setIsFinished(true);
-                }, 500);
-              }}
-              style={{ padding: 15, backgroundColor: "red" }}
-            >
-              <Text
-                style={{
-                  color: colors.Gray,
-                  textAlign: "center",
-                  ...GetKanitFont("regular"),
-                }}
-              >
-                ดูรายละเอียดที่เพิ่งสแกน
-              </Text>
-            </TouchableOpacity>
-          )}
-        </View> */}
 
       {device && permission && isFocused && renderScanner() }
       {!permission && renderSetting()}
