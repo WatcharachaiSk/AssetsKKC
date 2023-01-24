@@ -97,14 +97,14 @@ const ListPage = (props: any) => {
         return data?.status_item == isTouch;
       })
       setItemFilter(setData);
-      console.log('setDataaaaa', setData[0].status_item);
+      //console.log('setDataaaaa', setData[0].status_item);
 
     } else if (isTouch == false || isTouch == 0) {
       setData = _.filter(getItemAll, (data: any) => {
         return data?.status_item == isTouch;
       })
       setItemFilter(setData);
-      console.log('setDataaaaa', setData[0].status_item);
+     // console.log('setDataaaaa', setData[0].status_item);
 
     } else if (isTouch == 2) {
       setData = _.filter(getItemAll, (data: any) => {

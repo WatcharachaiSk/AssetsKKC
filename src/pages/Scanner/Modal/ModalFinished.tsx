@@ -172,7 +172,7 @@ const styles = StyleSheet.create({
     margin: 15,
     justifyContent: 'center',
     alignItems: 'center',
-    width: widthOfWindow * 0.8,
+    width: widthOfWindow * 0.9,
     height: heightOfWindow * 0.4
 
   },

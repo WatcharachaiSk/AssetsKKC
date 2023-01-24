@@ -37,6 +37,8 @@ const DetailAfterScan = (props: any) => {
   const [valueLocations, setValueLocations] = useState<any>();
   const [modalLocations, setModalLocations] = useState(false);
   const [getUpdateItem, setGetUpdateItem] = useState<[]>();
+  const [createdAtdate, setCreatedAtDate] = useState('');
+  const [currentDate, setCurrentDate] = useState('');
 
   const [statusNew, setStatusNew] = useState();
   const itemShow = props?.route?.params.getproduct || [""];
@@ -63,7 +65,35 @@ const DetailAfterScan = (props: any) => {
   }, [])
 
 
+  // format วันที่ตรวจสอบล่าสุด
+  useEffect(() => {
+    var date = new Date(itemShow?.up_date_statuses[0]?.inspected_at).getDate(); //Current Date
+    var month = new Date(itemShow?.up_date_statuses[0]?.inspected_at).getMonth() + 1; //Current Month
+    var year = new Date(itemShow?.up_date_statuses[0]?.inspected_at).getFullYear() + 543; //Current Year
+    var hours = new Date(itemShow?.up_date_statuses[0]?.inspected_at).getHours(); //Current Hours
+    var min = new Date(itemShow?.up_date_statuses[0]?.inspected_at).getMinutes(); //Current Minutes
+    setCurrentDate(
+      'วันที่ ' + date + '/' + month + '/' + year
+      + '  ' + '\nเวลา ' + hours + ':' + min +  ' น.'
+    );
 
+
+  }, []);
+
+
+  // format วันที่รับเข้า
+  useEffect(() => {
+    var date = new Date(itemShow?.createdAt).getDate(); //Current Date
+    var month = new Date(itemShow?.createdAt).getMonth() + 1 ; //Current Month
+    var year = new Date(itemShow?.createdAt).getFullYear() + 543; //Current Year
+    var hours = new Date(itemShow?.createdAt).getHours(); //Current Hours
+    var min = new Date(itemShow?.createdAt).getMinutes(); //Current Minutes
+    setCreatedAtDate(
+      'วันที่ ' + date + '/' + month + '/' + year
+      + '  ' + 'เวลา ' + hours + ':' + min  + ' น.'
+    );
+
+  }, []);
 
 
   const onScanAgain = () => {
@@ -72,18 +102,15 @@ const DetailAfterScan = (props: any) => {
   }
 
   const onClickSave = async () => {
-    // if (conditionSave) {
-    //   setShowSuccess(true);
-    //   var data = {
-    //     itemItemId: itemShow?.item_id,
-    //     locationLId: !valueLocations ? "" : valueLocations,
-    //     status: statusNew,
-    //     note: detailProblem + " แก้ไขโดย Mobile"
-    //   };
-    // } else {
-    //   Alert.alert('กรุณากรอกรายละเอียดให้ครบถ้วน')
-    // }
     setShowSuccess(true);
+    var data = {
+      itemItemId: itemShow?.item_id,
+      locationLId: !valueLocations ? "" : valueLocations,
+      status: statusNew,
+      note: detailProblem + " แก้ไขโดย Mobile"
+    };
+
+
 
 
     //const note = `${detailProblem} แก้ไขโดย Mobile`;
@@ -343,10 +370,18 @@ const DetailAfterScan = (props: any) => {
 
         {/* image */}
         <View style={{ flex: 2, alignItems: 'center', margin: 10 }}>
-          <View style={{ flex: 1, width: widthOfWindow * 0.9, height: heightOfWindow * 0.32, alignItems: 'center', justifyContent: 'center' }}>
-            <Image style={{ width: widthOfWindow * 0.7, height: heightOfWindow * 0.32, flex: 1 }}
-              source={{ uri: `${baseURL}${PATH_IMAGE_ITEM}${itemShow.name_image_item}` }} />
-          </View>
+          {itemShow.name_image_item ?
+            <View style={{ flex: 1, width: widthOfWindow * 0.9, height: heightOfWindow * 0.32, alignItems: 'center', justifyContent: 'center' }}>
+              <Image style={{ width: widthOfWindow * 0.7, height: heightOfWindow * 0.32, flex: 1 }}
+                source={{ uri: `${baseURL}${PATH_IMAGE_ITEM}${itemShow.name_image_item}` }} />
+            </View>
+            :
+            <View style={{ flex: 1, width: widthOfWindow * 0.9, height: heightOfWindow * 0.32, alignItems: 'center', justifyContent: 'center' }}>
+              <Image style={{ width: widthOfWindow * 0.7, height: heightOfWindow * 0.32, flex: 1 }}
+                source={images.up_img} />
+            </View>
+
+          }
         </View>
 
 
@@ -393,7 +428,7 @@ const DetailAfterScan = (props: any) => {
                 <View style={styles.rowDetail}>
                   <Text style={globleStyles.fonts}>วันที่รับเข้า : {itemShow?.up_date_statuses[0] == null
                     ? "-"
-                    : itemShow?.up_date_statuses[0].inspected_at}</Text>
+                    : createdAtdate}</Text>
                 </View>
 
                 <View style={styles.rowDetail}>
@@ -402,7 +437,7 @@ const DetailAfterScan = (props: any) => {
                 <View style={styles.rowDetail}>
                   <Text style={globleStyles.fonts}>ตรวจสอบครั้งล่าสุด : {itemShow?.up_date_statuses[0] == null
                     ? "-"
-                    : itemShow?.up_date_statuses[0]?.updatedAt}
+                    : currentDate }
                   </Text>
                 </View>
                 <View style={styles.rowDetail}>

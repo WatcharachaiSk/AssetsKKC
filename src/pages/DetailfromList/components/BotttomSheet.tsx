@@ -11,6 +11,8 @@ import { RFPercentage } from 'react-native-responsive-fontsize';
 import { baseURL, PATH_IMAGE_ITEM, PATH_IMAGE_ITEM_DAMAGED } from '../../../axios/config';
 import { chackStatusItemColor,chackStatusItem } from '../../../config/chackItemStatus';
 
+import Moment from 'react-moment';
+
 const { height } = Dimensions.get("window");
 
 
@@ -38,13 +40,14 @@ const BottomSheet = (props: any) => {
   useEffect(() => {
     var date = new Date(itemShow?.up_date_statuses[0]?.inspected_at).getDate(); //Current Date
     var month = new Date(itemShow?.up_date_statuses[0]?.inspected_at).getMonth() + 1; //Current Month
-    var year = new Date(itemShow?.up_date_statuses[0]?.inspected_at).getFullYear(); //Current Year
+    var year = new Date(itemShow?.up_date_statuses[0]?.inspected_at).getFullYear()+543; //Current Year
     var hours = new Date(itemShow?.up_date_statuses[0]?.inspected_at).getHours(); //Current Hours
     var min = new Date(itemShow?.up_date_statuses[0]?.inspected_at).getMinutes(); //Current Minutes
     var sec = new Date(itemShow?.up_date_statuses[0]?.inspected_at).getSeconds(); //Current Seconds
     setCurrentDate(
       'วันที่ ' + date + '/' + month + '/' + year
-      + '  ' + 'เวลา ' + hours + ':' + min + ':' + sec + ' น.'
+      + '  ' + 
+      '\nเวลา ' + hours + ':' + min + ' น.'
     );
 
 
@@ -61,7 +64,7 @@ const BottomSheet = (props: any) => {
     var sec = new Date(itemShow?.createdAt).getSeconds(); //Current Seconds
     setCreatedAtDate(
       'วันที่ ' + date + '/' + month + '/' + year
-      + '  ' + 'เวลา ' + hours + ':' + min + ':' +' น.'
+      + '  ' + '\nเวลา ' + hours + ':' + min + ' น.'
     );
  
   }, []);
