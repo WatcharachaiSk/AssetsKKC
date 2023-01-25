@@ -85,7 +85,7 @@ const CategoryPage = (props: any) => {
 
         {/* type */}
         <View style={{ flex: 0, backgroundColor: colors.Gray, width: widthOfWindow * 0.36, }}>
-          <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+          <ScrollView  contentContainerStyle={{ flexGrow: 1 }}>
             <Touchtype
               isTouch={isTouchType}
               setTouchType={setTouchType}
@@ -99,8 +99,9 @@ const CategoryPage = (props: any) => {
           {/* <Text>ปกติ   ชิ้น</Text> */}
           <View style={{ flex: 1, flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center' }}>
 
-            {_.map(itemFilter == undefined ? getItems : itemFilter, item => {
+            {_.map(itemFilter != undefined ? itemFilter :  getItems , item => {
               //console.log(item.name_image_item);
+             // console.log('getItems');
               return (
                 <TouchableOpacity
                   onPress={() => {
@@ -124,7 +125,7 @@ const CategoryPage = (props: any) => {
 
 
                   <View style={{ alignItems: 'center', margin: 5 }}>
-                    {item.name_image_item ?
+                    {item?.name_image_item ?
                       <Image
                         style={{ width: widthOfWindow * 0.2, height: heightOfWindow * 0.1, }}
                         source={{ uri: `${baseURL}${PATH_IMAGE_ITEM}${item?.name_image_item}` }} />
@@ -138,13 +139,19 @@ const CategoryPage = (props: any) => {
                     <Text style={{ color: "#fff", fontSize: RFPercentage(2.2), textAlign: 'center', marginTop: 10, ...GetKanitFont("regular") }}>{item?.name}</Text>
 
                   </View>
-                  
+
 
 
                 </TouchableOpacity>
 
               )
             })}
+            {getItems == 0 &&
+
+              <View style={{ alignItems: 'center', flex: 1, margin: 20 }}>
+                <Text style={{ textAlign: 'center', ...GetKanitFont('regular'), fontSize: RFPercentage(2.5) }}>ไม่พบข้อมูลครุภัณฑ์</Text>
+              </View>
+            }
 
 
 
@@ -173,8 +180,8 @@ const styles = StyleSheet.create({
     flex: 0,
     marginHorizontal: 5,
     backgroundColor: colors.black,
-    width: height > 600 ?  widthOfWindow * 0.29 : widthOfWindow * 0.27,
-    height:  height > 600 ?  heightOfWindow * 0.2 : heightOfWindow *0.22,
+    width: height > 600 ? widthOfWindow * 0.29 : widthOfWindow * 0.27,
+    height: height > 600 ? heightOfWindow * 0.2 : heightOfWindow * 0.22,
     marginTop: 5, borderRadius: 15,
     shadowColor: "#000",
     shadowOffset: {
@@ -186,10 +193,10 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   status: {
-    padding: height > 600 ?  12 : 10, 
-    width: 20, 
-    borderRadius: 12, 
-    alignSelf: 'flex-end', 
+    padding: height > 600 ? 12 : 10,
+    width: 20,
+    borderRadius: 12,
+    alignSelf: 'flex-end',
     margin: 5
   }
 })

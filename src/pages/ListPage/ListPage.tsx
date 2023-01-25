@@ -18,7 +18,7 @@ import configAxios from '../../axios/configAxios';
 import { API } from '../../axios/swr/endpoint';
 import postLogin from '../../axios/postLogin';
 import { RFPercentage } from 'react-native-responsive-fontsize';
-import { chackStatusItemColor,chackStatusItem } from '../../config/chackItemStatus';
+import { chackStatusItemColor, chackStatusItem } from '../../config/chackItemStatus';
 
 const { height } = Dimensions.get("window");
 const ListPage = (props: any) => {
@@ -104,7 +104,7 @@ const ListPage = (props: any) => {
         return data?.status_item == isTouch;
       })
       setItemFilter(setData);
-     // console.log('setDataaaaa', setData[0].status_item);
+      // console.log('setDataaaaa', setData[0].status_item);
 
     } else if (isTouch == 2) {
       setData = _.filter(getItemAll, (data: any) => {
@@ -121,7 +121,12 @@ const ListPage = (props: any) => {
       console.log('setD', setData);
 
     }
+    if (itemFilter == 0) {
+      <View><Text> ไม่พบข้อมูลในระบบ</Text></View>
+      console.log('noooooooooooooooooo');
 
+
+    }
 
 
 
@@ -190,7 +195,6 @@ const ListPage = (props: any) => {
       />
       <View style={{ flexDirection: "row", marginTop: 15 }}>
         <ScrollView
-        // showsHorizontalScrollIndicator
           horizontal={true}
           showsHorizontalScrollIndicator={true}
         >
@@ -223,10 +227,7 @@ const ListPage = (props: any) => {
 
                       navigation.navigate("DetailfromList", {
                         item: item,
-                      })
-
-                    }
-
+                      })}
                     }
 
                     style={styles.view_TouchItem}
@@ -242,21 +243,22 @@ const ListPage = (props: any) => {
                         style={[
                           styles.view_StateItem,
                           {
-                            backgroundColor:chackStatusItemColor(item?.status_item)
+                            backgroundColor: chackStatusItemColor(item?.status_item)
                           },
                         ]}
                       ></View>
                     </View>
                   </TouchableOpacity>
                 )
-              })}
+              })
 
-          {/* <FlatList
-            data={filteredDataSource}
-            keyExtractor={(item, index) => index.toString()}
-            ItemSeparatorComponent={ItemSeparatorView}
-            renderItem={ItemView}
-          /> */}
+          }
+          {itemFilter == 0 &&
+         
+              <View style={{ alignItems: 'center', flex: 1,margin:20}}>
+                <Text style={{ textAlign: 'center', ...GetKanitFont('regular'), fontSize: RFPercentage(2.5) }}>ไม่พบข้อมูลครุภัณฑ์</Text>
+              </View>
+          }
         </View>
       </ScrollView>
 

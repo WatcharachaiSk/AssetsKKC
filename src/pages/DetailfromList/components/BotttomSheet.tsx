@@ -96,7 +96,7 @@ const BottomSheet = (props: any) => {
             borderTopLeftRadius: 30,
             borderTopRightRadius: 30,
             backgroundColor: '#000',
-            height: height > 600 ? 450 : 400,
+            height: height > 600 ? 500 : 400,
           }
 
         }}

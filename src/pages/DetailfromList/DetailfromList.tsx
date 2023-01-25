@@ -48,9 +48,9 @@ const DetailfromList = (props: any) => {
       </TouchableOpacity>
 
       <View style={{ alignItems: 'center', justifyContent: 'flex-end' ,marginTop: 30}}>
-        {item.name_image_item ?
+        {item?.name_image_item ?
           <Image style={{ width: widthOfWindow * 0.9, height: heightOfWindow * 0.4, flex: 0 }}
-            source={{ uri: `${baseURL}${PATH_IMAGE_ITEM}${item.name_image_item}` }} />
+            source={{ uri: `${baseURL}${PATH_IMAGE_ITEM}${item?.name_image_item}` }} />
           :
           <Image style={{ width: widthOfWindow * 0.85, height: heightOfWindow * 0.4, flex: 0 }}
             source={images.up_img} />

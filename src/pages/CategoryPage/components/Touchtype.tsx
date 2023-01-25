@@ -49,10 +49,10 @@ const Touchtype = (props: any) => {
         <>
 
             {_.map(
-                getCategory ,item => {
-                 
+                getCategory, item => {
+
                     return (
-                        
+
                         <TouchableOpacity
 
                             key={item?.cate_id}
@@ -78,14 +78,13 @@ const Touchtype = (props: any) => {
                                 },
                                 ]}
                             >
-                                {item?.name} 
+                                {item?.name}
                             </Text>
-                            <Text style={[styles.textType,{fontSize:RFPercentage(2)}]}>หน่วยงาน {item?.department?.nameTH}</Text>
+                            <Text style={[styles.textType, { fontSize: RFPercentage(2) }]}>หน่วยงาน {item?.department?.nameTH}</Text>
 
                         </TouchableOpacity>
                     )
                 })}
-
         </>
     )
 }
@@ -102,6 +101,6 @@ const styles = StyleSheet.create({
         // ...GetKanitFont("medium"),
         fontSize: RFPercentage(2.2),
         textAlign: 'left',
-        ...GetKanitFont("regular") 
+        ...GetKanitFont("regular")
     },
 })

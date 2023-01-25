@@ -74,7 +74,7 @@ const DetailAfterScan = (props: any) => {
     var min = new Date(itemShow?.up_date_statuses[0]?.inspected_at).getMinutes(); //Current Minutes
     setCurrentDate(
       'วันที่ ' + date + '/' + month + '/' + year
-      + '  ' + '\nเวลา ' + hours + ':' + min +  ' น.'
+      + '  ' + '\nเวลา ' + hours + ':' + min + ' น.'
     );
 
 
@@ -84,13 +84,13 @@ const DetailAfterScan = (props: any) => {
   // format วันที่รับเข้า
   useEffect(() => {
     var date = new Date(itemShow?.createdAt).getDate(); //Current Date
-    var month = new Date(itemShow?.createdAt).getMonth() + 1 ; //Current Month
+    var month = new Date(itemShow?.createdAt).getMonth() + 1; //Current Month
     var year = new Date(itemShow?.createdAt).getFullYear() + 543; //Current Year
     var hours = new Date(itemShow?.createdAt).getHours(); //Current Hours
     var min = new Date(itemShow?.createdAt).getMinutes(); //Current Minutes
     setCreatedAtDate(
       'วันที่ ' + date + '/' + month + '/' + year
-      + '  ' + 'เวลา ' + hours + ':' + min  + ' น.'
+      + '  ' + 'เวลา ' + hours + ':' + min + ' น.'
     );
 
   }, []);
@@ -102,20 +102,56 @@ const DetailAfterScan = (props: any) => {
   }
 
   const onClickSave = async () => {
-    setShowSuccess(true);
+
     var data = {
       itemItemId: itemShow?.item_id,
       locationLId: !valueLocations ? "" : valueLocations,
       status: statusNew,
-      note: detailProblem + " แก้ไขโดย Mobile"
+      note: detailProblem + " แก้ไขโดย Mobile",
     };
+    // 
+    let api, objImg;
+    if (imageProblem.image1 != null) {
+      api = API.updateStetusPhoto
+      objImg = {
+        name: imageProblem?.image1?.fileName,
+        type: imageProblem?.image1?.type,
+        uri: imageProblem?.image1?.uri
+      }
+    } else {
+      api = API.updateStetus
+    }
+    console.log(objImg);
+
+
+    let dataform = new FormData();
+    dataform.append("itemItemId", itemShow?.item_id,);
+    dataform.append(
+      "locationLId", !valueLocations ? "" : valueLocations,
+    );
+    dataform.append("status", statusNew);
+    dataform.append("note", detailProblem);
+    dataform.append("images", objImg);
+
+
+    console.log(imageProblem.image1);
+    //console.log(dataform);
+
+
 
 
 
 
     //const note = `${detailProblem} แก้ไขโดย Mobile`;
-    const res = await axios(await configAxios('post', `${API.updateStetus}`, data));
-    setResData(res);
+    try {
+      const res = await axios(await configAxios('post', `${api}`, imageProblem.image1 != null ? dataform : data));
+      setResData(res);
+      setShowSuccess(true);
+    } catch (error) {
+      console.log(error);
+
+    }
+
     //console.log('res== ', res);
 
     setAfterSelectStatus({
@@ -150,8 +186,6 @@ const DetailAfterScan = (props: any) => {
 
   const [imageProblem, setImageProblem] = useState({
     image1: null,
-    image2: null,
-    image3: null,
 
   });
 
@@ -162,7 +196,7 @@ const DetailAfterScan = (props: any) => {
 
   const [detailProblem, setDetailProblem] = useState("");
 
-  const [afterSelectStatus, setAfterSelectStatus] = useState({ showImageProblem: false, });
+  const [afterSelectStatus, setAfterSelectStatus] = useState<any>({ showImageProblem: false, });
 
 
 
@@ -211,10 +245,9 @@ const DetailAfterScan = (props: any) => {
               style={styles.iconCancelImage}
               onPress={() => {
                 image == imageProblem.image1
-                  ? setImageProblem({ ...imageProblem, image1: null })
-                  : image == imageProblem.image2
-                    ? setImageProblem({ ...imageProblem, image2: null })
-                    : setImageProblem({ ...imageProblem, image3: null });
+                setImageProblem({ ...imageProblem, image1: null })
+                console.log('image.uri ', imageProblem);
+
               }}
             />
             <Image
@@ -249,19 +282,17 @@ const DetailAfterScan = (props: any) => {
         );
       } else {
         const data = res?.assets[0];
+        console.log(data);
+
         {
           switch (index) {
             case 1:
+              console.log(data);
+
               setImageProblem({ ...imageProblem, image1: data });
               break;
-            case 2:
-              setImageProblem({ ...imageProblem, image2: data });
-              break;
-            case 3:
-              setImageProblem({ ...imageProblem, image3: data });
-              break;
-            default:
-              break;
+
+
           }
         }
       }
@@ -278,13 +309,7 @@ const DetailAfterScan = (props: any) => {
             <Pressable onPress={() => openCamera(1)}>
               {boxImage(imageProblem.image1)}
             </Pressable>
-            <Pressable onPress={() => openCamera(2)}
-              style={{ marginHorizontal: 4 }}>
-              {boxImage(imageProblem.image2)}
-            </Pressable>
-            <Pressable onPress={() => openCamera(3)}>
-              {boxImage(imageProblem.image3)}
-            </Pressable>
+
           </View>
         </View>
         <View style={styles.description_Container}>
@@ -303,7 +328,7 @@ const DetailAfterScan = (props: any) => {
 
   const conditionSave =
     detailProblem.length > 10 &&
-    (imageProblem.image1 || imageProblem.image2 || imageProblem.image3);
+    (imageProblem.image1);
 
 
   return (
@@ -437,7 +462,7 @@ const DetailAfterScan = (props: any) => {
                 <View style={styles.rowDetail}>
                   <Text style={globleStyles.fonts}>ตรวจสอบครั้งล่าสุด : {itemShow?.up_date_statuses[0] == null
                     ? "-"
-                    : currentDate }
+                    : currentDate}
                   </Text>
                 </View>
                 <View style={styles.rowDetail}>

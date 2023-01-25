@@ -58,19 +58,19 @@ const StatusModal = (props: any) => {
             </View>
 
             <View style={{ justifyContent: "center" }}>
-              <Text style={{ ...GetKanitFont('medium'), fontSize: 22, color: '#000' }}>กรุณาเลือกสถานะของครุภัณฑ์</Text>
+              <Text style={{ ...GetKanitFont('medium'), fontSize: RFPercentage(2.8), color: '#000' }}>กรุณาเลือกสถานะของครุภัณฑ์</Text>
             </View>
 
 
             {/* status */}
-            <View style={{ flex: 1, margin: 5,alignItems:'center'}}>
+            <View style={{ flex: 1, margin: 5, alignItems: 'center' }}>
               <View style={styles.status}>
                 <TouchableOpacity
                   onPress={() => {
                     setStatusNew(true)
                     onClose()
                   }}
-                  style={{flexDirection:'row'}}
+                  style={{ flexDirection: 'row' }}
                 >
                   <View style={[styles.itemStatus, {
                     backgroundColor:
@@ -80,7 +80,7 @@ const StatusModal = (props: any) => {
                       <AntDesign name='check' size={30} color={'#000'} />
                     </View>
                   </View>
-                  <View style={{ alignItems: 'center',justifyContent:'center' }} >
+                  <View style={{ alignItems: 'center', justifyContent: 'center' }} >
                     <Text style={styles.texts}>ปกติ</Text>
                   </View>
 
@@ -91,47 +91,50 @@ const StatusModal = (props: any) => {
               <View style={styles.status}>
                 <TouchableOpacity
                   onPress={() => productHaveProblem()}
-                  style={{flexDirection:'row'}}
+                  style={{ flexDirection: 'row' }}
                 >
                   <View style={[styles.itemStatus, { backgroundColor: colors.red }]}>
                     <View style={styles.viewIcon}>
                       <FontAwesome5 name='tools' size={20} color={'#000'} />
                     </View>
                   </View>
-                  <View style={{ alignItems: 'center',justifyContent:'center' }} >
+                  <View style={{ alignItems: 'center', justifyContent: 'center' }} >
                     <Text style={styles.texts}>ชำรุด</Text>
                   </View>
                 </TouchableOpacity>
               </View>
               <View style={styles.status}>
                 <TouchableOpacity
-                  onPress={() =>  
-                   { setStatusNew(2)
-                    onClose()}}
-                  style={{flexDirection:'row'}}
+                  onPress={() => {
+                    setStatusNew(2)
+                    onClose()
+                  }}
+                  style={{ flexDirection: 'row' }}
                 >
                   <View style={[styles.itemStatus, { backgroundColor: colors.statusColor2 }]}>
                     <View style={styles.viewIcon}>
                       <AntDesign name='CodeSandbox' size={25} color={'#000'} />
                     </View>
                   </View>
-                  <View style={{ alignItems: 'center' ,justifyContent:'center'}} >
+                  <View style={{ alignItems: 'center', justifyContent: 'center' }} >
                     <Text style={styles.texts}>รอจำหน่าย</Text>
                   </View>
                 </TouchableOpacity>
               </View>
               <View style={styles.status}>
                 <TouchableOpacity
-                  onPress={() => { setStatusNew(3)
-                    onClose()}}
-                  style={{flexDirection:'row'}}
+                  onPress={() => {
+                    setStatusNew(3)
+                    onClose()
+                  }}
+                  style={{ flexDirection: 'row' }}
                 >
                   <View style={[styles.itemStatus, { backgroundColor: colors.statusColor3 }]}>
                     <View style={styles.viewIcon}>
                       <MaterialCommunityIcons name='cart-check' size={25} color={'#000'} />
                     </View>
                   </View>
-                  <View style={{ alignItems: 'center',justifyContent:'center' }} >
+                  <View style={{ alignItems: 'center', justifyContent: 'center' }} >
                     <Text style={styles.texts}>จำหน่ายแล้ว</Text>
                   </View>
                 </TouchableOpacity>
@@ -152,22 +155,23 @@ const styles = StyleSheet.create({
 
 
   containerModal: {
-    flex:2,
+    flex: 2,
     alignItems: "center",
     justifyContent: "center",
 
 
   },
   viewDetailModal: {
-    flex: 0,
+    flex:0,
     backgroundColor: colors.white,
     alignItems: "center",
     // backgroundColor:'red',
     //  margin: 30,
-    borderRadius: 20,
-    width: widthOfWindow * 0.9,
+    borderRadius: 15,
+    width: widthOfWindow * 0.85,
     height: heightOfWindow * 0.48,
-   justifyContent:'center'
+    justifyContent: 'center',
+
 
 
   },
@@ -176,9 +180,9 @@ const styles = StyleSheet.create({
     height: heightOfWindow * 0.05,
     borderRadius: 50,
     margin: 5,
-    flex:0,
+    flex: 0,
 
-   
+
 
   },
   viewIcon: {
@@ -187,14 +191,15 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   texts: {
-    ...GetKanitFont('regular'), fontSize: RFPercentage(2.3)
+    ...GetKanitFont('regular'), fontSize: RFPercentage(2.3), left:5
   },
-  status : {
+  status: {
     flex: 0,
-    borderColor: colors.Gray ,
-    borderWidth:1 ,
-    margin:5,
-    borderRadius:10,
-    width:widthOfWindow*0.7,
+    borderColor: colors.Gray,
+    borderWidth: 1,
+    margin: 5,
+    borderRadius: 10,
+    width: widthOfWindow * 0.72,
+
   }
 })
