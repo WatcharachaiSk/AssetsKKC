@@ -28,23 +28,27 @@ const LoginPage = (props: any) => {
 
    const [username, setUsername] = useState<string>("");
    const [password, setPassword] = useState<string>("");
-  
+
 
    const onPressLogin = async () => {
       const res: any = await postLogin(username, password)
       if (res.status == 200 || res.token != undefined) {
          //console.log("status", res.status);
- 
-         await AsyncStorage.setItem("accessToken", res?.data?.user?.authentication_token);
-          navigation.navigate("NavStack");
-          //console.log(res?.data?.user?.authentication_token);
-          
-      
+         if (res?.data?.user?.user_status == true) {
+            await AsyncStorage.setItem("accessToken", res?.data?.user?.authentication_token);
+            navigation.navigate("NavStack");
+         }else {
+            console.log("เกิดข้อผิดพลาดกรุณา");
+         }
+
+         //console.log(res?.data?.user?.authentication_token);
+
+
 
       } else {
          console.log("เกิดข้อผิดพลาดกรุณาลองใหม่อีกครั้ง", res);
-      }      
-     setIsLoading(false);
+      }
+      setIsLoading(false);
    }
 
 
@@ -66,6 +70,7 @@ const LoginPage = (props: any) => {
       <SafeAreaView style={{ flex: 1, }}>
 
          <View style={{ flex: 4, }}>
+            
 
             {/* bgHead */}
             <View style={{ flex: 1, alignItems: 'flex-end' }}>
@@ -101,9 +106,9 @@ const LoginPage = (props: any) => {
 
                <View style={{ flex: 1, margin: 20 }}>
                   <TouchableOpacity
-                     onPress={() => 
+                     onPress={() =>
                         onPressLogin()
-                    }
+                     }
                      // submit={setSubmit}
                      style={styles.ButtonLogin}>
                      <Text style={{ color: colors.black }}>LOGIN</Text>

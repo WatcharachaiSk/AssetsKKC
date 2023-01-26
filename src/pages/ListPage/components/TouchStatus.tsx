@@ -22,7 +22,7 @@ const TouchStatus = (props: any) => {
         style={[
           styles.StyleTouchStatus,
           {
-            backgroundColor: isTouch === "all" ? colors.black : colors.Gray,
+            backgroundColor: isTouch === "all" ? colors.black : colors.white,
           },
         ]}
       >
@@ -42,7 +42,7 @@ const TouchStatus = (props: any) => {
         style={[
           styles.StyleTouchStatus,
           {
-            backgroundColor: isTouch == true ? colors.black : colors.Gray,
+            backgroundColor: isTouch == true ? colors.black : colors.white,
           },
         ]}
       >
@@ -62,7 +62,7 @@ const TouchStatus = (props: any) => {
         style={[
           styles.StyleTouchStatus,
           {
-            backgroundColor: isTouch == false ? colors.black : colors.Gray,
+            backgroundColor: isTouch == false ? colors.black : colors.white,
           },
         ]}
       >
@@ -82,7 +82,7 @@ const TouchStatus = (props: any) => {
         style={[
           styles.StyleTouchStatus,
           {
-            backgroundColor: isTouch == 2 ? colors.black : colors.Gray,
+            backgroundColor: isTouch == 2 ? colors.black : colors.white,
           },
         ]}
       >
@@ -102,7 +102,7 @@ const TouchStatus = (props: any) => {
         style={[
           styles.StyleTouchStatus,
           {
-            backgroundColor: isTouch == 3 ? colors.black : colors.Gray,
+            backgroundColor: isTouch == 3 ? colors.black : colors.white,
           },
         ]}
       >
@@ -128,9 +128,11 @@ const styles = StyleSheet.create({
   StyleTouchStatus: {
     flex: 1,
     padding: heightOfWindow * 0.015,
-    width: widthOfWindow * 0.35,
-    // marginHorizontal: 10,
-    // borderRadius: 10,
+    width: widthOfWindow * 0.38,
+    marginHorizontal: 5,
+    borderWidth:1,
+    borderColor :colors.Gray,
+    borderRadius:10,
     shadowColor: "#000",
     shadowOffset: {
       width: 0,

@@ -42,7 +42,7 @@ const DetailAfterScan = (props: any) => {
 
   const [statusNew, setStatusNew] = useState();
   const itemShow = props?.route?.params.getproduct || [""];
-
+  const [getProfile, setGetProfile] = useState<any>();
   //Set Status
   let statusItem;
   if (itemShow.status_item == true || statusNew == true) {
@@ -63,6 +63,18 @@ const DetailAfterScan = (props: any) => {
       setStatusNew(statusNew)
     }
   }, [])
+
+  useEffect(() => {
+    //console.log('tessssssssss');
+
+    const unsubscribe = navigation.addListener("focus", async () => {
+      const res = await axios(await configAxios('get', `${API.getProfile}`))
+      setGetProfile(res?.data);
+      // await mutate();
+
+    });
+    return unsubscribe;
+  }, []);
 
 
   // format วันที่ตรวจสอบล่าสุด
@@ -102,61 +114,55 @@ const DetailAfterScan = (props: any) => {
   }
 
   const onClickSave = async () => {
-
-    var data = {
-      itemItemId: itemShow?.item_id,
-      locationLId: !valueLocations ? "" : valueLocations,
-      status: statusNew,
-      note: detailProblem + " แก้ไขโดย Mobile",
-    };
-    // 
-    let api, objImg;
-    if (imageProblem.image1 != null) {
-      api = API.updateStetusPhoto
-      objImg = {
-        name: imageProblem?.image1?.fileName,
-        type: imageProblem?.image1?.type,
-        uri: imageProblem?.image1?.uri
+    if (itemShow?.departmentDId == getProfile?.departmentDId) {
+      var data = {
+        itemItemId: itemShow?.item_id,
+        locationLId: !valueLocations ? "" : valueLocations,
+        status: statusNew,
+        note: detailProblem + " แก้ไขโดย Mobile",
+      };
+      // 
+      let api, objImg;
+      if (imageProblem.image1 != null) {
+        api = API.updateStetusPhoto
+        objImg = {
+          name: imageProblem?.image1?.fileName,
+          type: imageProblem?.image1?.type,
+          uri: imageProblem?.image1?.uri
+        }
+      } else {
+        api = API.updateStetus
       }
-    } else {
-      api = API.updateStetus
-    }
-    console.log(objImg);
+      console.log(objImg);
 
 
-    let dataform = new FormData();
-    dataform.append("itemItemId", itemShow?.item_id,);
-    dataform.append(
-      "locationLId", !valueLocations ? "" : valueLocations,
-    );
-    dataform.append("status", statusNew);
-    dataform.append("note", detailProblem);
-    dataform.append("images", objImg);
+      let dataform = new FormData();
+      dataform.append("itemItemId", itemShow?.item_id,);
+      dataform.append(
+        "locationLId", !valueLocations ? "" : valueLocations,
+      );
+      dataform.append("status", statusNew);
+      dataform.append("note", detailProblem);
+      dataform.append("images", objImg);
 
+      try {
+        const res = await axios(await configAxios('post', `${api}`, imageProblem.image1 != null ? dataform : data));
+        setResData(res);
+        setShowSuccess(true);
+      } catch (error) {
+        console.log(error);
 
-    console.log(imageProblem.image1);
-    //console.log(dataform);
+      }
 
+      //console.log('res== ', res);
 
-
-
-
-
-    //const note = `${detailProblem} แก้ไขโดย Mobile`;
-    try {
-      const res = await axios(await configAxios('post', `${api}`, imageProblem.image1 != null ? dataform : data));
-      setResData(res);
-      setShowSuccess(true);
-    } catch (error) {
-      console.log(error);
-
+      setAfterSelectStatus({
+        ...afterSelectStatus,
+      });
+    }else {
+      navigation.navigate("Scanner")
     }
 
-    //console.log('res== ', res);
-
-    setAfterSelectStatus({
-      ...afterSelectStatus,
-    });
 
   };
 
@@ -331,6 +337,10 @@ const DetailAfterScan = (props: any) => {
     (imageProblem.image1);
 
 
+  const onPressExit = () => {
+
+  }
+
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: colors.white }}>
       {/* BottomSheetเปลี่ยนสถานที่ */}
@@ -478,7 +488,7 @@ const DetailAfterScan = (props: any) => {
                   afterSelectStatus.showImageProblem && showSelectImage()
                 }
 
-                {itemShow?.status_item != 3 &&
+                {itemShow?.status_item != 3 && itemShow?.departmentDId == getProfile?.departmentDId &&
 
                   <>
                     {/* button */}
@@ -527,14 +537,15 @@ const DetailAfterScan = (props: any) => {
         <View style={{ justifyContent: 'center', alignContent: 'center' }}>
           <TouchableOpacity
             onPress={() => {
-              //onPressConfirm();
+              //onPressExit();
               onClickSave()
             }}
 
             style={[styles.btnConfirm,
             {
-              backgroundColor:
-                colors.greenConfirm
+              backgroundColor: itemShow?.departmentDId == getProfile?.departmentDId
+                ? colors.greenConfirm
+                : colors.red
 
             }]}
           >
@@ -542,7 +553,8 @@ const DetailAfterScan = (props: any) => {
               color: colors.white, fontSize: RFPercentage(3)
             }
             ]}>
-              บันทึก
+              {itemShow?.departmentDId == getProfile?.departmentDId ? 'บันทึก' : 'ออก'}
+
             </Text>
           </TouchableOpacity>
         </View>

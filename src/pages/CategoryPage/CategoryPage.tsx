@@ -125,7 +125,7 @@ const CategoryPage = (props: any) => {
 
 
                   <View style={{ alignItems: 'center', margin: 5 }}>
-                    {item?.name_image_item ?
+                    {item?.name_image_item ? 
                       <Image
                         style={{ width: widthOfWindow * 0.2, height: heightOfWindow * 0.1, }}
                         source={{ uri: `${baseURL}${PATH_IMAGE_ITEM}${item?.name_image_item}` }} />
