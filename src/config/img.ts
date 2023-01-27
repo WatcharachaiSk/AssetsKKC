@@ -9,5 +9,6 @@ const images = {
     scan : require('../assets/Image/scan.png'),
     scan_Web: "https://sv1.picz.in.th/images/2022/09/14/aJ9mNI.png",
     up_img: require('../assets/Image/no-image-icon-4.png'),
+    assets: require('../assets/Image/Group121.png'),
 };
 export default images

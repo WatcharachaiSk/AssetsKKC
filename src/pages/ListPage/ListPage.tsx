@@ -174,8 +174,8 @@ const ListPage = (props: any) => {
 
   return (
     <View style={{ backgroundColor: '#fff', flex: 1 }}>
-      <View style={{ flex: 0, marginVertical: heightOfWindow * 0.04, alignItems: 'center' }}>
-        <Image source={images.SCANnER} />
+      <View style={{ flex:0, alignItems: 'center' ,backgroundColor:colors.black,justifyContent:'flex-start'}}>
+        <Image source={images.assets} style={{width : widthOfWindow*0.52 ,height:heightOfWindow*0.15}}/>
       </View>
       <Searchbar
         placeholder="Search.."

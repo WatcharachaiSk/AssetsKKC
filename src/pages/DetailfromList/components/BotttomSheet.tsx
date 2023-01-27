@@ -23,19 +23,6 @@ const BottomSheet = (props: any) => {
   //console.log(itemShow.item_id);
 
 
-
-  //Set Status
-  let statusItem;
-  // if (itemShow?.status_item == true) {
-  //   statusItem = "ปกติ";
-  // } else if (itemShow?.status_item == false) {
-  //   statusItem = "ชำรุด";
-  // } else if (itemShow?.status_item == 2) {
-  //   statusItem = "รอจำหน่าย";
-  // } else if (itemShow?.status_item == 3) {
-  //   statusItem = "จำหน่ายเเล้ว";
-  // }
-
   // format วันที่ตรวจสอบล่าสุด
   useEffect(() => {
     var date = new Date(itemShow?.up_date_statuses[0]?.inspected_at).getDate(); //Current Date
@@ -69,7 +56,7 @@ const BottomSheet = (props: any) => {
  
   }, []);
 
-  //console.log(currentDate);
+
 
 
 

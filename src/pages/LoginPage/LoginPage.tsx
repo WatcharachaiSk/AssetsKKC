@@ -15,11 +15,13 @@ import axios from 'axios';
 import configAxios from '../../axios/configAxios';
 import { API } from '../../axios/swr/endpoint';
 import postLogin from '../../axios/postLogin';
+import Modalload from './components/Modalload';
+import { BlurView } from '@react-native-community/blur';
 
 
 
 const LoginPage = (props: any) => {
-
+   const [showModal, setShowModal] = React.useState(false);
 
    const navigation = props.navigation;
    const [text, setText] = useState<string>("");
@@ -28,25 +30,38 @@ const LoginPage = (props: any) => {
 
    const [username, setUsername] = useState<string>("");
    const [password, setPassword] = useState<string>("");
-
-
+   const [statusUser ,setStatusUser] = useState(false);
+   const [checked ,setChecked] = useState<boolean>(true);
+   const onClose = () => {
+      setShowModal(false);
+      // setShowConfirmModal(false)
+    };
+  
    const onPressLogin = async () => {
       const res: any = await postLogin(username, password)
       if (res.status == 200 || res.token != undefined) {
          //console.log("status", res.status);
+
+         //ตรวจสอบการโดนบล็อก
          if (res?.data?.user?.user_status == true) {
             await AsyncStorage.setItem("accessToken", res?.data?.user?.authentication_token);
             navigation.navigate("NavStack");
+            // setStatusUser(true);
+            // setChecked(true);
          }else {
+            setShowModal(true);
+            setChecked(false);
+            setStatusUser(false);
             console.log("เกิดข้อผิดพลาดกรุณา");
          }
 
          //console.log(res?.data?.user?.authentication_token);
 
-
-
       } else {
-         console.log("เกิดข้อผิดพลาดกรุณาลองใหม่อีกครั้ง", res);
+         setShowModal(true);
+         setStatusUser(true);
+         setChecked(false);
+         //console.log("เกิดข้อผิดพลาดกรุณาลองใหม่อีกครั้ง", res);
       }
       setIsLoading(false);
    }
@@ -68,6 +83,23 @@ const LoginPage = (props: any) => {
 
 
       <SafeAreaView style={{ flex: 1, }}>
+         <Modalload
+         showModal={showModal}
+         onClose={onClose}
+         setShowModal={setShowModal}
+         statusUser={statusUser}
+         checked={checked}
+         />
+         {
+            showModal && 
+            (
+               <BlurView
+                 style={styles.absolute}
+                 blurType="dark"
+                 blurAmount={1}
+                 reducedTransparencyFallbackColor="gray" />
+             )
+         }
 
          <View style={{ flex: 4, }}>
             
@@ -166,6 +198,14 @@ const styles = StyleSheet.create({
       fontSize: 14,
       ...GetKanitFont("regular"),
       color: colors.black
-   }
+   },
+   absolute: {
+      position: "absolute",
+      top: 0,
+      left: 0,
+      bottom: 0,
+      right: 0,
+      zIndex: 999,
+    },
 
 })

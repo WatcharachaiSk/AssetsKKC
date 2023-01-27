@@ -114,7 +114,8 @@ const DetailAfterScan = (props: any) => {
   }
 
   const onClickSave = async () => {
-    if (itemShow?.departmentDId == getProfile?.departmentDId) {
+
+    if (itemShow?.departmentDId == getProfile?.departmentDId || conditionSave) {
       var data = {
         itemItemId: itemShow?.item_id,
         locationLId: !valueLocations ? "" : valueLocations,
@@ -159,9 +160,11 @@ const DetailAfterScan = (props: any) => {
       setAfterSelectStatus({
         ...afterSelectStatus,
       });
-    }else {
+    } else {
       navigation.navigate("Scanner")
     }
+
+
 
 
   };
@@ -203,8 +206,8 @@ const DetailAfterScan = (props: any) => {
   const [detailProblem, setDetailProblem] = useState("");
 
   const [afterSelectStatus, setAfterSelectStatus] = useState<any>({ showImageProblem: false, });
-
-
+  // const [conditionSave, setConditionSave] = useState<boolean>();
+  const [checkUser, setCheckUser] = useState<any>();
 
 
   useMemo(async () => {
@@ -231,6 +234,17 @@ const DetailAfterScan = (props: any) => {
 
 
 
+
+
+  // useEffect(() => {
+
+  //   if (itemShow?.departmentDId == getProfile?.departmentDId) {
+  //     setCheckUser(true);
+  //   } else {
+  //     setCheckUser(false);
+  //   }
+
+  // }, [checkUser]);
 
 
 
@@ -288,7 +302,7 @@ const DetailAfterScan = (props: any) => {
         );
       } else {
         const data = res?.assets[0];
-        console.log(data);
+        //console.log(data);
 
         {
           switch (index) {
@@ -332,14 +346,11 @@ const DetailAfterScan = (props: any) => {
     );
   };
 
-  const conditionSave =
-    detailProblem.length > 10 &&
-    (imageProblem.image1);
 
 
-  const onPressExit = () => {
 
-  }
+
+
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: colors.white }}>
@@ -534,28 +545,31 @@ const DetailAfterScan = (props: any) => {
 
 
         {/* buttonSave */}
+
         <View style={{ justifyContent: 'center', alignContent: 'center' }}>
           <TouchableOpacity
             onPress={() => {
               //onPressExit();
               onClickSave()
             }}
-
             style={[styles.btnConfirm,
             {
-              backgroundColor: itemShow?.departmentDId == getProfile?.departmentDId
-                ? colors.greenConfirm
-                : colors.red
+              backgroundColor:
+                itemShow?.departmentDId == getProfile?.departmentDId
+                  ? colors.greenConfirm
+                  : colors.red
 
             }]}
           >
+
+
             <Text style={[styles.fontBTStatus, {
               color: colors.white, fontSize: RFPercentage(3)
             }
-            ]}>
-              {itemShow?.departmentDId == getProfile?.departmentDId ? 'บันทึก' : 'ออก'}
+            ]}>{itemShow?.departmentDId == getProfile?.departmentDId ? 'บันทึก' : 'ออก'} </Text>
 
-            </Text>
+
+
           </TouchableOpacity>
         </View>
 

@@ -142,7 +142,7 @@ const DetailfromList = (props: any) => {
 
         </View>
 
-        <View style={{ flex: 1, marginTop: 150 }}>
+        <View style={{ flex: 1, marginTop: heightOfWindow*0.24 }}>
           {getItemByID != undefined &&
             <BottomSheet itemShow={getItemByID} />
           }
