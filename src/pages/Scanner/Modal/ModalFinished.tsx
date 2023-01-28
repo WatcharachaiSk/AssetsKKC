@@ -18,17 +18,17 @@ import json from "../../../config/json";
 import { GetKanitFont } from "../../../config/fonts";
 import IconMaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { heightOfWindow, widthOfWindow } from "../../../utils/getDimension";
-import { chackStatusItemColor,chackStatusItem } from "../../../config/chackItemStatus";
+import { chackStatusItemColor, chackStatusItem } from "../../../config/chackItemStatus";
 
 const ModalFinished = (props: any) => {
-  const { showSuccess, onClickSwap, onScanAgain, oldItem, itemRes, location_nameTH, onClickSave, setShowSuccess,statusNew } = props;
+  const { showSuccess, onClickSwap, onScanAgain, oldItem, itemRes, location_nameTH, onClickSave, setShowSuccess, statusNew } = props;
   const [animationFn, setAnimationFn] = useState(false);
   const animationFinish = () => {
     // console.log("fn");
     setAnimationFn(true);
   };
-// console.log('oldItem== ',oldItem?.status_item);
-// console.log('statusNew== ',statusNew);
+  // console.log('oldItem== ',oldItem?.status_item);
+  // console.log('statusNew== ',statusNew);
 
 
 
@@ -59,104 +59,104 @@ const ModalFinished = (props: any) => {
 
     >
 
-
-      {/* {itemRes != undefined && oldItem != undefined 
-       && ( */}
-
-
-      <View style={{justifyContent:'center',alignItems:'center',flex:1}}>
+{/* 
+      {itemRes != undefined && oldItem != undefined
+        && ( */}
 
 
-        <SafeAreaView style={styles.container} >
-
-          <View style={{ flex: 0, }}>
-            <View style={{ flex: 0, marginTop: 10 }}>
-
-              <View style={styles.view_ContainerLottiv}>
-                <LottieView
-                  resizeMode="contain"
-                  style={{ flex: 0, width: 200, height: 200 }}
-                  source={json.success}
-                  autoPlay
-                  duration={3000}
-                  loop={true}
-                // onAnimationFinish={() => {
-                //   animationFinish();
-                // }}
-                />
-              </View>
+          <View style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}>
 
 
+            <SafeAreaView style={styles.container} >
 
-              {/* <View
+              <View style={{ flex: 0, }}>
+                <View style={{ flex: 0, marginTop: 10 }}>
+
+                  <View style={styles.view_ContainerLottiv}>
+                    <LottieView
+                      resizeMode="contain"
+                      style={{ flex: 0, width: 200, height: 200 }}
+                      source={json.success}
+                      autoPlay
+                      duration={3000}
+                      loop={true}
+                    // onAnimationFinish={() => {
+                    //   animationFinish();
+                    // }}
+                    />
+                  </View>
+
+
+
+                  {/* <View
                 style={{ justifyContent: "center", alignItems: "center" }}
               >
                 <Text style={styles.font_NameItem}>{nameTH}</Text>
               </View> */}
-              <View style={styles.view_StatusOldNew}>
-                {/* เก่า */}
-                <Text
-                  style={[
-                    styles.font_Status,
-                    {
-                      color: chackStatusItemColor( oldItem?.status_item )
-                       
-                    },
-                  ]}
-                >
-                 {chackStatusItem(oldItem?.status_item)}
-                </Text>
-                {/* Icon */}
-                <View style={{ top: 2, marginHorizontal: 20 }}>
-                  <IconMaterialCommunityIcons
-                    name="transfer-right"
-                    size={40}
-                    style={{ opacity: 0.9 }}
-                  />
+                  <View style={styles.view_StatusOldNew}>
+                    {/* เก่า */}
+                    <Text
+                      style={[
+                        styles.font_Status,
+                        {
+                          color: chackStatusItemColor(oldItem?.status_item)
+
+                        },
+                      ]}
+                    >
+                      {chackStatusItem(oldItem?.status_item)}
+                    </Text>
+                    {/* Icon */}
+                    <View style={{ top: 2, marginHorizontal: 20 }}>
+                      <IconMaterialCommunityIcons
+                        name="transfer-right"
+                        size={40}
+                        style={{ opacity: 0.9 }}
+                      />
+                    </View>
+                    {/* ใหม่ */}
+                    <Text
+                      style={[
+                        styles.font_Status,
+                        {
+                          color: chackStatusItemColor(statusNew)
+                        },
+                      ]}
+                    >
+                      {chackStatusItem(statusNew)}
+                    </Text>
+                  </View>
                 </View>
-                {/* ใหม่ */}
-                <Text
-                  style={[
-                    styles.font_Status,
-                    {
-                      color:chackStatusItemColor(statusNew)
-                    },
-                  ]}
-                >
-                  {chackStatusItem(statusNew)}
-                </Text>
+
               </View>
-            </View>
+              <View style={{ flex: 0 }}>
+                <View
+                  style={{
+                    top: -20,
+                  }}
+                >
+                  <Pressable
+                    onPress={() => {
+                      setShowSuccess(false)
 
+                      setTimeout(async () => {
+                        onScanAgain();
+                      }, 500);
+                    }}
+                    style={[
+                      styles.buttonModal,
+                      { backgroundColor: colors.greenConfirm },
+                    ]}
+                  >
+                    <Text style={styles.textButton}>สแกนต่อ</Text>
+                  </Pressable>
+                </View>
+              </View>
+
+            </SafeAreaView>
+         
           </View>
-          <View style={{ flex: 0 }}>
-            <View
-              style={{
-                top: -20,
-              }}
-            >
-              <Pressable
-                onPress={() => {
-                  setShowSuccess(false)
-
-                  setTimeout(async () => {
-                    onScanAgain();
-                  }, 500);
-                }}
-                style={[
-                  styles.buttonModal,
-                  { backgroundColor: colors.greenConfirm },
-                ]}
-              >
-                <Text style={styles.textButton}>สแกนต่อ</Text>
-              </Pressable>
-            </View>
-          </View>
-
-        </SafeAreaView>
-        {/* )} */}
-      </View>
-
+          {/* )} */}
     </Modal>
   )
 }

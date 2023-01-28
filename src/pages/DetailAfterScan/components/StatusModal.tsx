@@ -106,6 +106,24 @@ const StatusModal = (props: any) => {
               <View style={styles.status}>
                 <TouchableOpacity
                   onPress={() => {
+                    setStatusNew(4)
+                    onClose()
+                  }}
+                  style={{ flexDirection: 'row' }}
+                >
+                  <View style={[styles.itemStatus, { backgroundColor: colors.statusColor4 }]}>
+                    <View style={styles.viewIcon}>
+                      <AntDesign name='exception1' size={25} color={'#000'} />
+                    </View>
+                  </View>
+                  <View style={{ alignItems: 'center', justifyContent: 'center' }} >
+                    <Text style={styles.texts}>รอหมายเลขครุภัณฑ์</Text>
+                  </View>
+                </TouchableOpacity>
+              </View>
+              <View style={styles.status}>
+                <TouchableOpacity
+                  onPress={() => {
                     setStatusNew(2)
                     onClose()
                   }}
@@ -141,6 +159,7 @@ const StatusModal = (props: any) => {
               </View>
 
 
+
             </View>
           </View>
         </View>
@@ -162,14 +181,14 @@ const styles = StyleSheet.create({
 
   },
   viewDetailModal: {
-    flex:0,
+    flex: 0,
     backgroundColor: colors.white,
     alignItems: "center",
     // backgroundColor:'red',
     //  margin: 30,
     borderRadius: 15,
     width: widthOfWindow * 0.85,
-    height: heightOfWindow * 0.48,
+    height: heightOfWindow * 0.55,
     justifyContent: 'center',
 
 
@@ -191,7 +210,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   texts: {
-    ...GetKanitFont('regular'), fontSize: RFPercentage(2.3), left:5
+    ...GetKanitFont('regular'), fontSize: RFPercentage(2.3), left: 5
   },
   status: {
     flex: 0,

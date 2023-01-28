@@ -41,7 +41,7 @@ const DetailAfterScan = (props: any) => {
   const [currentDate, setCurrentDate] = useState('');
 
   const [statusNew, setStatusNew] = useState();
-  const itemShow = props?.route?.params.getproduct || [""];
+  const itemShow = props?.route?.params?.getproduct || [""];
   const [getProfile, setGetProfile] = useState<any>();
   //Set Status
   let statusItem;
@@ -54,6 +54,8 @@ const DetailAfterScan = (props: any) => {
     statusItem = "รอจำหน่าย";
   } else if (itemShow.status_item == 3 || statusNew == 3) {
     statusItem = "จำหน่ายแล้ว";
+  }else if (itemShow.status_item == 4 || statusNew == 4) {
+    statusItem = "รอหมายเลขครุภัณฑ์";
   }
 
   useEffect(() => {
@@ -472,7 +474,7 @@ const DetailAfterScan = (props: any) => {
                   <Text style={globleStyles.fonts}>รายละเอียดครุภัณฑ์ : {itemShow?.description} </Text>
                 </View>
                 <View style={styles.rowDetail}>
-                  <Text style={globleStyles.fonts}>วันที่รับเข้า : {itemShow?.up_date_statuses[0] == null
+                  <Text style={globleStyles.fonts}>วันที่รับเข้า : {itemShow?.createdAt == null
                     ? "-"
                     : createdAtdate}</Text>
                 </View>
@@ -487,9 +489,9 @@ const DetailAfterScan = (props: any) => {
                   </Text>
                 </View>
                 <View style={styles.rowDetail}>
-                  <Text style={globleStyles.fonts}>หมายเหตุ : {itemShow?.up_date_statuses[0] == null
+                  <Text style={globleStyles.fonts}>หมายเหตุ : {itemShow?.up_date_statuses[0] == null || itemShow?.up_date_statuses[0].note == ""
                     ? "-"
-                    : itemShow?.up_date_statuses[0]?.note}</Text>
+                    : itemShow?.up_date_statuses[0].note}</Text>
                 </View>
 
 

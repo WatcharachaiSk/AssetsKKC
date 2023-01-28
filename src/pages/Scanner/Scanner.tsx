@@ -19,12 +19,13 @@ import { isIOS } from '@rneui/base';
 import LottieView from "lottie-react-native";
 import json from '../../config/json';
 import ModalFinished from './Modal/ModalFinished';
-
+import ModalBarcodeUndefined from './Modal/ModalBarcodeUndefined';
+import { BlurView } from '@react-native-community/blur';
 const { height } = Dimensions.get("window");
 
 const Scanner = (props: any) => {
 
-  
+
   const navigation = props.navigation;
 
   const [isFinished, setIsFinished] = useState(false);
@@ -40,9 +41,15 @@ const Scanner = (props: any) => {
   const devices = useCameraDevices();
   const device = devices.back;
   const isFocused = useIsFocused();
+  // const [showModal, setShowModal] = React.useState(false);
+  const [showbarcodeUndefined, setShowBarcodeUndefined] = useState(false);
+  // console.log('isFocused is',isFocused);
 
- // console.log('isFocused is',isFocused);
-  
+
+  const onScanAgain = () => {
+    setShowBarcodeUndefined(false);
+
+  }
 
   const [frameProcessor, barcodes] = useScanBarcodes([BarcodeFormat.QR_CODE], {
     checkInverted: true,
@@ -55,7 +62,7 @@ const Scanner = (props: any) => {
     })();
   }, []);
 
-  
+
   // useEffect(() => {
   //   if (props.route.params != undefined && isFinished == false) {
   //     setTimeout(async () => {
@@ -63,10 +70,25 @@ const Scanner = (props: any) => {
   //     }, 500);
   //     setNameItem(props.route.params.name);
   //     setItemRes(props.route.params.up_Date_Statuses);
-  //      setoldItem(props.route.params.oldItem);
+  //     setoldItem(props.route.params.oldItem);
   //     setLocations_nameTH(props?.route?.params?.location?.nameTH);
   //   }
+  //   console.log('props.route.params=',props.route.params);
+    
   // }, []);
+
+
+  //   useEffect(() => {
+  //     let res:any ;
+  //   if (res.status == 200 || res.token != undefined) {
+  //   setShowBarcodeUndefined(true);
+  //   console.log('fjehfu3yrhjqwiu tr');
+    
+  //   }
+  //  ;
+    
+  // }, []);
+  
 
 
   useEffect(() => {
@@ -119,16 +141,16 @@ const Scanner = (props: any) => {
     return (
       <>
         {device != null &&
-        permission && (
-          <Camera
-            style={[StyleSheet.absoluteFill, { marginVertical: height / 5 }]}
-            device={device}
-            isActive={true}
-            frameProcessor={frameProcessor}
-            frameProcessorFps={1}
-          />
-        )}
-         <View
+          permission && (
+            <Camera
+              style={[StyleSheet.absoluteFill, { marginVertical: height / 5 }]}
+              device={device}
+              isActive={true}
+              frameProcessor={frameProcessor}
+              frameProcessorFps={1}
+            />
+          )}
+        <View
           style={[
             styles.item_Line,
             { marginTop: props.route.params != undefined ? -20 : 0 },
@@ -155,7 +177,7 @@ const Scanner = (props: any) => {
               barcode != undefined && barC != undefined
             ) {
               try {
-                const fetchData = async () => {
+                // const fetchData = async () => {
                   const res = await axios(await configAxios('get', baseURL + `/${barC}`));
 
                   let getproduct = res.data;
@@ -163,17 +185,21 @@ const Scanner = (props: any) => {
                     navigation.navigate("DetailAfterScan", {
                       getproduct,
                     });
+                    // console.log(res.status);
+                    
                   }, 500);
-                };
-                fetchData();
+                // };
+                // fetchData();
               } catch (error) {
+                setShowBarcodeUndefined(true);
                 console.log("errorrrrrrrrrrrrr", error);
               }
             } else {
               setTimeout(async () => {
-                setItemRes(undefined);
-                setoldItem(undefined);
+                // setItemRes(undefined);
+                // setoldItem(undefined);
                 setIsFinished(true);
+                //setShowBarcodeUndefined(true);
               }, 500);
             }
           });
@@ -181,7 +207,7 @@ const Scanner = (props: any) => {
 
       </>
 
-    
+
     );
   };
 
@@ -202,15 +228,29 @@ const Scanner = (props: any) => {
 
 
   return (
-    <SafeAreaView style={{   flex: 1,
-      backgroundColor: colors.black,}}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: colors.black, }}>
 
+      <ModalBarcodeUndefined
+        showbarcodeUndefined={showbarcodeUndefined}
+        onScanAgain={onScanAgain}
+        setShowBarcodeUndefined={setShowBarcodeUndefined}
+      
+      />
+      {
+        showbarcodeUndefined &&
+        (
+          <BlurView
+            style={styles.absolute}
+            blurType="dark"
+            blurAmount={1}
+            reducedTransparencyFallbackColor="gray" />
+        )
+      }
 
-
-      {device && permission && isFocused && renderScanner() }
+      {device && permission && isFocused && renderScanner()}
       {!permission && renderSetting()}
 
-    </SafeAreaView>                                                                                   
+    </SafeAreaView>
   );
 };
 
@@ -253,4 +293,13 @@ const styles = StyleSheet.create({
     padding: 8,
     ...GetKanitFont("medium"),
   },
+  absolute: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    bottom: 0,
+    right: 0,
+    zIndex: 999,
+  },
+
 })

@@ -93,11 +93,7 @@ const DetailfromList = (props: any) => {
       }
 
     }
-    //arrImage.push({ img: `${baseURL}${PATH_IMAGE_ITEM}${item?.name_image_item}` })
-
-
-
-    console.log(arrImage);
+   //console.log(arrImage);
 
 
   }, [item,getItemByID])

@@ -78,6 +78,26 @@ const TouchStatus = (props: any) => {
         </Text>
       </TouchableOpacity>
       <TouchableOpacity
+        onPress={() => setTouchStatus(4)}
+        style={[
+          styles.StyleTouchStatus,
+          {
+            backgroundColor: isTouch == 4 ? colors.black : colors.white,
+          },
+        ]}
+      >
+        <Text
+          style={[
+            styles.textStatus,
+            {
+              color: isTouch == 4? colors.white : colors.black,
+            },
+          ]}
+        >
+          รอหมายเลขครุภัณฑ์
+        </Text>
+      </TouchableOpacity>
+      <TouchableOpacity
         onPress={() => setTouchStatus(2)}
         style={[
           styles.StyleTouchStatus,
@@ -128,7 +148,7 @@ const styles = StyleSheet.create({
   StyleTouchStatus: {
     flex: 1,
     padding: heightOfWindow * 0.015,
-    width: widthOfWindow * 0.38,
+    width: widthOfWindow * 0.4,
     marginHorizontal: 5,
     borderWidth:1,
     borderColor :colors.Gray,

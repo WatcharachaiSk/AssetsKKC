@@ -120,6 +120,13 @@ const ListPage = (props: any) => {
       setItemFilter(setData);
       console.log('setD', setData);
 
+    } else if (isTouch == 4) {
+      setData = _.filter(getItemAll, (data: any) => {
+        return data?.status_item == isTouch;
+      })
+      setItemFilter(setData);
+      console.log('setD', setData);
+
     }
     if (itemFilter == 0) {
       <View><Text> ไม่พบข้อมูลในระบบ</Text></View>

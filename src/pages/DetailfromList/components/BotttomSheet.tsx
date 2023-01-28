@@ -127,7 +127,7 @@ const BottomSheet = (props: any) => {
                 : createdAtdate} </Text>
             </View>
             <View style={{ marginVertical: 5 }}>
-              <Text style={globleStyles.fonts}>สถานที่ : {itemShow?.location.nameTH} </Text>
+              <Text style={globleStyles.fonts}>สถานที่ : ห้อง{itemShow?.location.nameTH} ชั้น {itemShow?.location?.floor} อาคาร {itemShow?.building?.nameTH} </Text>
             </View>
             <View style={{ marginVertical: 5 }}>
 
@@ -211,7 +211,7 @@ const styles = StyleSheet.create({
   touchOpen: {
     borderRadius: 15,
     backgroundColor: colors.black,
-    padding: heightOfWindow * 0.05,
+    padding: heightOfWindow * 0.03,
     width: widthOfWindow * 0.97,
   },
   fontTitleDT: {

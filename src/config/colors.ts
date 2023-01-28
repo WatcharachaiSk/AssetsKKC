@@ -11,5 +11,6 @@ export const colors = {
     statusColor1: "#10CF11",
     statusColor2: "#FCBF1E",
     statusColor3: "#175dff",
+    statusColor4: "#FF8800"
 
 };
