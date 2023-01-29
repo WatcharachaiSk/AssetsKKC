@@ -54,7 +54,7 @@ const DetailAfterScan = (props: any) => {
     statusItem = "รอจำหน่าย";
   } else if (itemShow.status_item == 3 || statusNew == 3) {
     statusItem = "จำหน่ายแล้ว";
-  }else if (itemShow.status_item == 4 || statusNew == 4) {
+  } else if (itemShow.status_item == 4 || statusNew == 4) {
     statusItem = "รอหมายเลขครุภัณฑ์";
   }
 
@@ -446,7 +446,7 @@ const DetailAfterScan = (props: any) => {
               {/* status */}
               <View style={{ flex: 0, width: widthOfWindow * 0.3, alignItems: 'center' }}>
                 <View style={{
-                  width: widthOfWindow * 0.14, height: heightOfWindow * 0.07,
+                  width: height > 600 ? widthOfWindow * 0.14 : widthOfWindow * 0.12 , height: heightOfWindow * 0.07,
                   backgroundColor: chackStatusItemColor(statusNew),
                   borderRadius: 60
                 }}></View>

@@ -144,7 +144,7 @@ const AccountUser = (props: any) => {
         </View>
 
         <View style={{ marginVertical: 10, margin: 10 }}>
-          <Text style={{ fontSize:  RFPercentage(2.5), fontWeight: 'bold' }}>Phone Number</Text>
+          <Text style={{ fontSize: RFPercentage(2.5), fontWeight: 'bold' }}>Phone Number</Text>
           <View style={{ alignItems: 'center' }}>
             <View style={styles.nameAndPhone}>
               <View style={styles.viewText}>
@@ -157,8 +157,8 @@ const AccountUser = (props: any) => {
 
 
         {/* LogOut */}
-        <View style={{ alignItems: 'flex-end', left: 110 }}>
-          <View style={{ flex: 1 }}>
+        <View style={{ alignItems: 'flex-end', flex: 2, left: 110 }}>
+          <View style={{ marginVertical: 5 }}>
             <TouchableOpacity
               onPress={onClickSwap}
               style={styles.logOut} >
@@ -168,12 +168,14 @@ const AccountUser = (props: any) => {
               <View style={styles.viewIcon_LO}>
                 <Feather
                   name="log-out"
-                  size={heightOfWindow*0.04}
+                  size={heightOfWindow * 0.03}
                   style={{ color: "#fff" }}
                 />
               </View>
             </TouchableOpacity>
+
           </View>
+
         </View>
 
 
@@ -188,10 +190,12 @@ export default AccountUser
 const styles = StyleSheet.create({
   nameAndPhone: {
     flex: 0,
-    backgroundColor: colors.Gray,
+    backgroundColor: colors.black,
     width: widthOfWindow * 0.9,
     height: heightOfWindow * 0.08,
     borderRadius: 5,
+    // borderColor : colors.blackGray,
+    // borderWidth:2,
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -211,12 +215,13 @@ const styles = StyleSheet.create({
   logOut: {
     flex: 0,
     backgroundColor: colors.red,
-    marginHorizontal: 130,
-    marginTop: height > 600 ? 60 : 65,
-    borderRadius: 10,
+    marginHorizontal: 120,
+    marginTop: height > 600 ? 60 : 50,
+    borderRadius: widthOfWindow * 0.02,
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
+    padding: height > 600 ? 5 : 3
 
   },
   textLogOut: {
@@ -227,7 +232,7 @@ const styles = StyleSheet.create({
   },
   viewIcon_LO: {
     justifyContent: "flex-start",
-    margin: 5,
+    margin: 4,
   },
   absolute: {
     position: "absolute",
@@ -239,12 +244,12 @@ const styles = StyleSheet.create({
   },
   viewImage: {
     backgroundColor: colors.black,
-    width: widthOfWindow * 0.58,
+    width: height > 600 ? widthOfWindow * 0.58 : widthOfWindow * 0.51,
     height: heightOfWindow * 0.3,
     borderRadius: 300 / 2,
     margin: 15,
     alignItems: 'center',
-    justifyContent:'center',
+    justifyContent: 'center',
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -257,7 +262,8 @@ const styles = StyleSheet.create({
   textShow: {
     fontSize: RFPercentage(3),
     textAlign: 'left',
-    ...GetKanitFont('regular')
+    ...GetKanitFont('regular'),
+    color: colors.white
   },
 
 })

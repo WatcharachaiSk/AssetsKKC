@@ -1,13 +1,14 @@
-import { StyleSheet, Text, View, Modal, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, View, Modal, TouchableOpacity, Dimensions } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import LottieView from "lottie-react-native";
 import { GetKanitFont } from '../../../config/fonts';
 import { colors } from "../../../config/colors";
 import json from '../../../config/json';
 import { heightOfWindow, widthOfWindow } from '../../../utils/getDimension';
+import { RFPercentage } from 'react-native-responsive-fontsize';
 
 
-
+const { height } = Dimensions.get("window");
 const Modalload = (props: any) => {
   const { showModal, onPressLogin, setShowModal, onClose, statusUser, checked } = props;
   const [check, setCheck] = useState<any>()
@@ -40,7 +41,7 @@ const Modalload = (props: any) => {
             source={json.error}
             autoPlay
             loop
-            style={{ flex: 0, width: widthOfWindow * 0.6, height: heightOfWindow * 0.4, margin: 20, alignItems: 'center' }}
+            style={{ flex: 0, width: height > 600 ?  widthOfWindow * 0.6 : widthOfWindow * 0.5, height:  height > 600 ? heightOfWindow * 0.4 : heightOfWindow*0.35, margin: 20, alignItems: 'center' }}
             resizeMode="contain"
           />
           <View style={{ justifyContent: "center" }}>
@@ -92,7 +93,7 @@ const styles = StyleSheet.create({
   },
   textQT: {
     color: "#000",
-    fontSize: 20,
+    fontSize: RFPercentage(3),
     textAlign: "center",
     ...GetKanitFont("regular"),
   },
@@ -100,8 +101,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     alignSelf: "center",
     flex: 0,
-    width: 80,
-    height: 45,
+    width: widthOfWindow* 0.3,
+    height: heightOfWindow*0.07,
     borderRadius: 10,
     // backgroundColor: 'green',
     marginHorizontal: 15,
@@ -109,7 +110,7 @@ const styles = StyleSheet.create({
   },
   textButton: {
     color: "#fff",
-    fontSize: 20,
+    fontSize: RFPercentage(2.9),
     textAlign: "center",
     ...GetKanitFont("regular"),
   },

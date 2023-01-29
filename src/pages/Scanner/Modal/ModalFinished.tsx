@@ -20,6 +20,7 @@ import IconMaterialCommunityIcons from "react-native-vector-icons/MaterialCommun
 import { heightOfWindow, widthOfWindow } from "../../../utils/getDimension";
 import { chackStatusItemColor, chackStatusItem } from "../../../config/chackItemStatus";
 
+const { height } = Dimensions.get("window");
 const ModalFinished = (props: any) => {
   const { showSuccess, onClickSwap, onScanAgain, oldItem, itemRes, location_nameTH, onClickSave, setShowSuccess, statusNew } = props;
   const [animationFn, setAnimationFn] = useState(false);
@@ -70,12 +71,12 @@ const ModalFinished = (props: any) => {
             <SafeAreaView style={styles.container} >
 
               <View style={{ flex: 0, }}>
-                <View style={{ flex: 0, marginTop: 10 }}>
+                <View style={{ flex: 0, marginTop: 10 , justifyContent:'center' ,alignItems:'center'}}>
 
                   <View style={styles.view_ContainerLottiv}>
                     <LottieView
                       resizeMode="contain"
-                      style={{ flex: 0, width: 200, height: 200 }}
+                      style={{ flex: 0, width: height> 600 ?  200 : 100, height: height> 600 ? 200:150 }}
                       source={json.success}
                       autoPlay
                       duration={3000}
@@ -85,14 +86,6 @@ const ModalFinished = (props: any) => {
                     // }}
                     />
                   </View>
-
-
-
-                  {/* <View
-                style={{ justifyContent: "center", alignItems: "center" }}
-              >
-                <Text style={styles.font_NameItem}>{nameTH}</Text>
-              </View> */}
                   <View style={styles.view_StatusOldNew}>
                     {/* เก่า */}
                     <Text
@@ -109,9 +102,9 @@ const ModalFinished = (props: any) => {
                     {/* Icon */}
                     <View style={{ top: 2, marginHorizontal: 20 }}>
                       <IconMaterialCommunityIcons
-                        name="transfer-right"
-                        size={40}
-                        style={{ opacity: 0.9 }}
+                        name="chevron-double-down"
+                        size={ height > 600 ?  40 : 30}
+                        style={{ color :'red' }}
                       />
                     </View>
                     {/* ใหม่ */}
@@ -172,8 +165,8 @@ const styles = StyleSheet.create({
     margin: 15,
     justifyContent: 'center',
     alignItems: 'center',
-    width: widthOfWindow * 0.9,
-    height: heightOfWindow * 0.4
+    width: height> 600 ?  widthOfWindow * 0.9 : widthOfWindow * 0.9,
+    height: height> 600 ?  heightOfWindow * 0.48 :heightOfWindow * 0.45
 
   },
   view_ContainerLottiv: {
@@ -182,24 +175,26 @@ const styles = StyleSheet.create({
     //backgroundColor: "#000",
     flex: 0,
     // padding: 45,
-    width: widthOfWindow * 0.8,
-    height: heightOfWindow * 0.2
+    margin: 10,
+    width: height> 600 ? widthOfWindow * 0.8 : widthOfWindow * 0.7,
+    height: height> 600 ? heightOfWindow * 0.2 : heightOfWindow * 0.15
   },
   font_NameItem: {
-    fontSize: RFPercentage(3.5),
+    fontSize: RFPercentage(3.5) ,
     color: colors.black,
     ...GetKanitFont("medium"),
   },
   view_StatusOldNew: {
     marginVertical: 5,
-    flexDirection: "row",
+    //flexDirection: "row",
     alignItems: "center",
-    justifyContent: "center",
-    right: 5,
-    // backgroundColor: "red",
+    //justifyContent: "center",
+    // right: 5,
+   //backgroundColor: "red",
+
   },
   font_Status: {
-    fontSize: RFPercentage(3.5),
+    fontSize: height > 600 ?  RFPercentage(3.5) : RFPercentage(3),
     ...GetKanitFont("regular"),
   },
   textButton: {

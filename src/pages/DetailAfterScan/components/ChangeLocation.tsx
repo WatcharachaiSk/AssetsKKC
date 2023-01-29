@@ -15,7 +15,7 @@ import axios from 'axios'
 import configAxios from '../../../axios/configAxios'
 import { ArrDropDownLocations } from '../../../config/arrDropDown'
 
-// const { height } = Dimensions.get("window");
+const { height } = Dimensions.get("window");
 const ChangeLocation = (props: any) => {
     const { modalLocations, closeLocations, location_Old, checkValueModal, } =
         props;
@@ -88,7 +88,7 @@ const ChangeLocation = (props: any) => {
                         borderTopLeftRadius: 30,
                         borderTopRightRadius: 30,
                         backgroundColor: '#fff',
-                        height:  550,
+                        height:   height > 600 ?  550 : 450,
                     }
 
                 }}

@@ -136,7 +136,7 @@ const CategoryPage = (props: any) => {
                       </>}
 
 
-                    <Text style={{ color: "#fff", fontSize: RFPercentage(2.2), textAlign: 'center', marginTop: 10, ...GetKanitFont("regular") }}>{item?.name}</Text>
+                    <Text ellipsizeMode='tail' numberOfLines={1} style={{ color: "#fff", fontSize: RFPercentage(2.2), textAlign: 'center', marginTop: 5, ...GetKanitFont("regular"), width:widthOfWindow*0.25 }}>{item?.name}</Text>
 
                   </View>
 

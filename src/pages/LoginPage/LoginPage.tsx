@@ -1,7 +1,7 @@
-import { StyleSheet, Text, View, SafeAreaView, Image, TouchableOpacity, TextStyle, TextInput, KeyboardAvoidingView, ScrollView, Alert } from 'react-native'
+import { StyleSheet, Text, View, SafeAreaView, Image, TouchableOpacity, TextStyle, TextInput, KeyboardAvoidingView, ScrollView, Alert, Dimensions } from 'react-native'
 import React, { useState, useEffect, useMemo } from 'react'
 import images from '../../config/img';
-import { widthOfWindow } from '../../utils/getDimension';
+import { heightOfWindow, widthOfWindow } from '../../utils/getDimension';
 
 import { AppScreens } from '../../navigators/NavigeteEnum/NavigateEnum';
 import { GetKanitFont } from '../../config/fonts';
@@ -18,7 +18,8 @@ import postLogin from '../../axios/postLogin';
 import Modalload from './components/Modalload';
 import { BlurView } from '@react-native-community/blur';
 
-
+import { RFPercentage } from 'react-native-responsive-fontsize';
+const { height } = Dimensions.get("window");
 
 const LoginPage = (props: any) => {
    const [showModal, setShowModal] = React.useState(false);
@@ -30,13 +31,13 @@ const LoginPage = (props: any) => {
 
    const [username, setUsername] = useState<string>("");
    const [password, setPassword] = useState<string>("");
-   const [statusUser ,setStatusUser] = useState(false);
-   const [checked ,setChecked] = useState<boolean>(true);
+   const [statusUser, setStatusUser] = useState(false);
+   const [checked, setChecked] = useState<boolean>(true);
    const onClose = () => {
       setShowModal(false);
       // setShowConfirmModal(false)
-    };
-  
+   };
+
    const onPressLogin = async () => {
       const res: any = await postLogin(username, password)
       if (res.status == 200 || res.token != undefined) {
@@ -48,7 +49,7 @@ const LoginPage = (props: any) => {
             navigation.navigate("NavStack");
             // setStatusUser(true);
             // setChecked(true);
-         }else {
+         } else {
             setShowModal(true);
             setChecked(false);
             setStatusUser(false);
@@ -84,25 +85,25 @@ const LoginPage = (props: any) => {
 
       <SafeAreaView style={{ flex: 1, }}>
          <Modalload
-         showModal={showModal}
-         onClose={onClose}
-         setShowModal={setShowModal}
-         statusUser={statusUser}
-         checked={checked}
+            showModal={showModal}
+            onClose={onClose}
+            setShowModal={setShowModal}
+            statusUser={statusUser}
+            checked={checked}
          />
          {
-            showModal && 
+            showModal &&
             (
                <BlurView
-                 style={styles.absolute}
-                 blurType="dark"
-                 blurAmount={1}
-                 reducedTransparencyFallbackColor="gray" />
-             )
+                  style={styles.absolute}
+                  blurType="dark"
+                  blurAmount={1}
+                  reducedTransparencyFallbackColor="gray" />
+            )
          }
 
          <View style={{ flex: 4, }}>
-            
+
 
             {/* bgHead */}
             <View style={{ flex: 1, alignItems: 'flex-end' }}>
@@ -143,7 +144,7 @@ const LoginPage = (props: any) => {
                      }
                      // submit={setSubmit}
                      style={styles.ButtonLogin}>
-                     <Text style={{ color: colors.black }}>LOGIN</Text>
+                     <Text style={{ color: colors.black ,fontSize: RFPercentage(2.2) }}>LOGIN</Text>
 
                   </TouchableOpacity>
 
@@ -170,7 +171,7 @@ export default LoginPage
 
 const styles = StyleSheet.create({
    ButtonLogin: {
-      padding: 12,
+      padding: height > 600 ?  12 : 10,
       backgroundColor: colors.Gray,
       alignSelf: "center",
       justifyContent: "center",
@@ -179,14 +180,14 @@ const styles = StyleSheet.create({
       flex: 0
    },
    logo: {
-      width: widthOfWindow * 0.65,
-      height: widthOfWindow * 0.8
+      width: height > 600 ? widthOfWindow * 0.65 : widthOfWindow * 0.5,
+      height:  height > 600 ? heightOfWindow * 0.5 : heightOfWindow * 0.47
    },
    viewlogo: {
-      flex: 1, alignItems: 'center', zIndex: -100, top: -10
+      flex: 1, alignItems: 'center', zIndex: -100, 
    },
    textInput: {
-      fontSize: 18,
+      fontSize: RFPercentage(2.7),
       backgroundColor: colors.black,
       color: '#fff',
       borderRadius: 10,
@@ -195,7 +196,7 @@ const styles = StyleSheet.create({
    },
    text: {
       textAlign: 'center',
-      fontSize: 14,
+      fontSize: RFPercentage(2.3),
       ...GetKanitFont("regular"),
       color: colors.black
    },
@@ -206,6 +207,6 @@ const styles = StyleSheet.create({
       bottom: 0,
       right: 0,
       zIndex: 999,
-    },
+   },
 
 })

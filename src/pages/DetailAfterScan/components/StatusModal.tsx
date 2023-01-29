@@ -77,7 +77,7 @@ const StatusModal = (props: any) => {
                       colors.greenConfirm,
                   }]}>
                     <View style={styles.viewIcon}>
-                      <AntDesign name='check' size={30} color={'#000'} />
+                      <AntDesign name='check' size={ height> 600 ? 30 : 25} color={'#000'} />
                     </View>
                   </View>
                   <View style={{ alignItems: 'center', justifyContent: 'center' }} >
@@ -95,7 +95,7 @@ const StatusModal = (props: any) => {
                 >
                   <View style={[styles.itemStatus, { backgroundColor: colors.red }]}>
                     <View style={styles.viewIcon}>
-                      <FontAwesome5 name='tools' size={20} color={'#000'} />
+                      <FontAwesome5 name='tools' size={ height> 600 ? 20 :15} color={'#000'} />
                     </View>
                   </View>
                   <View style={{ alignItems: 'center', justifyContent: 'center' }} >
@@ -113,7 +113,7 @@ const StatusModal = (props: any) => {
                 >
                   <View style={[styles.itemStatus, { backgroundColor: colors.statusColor4 }]}>
                     <View style={styles.viewIcon}>
-                      <AntDesign name='exception1' size={25} color={'#000'} />
+                      <AntDesign name='exception1' size={height > 600 ? 25 : 20} color={'#000'} />
                     </View>
                   </View>
                   <View style={{ alignItems: 'center', justifyContent: 'center' }} >
@@ -131,7 +131,7 @@ const StatusModal = (props: any) => {
                 >
                   <View style={[styles.itemStatus, { backgroundColor: colors.statusColor2 }]}>
                     <View style={styles.viewIcon}>
-                      <AntDesign name='CodeSandbox' size={25} color={'#000'} />
+                      <AntDesign name='CodeSandbox' size={height > 600 ? 25 : 20} color={'#000'} />
                     </View>
                   </View>
                   <View style={{ alignItems: 'center', justifyContent: 'center' }} >
@@ -149,7 +149,7 @@ const StatusModal = (props: any) => {
                 >
                   <View style={[styles.itemStatus, { backgroundColor: colors.statusColor3 }]}>
                     <View style={styles.viewIcon}>
-                      <MaterialCommunityIcons name='cart-check' size={25} color={'#000'} />
+                      <MaterialCommunityIcons name='cart-check' size={height > 600 ? 25 : 20} color={'#000'} />
                     </View>
                   </View>
                   <View style={{ alignItems: 'center', justifyContent: 'center' }} >
@@ -187,15 +187,15 @@ const styles = StyleSheet.create({
     // backgroundColor:'red',
     //  margin: 30,
     borderRadius: 15,
-    width: widthOfWindow * 0.85,
-    height: heightOfWindow * 0.55,
+    width: height > 600 ? widthOfWindow * 0.85 : widthOfWindow * 0.80,
+    height: height > 600 ? heightOfWindow * 0.55 : heightOfWindow * 0.65,
     justifyContent: 'center',
 
 
 
   },
   itemStatus: {
-    width: widthOfWindow * 0.10,
+    width: height > 600 ? widthOfWindow * 0.10 : widthOfWindow * 0.08,
     height: heightOfWindow * 0.05,
     borderRadius: 50,
     margin: 5,

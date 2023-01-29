@@ -111,26 +111,26 @@ const ListPage = (props: any) => {
         return data?.status_item == isTouch;
       })
       setItemFilter(setData);
-      console.log('setDataaaaaderjaaaaaaaaaaaaaaaaaaaaa', setData);
+      //console.log('setDataaaaaderjaaaaaaaaaaaaaaaaaaaaa', setData);
 
     } else if (isTouch == 3) {
       setData = _.filter(getItemAll, (data: any) => {
         return data?.status_item == isTouch;
       })
       setItemFilter(setData);
-      console.log('setD', setData);
+      //console.log('setD', setData);
 
     } else if (isTouch == 4) {
       setData = _.filter(getItemAll, (data: any) => {
         return data?.status_item == isTouch;
       })
       setItemFilter(setData);
-      console.log('setD', setData);
+      //console.log('setD', setData);
 
     }
     if (itemFilter == 0) {
       <View><Text> ไม่พบข้อมูลในระบบ</Text></View>
-      console.log('noooooooooooooooooo');
+      //console.log('noooooooooooooooooo');
 
 
     }
@@ -145,10 +145,9 @@ const ListPage = (props: any) => {
     const items = (itemFilter == undefined ? getItemAll : itemFilter)
     if (text) {
       const newData = items.filter((item: any) => {
-        const itemData = item?.name ?
-          item.name.toLowerCase()
+        const itemData = item?.name  ?
+          item.name.toLowerCase() 
           : ''.toLowerCase()
-
         const textData = text.toLowerCase();
 
 
