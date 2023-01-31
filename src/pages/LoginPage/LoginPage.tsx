@@ -19,6 +19,7 @@ import Modalload from './components/Modalload';
 import { BlurView } from '@react-native-community/blur';
 
 import { RFPercentage } from 'react-native-responsive-fontsize';
+import SwapLoading from './components/SwapLoading';
 const { height } = Dimensions.get("window");
 
 const LoginPage = (props: any) => {
@@ -40,6 +41,8 @@ const LoginPage = (props: any) => {
 
    const onPressLogin = async () => {
       const res: any = await postLogin(username, password)
+      //console.log('hegdqyjkwwwwkkghieuhfoije');
+      
       if (res.status == 200 || res.token != undefined) {
          //console.log("status", res.status);
 
@@ -47,13 +50,13 @@ const LoginPage = (props: any) => {
          if (res?.data?.user?.user_status == true) {
             await AsyncStorage.setItem("accessToken", res?.data?.user?.authentication_token);
             navigation.navigate("NavStack");
-            // setStatusUser(true);
-            // setChecked(true);
+            setStatusUser(true);
+            setChecked(true);
          } else {
             setShowModal(true);
             setChecked(false);
             setStatusUser(false);
-            console.log("เกิดข้อผิดพลาดกรุณา");
+            console.log("เกิดข้อผิดพลาดกรุณาลองใหม่อีกครั้ง");
          }
 
          //console.log(res?.data?.user?.authentication_token);
@@ -68,15 +71,29 @@ const LoginPage = (props: any) => {
    }
 
 
-   useEffect(() => {
-      if (props.route.params == undefined) {
-         setStatusLogout(false);
-      } else {
-         setStatusLogout(true);
-      }
-      // console.log(props.route.params);
-   }, [props.route.params]);
+   // useEffect(() => {
+   //    //console.log('euhrfu3jrfo2i3');
+      
+   //    if (props.route.params == undefined) {
+   //       setStatusLogout(false);
+   //    } else {
+   //       setStatusLogout(true);
+   //    }navigation
+   //    // console.log(props.route.params);
+   // }, [props.route.params]);
 
+  // เช็ค Token
+//   useEffect(() => {
+//    const showtoke = async () => {
+//      var token = await AsyncStorage.getItem("accessToken") ;
+//      //console.log(token);
+//      if (token != null) {
+//        setIsLoading(true);
+//        await onPressLogin();
+//      }
+//    };
+//    showtoke();
+//  }, []);
 
 
 
@@ -84,6 +101,7 @@ const LoginPage = (props: any) => {
 
 
       <SafeAreaView style={{ flex: 1, }}>
+      
          <Modalload
             showModal={showModal}
             onClose={onClose}
@@ -103,7 +121,7 @@ const LoginPage = (props: any) => {
          }
 
          <View style={{ flex: 4, }}>
-
+         {/* <SwapLoading isLoading={isLoading} /> */}
 
             {/* bgHead */}
             <View style={{ flex: 1, alignItems: 'flex-end' }}>

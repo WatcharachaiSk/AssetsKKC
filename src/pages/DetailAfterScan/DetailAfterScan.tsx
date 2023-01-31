@@ -54,9 +54,10 @@ const DetailAfterScan = (props: any) => {
     statusItem = "รอจำหน่าย";
   } else if (itemShow.status_item == 3 || statusNew == 3) {
     statusItem = "จำหน่ายแล้ว";
-  } else if (itemShow.status_item == 4 || statusNew == 4) {
-    statusItem = "รอหมายเลขครุภัณฑ์";
   }
+  //  else if (itemShow.status_item == 4 || statusNew == 4) {
+  //   statusItem = "รอหมายเลขครุภัณฑ์";
+  // }
 
   useEffect(() => {
     if (!statusNew) {

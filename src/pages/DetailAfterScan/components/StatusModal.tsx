@@ -8,33 +8,22 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import { heightOfWindow, widthOfWindow } from '../../../utils/getDimension';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
-import axios from 'axios';
-import configAxios from '../../../axios/configAxios';
-import { API } from '../../../axios/swr/endpoint';
+
 
 const { height, width } = Dimensions.get("window");
 
 const StatusModal = (props: any) => {
 
   const { showModal,
-    onClickCheckStatus,
-    onConfirm,
+
     onClose,
-    setShowModal,
-    idItem,
-    setResData,
-    closeModal,
-    valueLocations,
     showImportImages,
-    setStatusNew, itemShow } = props;
+    setStatusNew, } = props;
 
 
   const productHaveProblem = () => {
     return onClose(), setStatusNew(false), showImportImages(true);
   };
-
-
-
   return (
     <View>
       <Modal
@@ -103,7 +92,7 @@ const StatusModal = (props: any) => {
                   </View>
                 </TouchableOpacity>
               </View>
-              <View style={styles.status}>
+              {/* <View style={styles.status}>
                 <TouchableOpacity
                   onPress={() => {
                     setStatusNew(4)
@@ -120,7 +109,7 @@ const StatusModal = (props: any) => {
                     <Text style={styles.texts}>รอหมายเลขครุภัณฑ์</Text>
                   </View>
                 </TouchableOpacity>
-              </View>
+              </View> */}
               <View style={styles.status}>
                 <TouchableOpacity
                   onPress={() => {
@@ -188,7 +177,7 @@ const styles = StyleSheet.create({
     //  margin: 30,
     borderRadius: 15,
     width: height > 600 ? widthOfWindow * 0.85 : widthOfWindow * 0.80,
-    height: height > 600 ? heightOfWindow * 0.55 : heightOfWindow * 0.65,
+    height: height > 600 ? heightOfWindow * 0.45 : heightOfWindow * 0.55,
     justifyContent: 'center',
 
 

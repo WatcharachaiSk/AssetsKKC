@@ -18,7 +18,7 @@ import configAxios from '../../axios/configAxios';
 import { API } from '../../axios/swr/endpoint';
 import postLogin from '../../axios/postLogin';
 import { RFPercentage } from 'react-native-responsive-fontsize';
-import { chackStatusItemColor, chackStatusItem } from '../../config/chackItemStatus';
+import { chackStatusItemColor, chackStatusItem ,chackCodeStatus,chackCodeStatusColor} from '../../config/chackItemStatus';
 
 const { height } = Dimensions.get("window");
 const ListPage = (props: any) => {
@@ -63,9 +63,6 @@ const ListPage = (props: any) => {
   }, [navigation]);
 
 
-
-
-
   const setTouchStatus = (status_item: any) => {
     setIsTouch(status_item);
   };
@@ -104,14 +101,12 @@ const ListPage = (props: any) => {
         return data?.status_item == isTouch;
       })
       setItemFilter(setData);
-      // console.log('setDataaaaa', setData[0].status_item);
 
     } else if (isTouch == 2) {
       setData = _.filter(getItemAll, (data: any) => {
         return data?.status_item == isTouch;
       })
       setItemFilter(setData);
-      //console.log('setDataaaaaderjaaaaaaaaaaaaaaaaaaaaa', setData);
 
     } else if (isTouch == 3) {
       setData = _.filter(getItemAll, (data: any) => {
@@ -120,20 +115,18 @@ const ListPage = (props: any) => {
       setItemFilter(setData);
       //console.log('setD', setData);
 
-    } else if (isTouch == 4) {
-      setData = _.filter(getItemAll, (data: any) => {
-        return data?.status_item == isTouch;
-      })
-      setItemFilter(setData);
-      //console.log('setD', setData);
+    } 
+    // else if (isTouch == 4) {
+    //   setData = _.filter(getItemAll, (data: any) => {
+    //     return data?.status_item == isTouch;
+    //   })
+    //   setItemFilter(setData);
+    //   //console.log('setD', setData);
 
-    }
-    if (itemFilter == 0) {
-      <View><Text> ไม่พบข้อมูลในระบบ</Text></View>
-      //console.log('noooooooooooooooooo');
-
-
-    }
+    // }
+    // if (itemFilter == 0) {
+    //   <View><Text> ไม่พบข้อมูลในระบบ</Text></View>
+    // }
 
 
 
@@ -149,7 +142,7 @@ const ListPage = (props: any) => {
           item.name.toLowerCase() 
           : ''.toLowerCase()
         const textData = text.toLowerCase();
-
+        
 
         return itemData.indexOf(textData) > -1;
       });
@@ -240,7 +233,7 @@ const ListPage = (props: any) => {
                   >
                     <View style={styles.viewItem}>
                       <Text style={styles.fontnameItem}>{item?.name}</Text>
-                      <Text style={styles.textID}>{item?.code}</Text>
+                      <Text style={[styles.textID,{color : chackCodeStatusColor(item?.code)}]}>{chackCodeStatus(item?.code)}</Text>
                     </View>
                     <View
                       style={[styles.view_ContainerState, { flex: 0 }]}

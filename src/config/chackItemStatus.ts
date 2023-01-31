@@ -32,5 +32,30 @@ export const chackStatusItem = (status: any) => {
   }
   return statusItemString;
 };
+export const chackCodeStatus = (code: any) => {
+  let codeStatus = "";
+  // console.log("code = " + code.length);
+  if (code == "-" || code == "ไม่มี") {
+    codeStatus = "รอหมายเลขครุภัณฑ์";
+  } else if (code.length <= 9) {
+    codeStatus = "รอหมายเลขครุภัณฑ์";
+  } else {
+    codeStatus = code;
+  }
+  return codeStatus;
+};
+export const chackCodeStatusColor = (code: any) => {
+  let codeStatusColor = "";
+  // console.log("code = " + code.length);
+  if (code == "-" || code == "ไม่มี") {
+    codeStatusColor = colors.statusColor4;
+  } else if (code.length <= 9) {
+    codeStatusColor = colors.statusColor4;
+  } else {
+    codeStatusColor = colors.black;
+  }
+  return codeStatusColor;
+};
+
 
 

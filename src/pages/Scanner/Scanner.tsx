@@ -18,7 +18,6 @@ import { requestCameraBothPlatform } from "../../utils/Permission/RequestCameraB
 import { isIOS } from '@rneui/base';
 import LottieView from "lottie-react-native";
 import json from '../../config/json';
-import ModalFinished from './Modal/ModalFinished';
 import ModalBarcodeUndefined from './Modal/ModalBarcodeUndefined';
 import { BlurView } from '@react-native-community/blur';
 const { height } = Dimensions.get("window");
@@ -28,15 +27,14 @@ const Scanner = (props: any) => {
 
   const navigation = props.navigation;
 
-  const [isFinished, setIsFinished] = useState(false);
+  // const [isFinished, setIsFinished] = useState(false);
   const [permission, setPermission] = useState(false);
-  const [nameItem, setNameItem] = useState("");
-  const [itemRes, setItemRes] = useState<[]>([]);
-  const [oldItem, setoldItem] = useState<[]>([]);
-  const [locations_nameTH, setLocations_nameTH] = useState("");
+  // const [nameItem, setNameItem] = useState("");
+  // const [itemRes, setItemRes] = useState<[]>([]);
+  // const [oldItem, setoldItem] = useState<[]>([]);
+  // const [locations_nameTH, setLocations_nameTH] = useState("");
 
-  const [hasPermission, setHasPermission] = useState(false);
-  const [barcodeResults, setBarcodeResults] = useState([] as TextResult[]);
+
 
   const devices = useCameraDevices();
   const device = devices.back;
@@ -55,101 +53,82 @@ const Scanner = (props: any) => {
     checkInverted: true,
   });
 
-  useEffect(() => {
-    (async () => {
-      const status = await Camera.requestCameraPermission();
-      setPermission(status === 'authorized');
-    })();
-  }, []);
-
-
   // useEffect(() => {
-  //   if (props.route.params != undefined && isFinished == false) {
-  //     setTimeout(async () => {
-  //       setIsFinished(true);
-  //     }, 500);
-  //     setNameItem(props.route.params.name);
-  //     setItemRes(props.route.params.up_Date_Statuses);
-  //     setoldItem(props.route.params.oldItem);
-  //     setLocations_nameTH(props?.route?.params?.location?.nameTH);
-  //   }
-  //   console.log('props.route.params=',props.route.params);
-    
+  //   (async () => {
+  //     const status = await Camera.requestCameraPermission();
+  //     setPermission(status === 'authorized');
+  //   })();
   // }, []);
 
-
-  //   useEffect(() => {
-  //     let res:any ;
-  //   if (res.status == 200 || res.token != undefined) {
-  //   setShowBarcodeUndefined(true);
-  //   console.log('fjehfu3yrhjqwiu tr');
-    
-  //   }
-  //  ;
-    
-  // }, []);
-  
 
 
   useEffect(() => {
-    checkMultiple([PERMISSIONS.ANDROID.CAMERA]).then(
-      async (statuses: any) => {
-        const status = statuses[PERMISSIONS.ANDROID.CAMERA];
-
+    checkMultiple([PERMISSIONS.IOS.CAMERA, PERMISSIONS.ANDROID.CAMERA]).then(
+      async (statuses) => {
+        const status = isIOS
+          ? statuses[PERMISSIONS.IOS.CAMERA]
+          : statuses[PERMISSIONS.ANDROID.CAMERA];
+          
         if (status === RESULTS.GRANTED) {
           setPermission(true);
         } else if (status === RESULTS.DENIED) {
           const res = await requestCameraBothPlatform();
           if (res) {
             setPermission(true);
+            //console.log('fekjhfqoiehfnqoiydq2odnjwqhd97y');
+            
           }
         } else {
           setPermission(false);
+          //console.log('123456');
+          
         }
       }
     );
   }, [permission]);
 
 
-  const onClickSwap = () => {
-    setIsFinished(false);
-  };
-  const renderSetting = () => {
-    return (
-      <View style={styles.req_perm_container}>
-        <Text style={styles.req_perm_text}>
-          กรุณาให้สิทธิ์การอนุญาตการใช้งานกล้อง
-          เพื่อเข้าใช้งานฟังก์ชันหลักของแอปพลิเคชัน
-        </Text>
-        <TouchableOpacity
-          style={styles.req_perm_button}
-          onPress={() => {
-            navigation.reset({
-              index: 0,
-              routes: [{ name: "BottomTab" }],
-            });
-            Linking.openSettings();
-          }}
-        >
-          <Text style={styles.req_perm_text_button}>เปิดตั้งค่า</Text>
-        </TouchableOpacity>
-      </View>
-    );
-  };
+  // const onClickSwap = () => {
+  //   setIsFinished(false);
+  // };
+  // const renderSetting = () => {
+  //   return (
+  //     <View style={styles.req_perm_container}>
+  //       <Text style={styles.req_perm_text}>
+  //         กรุณาให้สิทธิ์การอนุญาตการใช้งานกล้อง
+  //         เพื่อเข้าใช้งานฟังก์ชันหลักของแอปพลิเคชัน
+  //       </Text>
+  //       <TouchableOpacity
+  //         style={styles.req_perm_button}
+  //         onPress={() => {
+  //           navigation.reset({
+  //             index: 0,
+  //             routes: [{ name: "BottomTab" }],
+  //           });
+  //           Linking.openSettings();
+  //         }}
+  //       >
+  //         <Text style={styles.req_perm_text_button}>เปิดตั้งค่า</Text>
+  //       </TouchableOpacity>
+  //     </View>
+  //   );
+  // };
 
   const renderScanner = () => {
     return (
       <>
-        {device != null &&
+        {
+          // device != null &&
           permission && (
             <Camera
               style={[StyleSheet.absoluteFill, { marginVertical: height / 5 }]}
               device={device}
               isActive={true}
               frameProcessor={frameProcessor}
-              frameProcessorFps={1}
+              frameProcessorFps={3}
             />
           )}
+
         <View
           style={[
             styles.item_Line,
@@ -178,16 +157,16 @@ const Scanner = (props: any) => {
             ) {
               try {
                 // const fetchData = async () => {
-                  const res = await axios(await configAxios('get', baseURL + `/${barC}`));
+                const res = await axios(await configAxios('get', baseURL + `/${barC}`));
 
-                  let getproduct = res.data;
-                  setTimeout(async () => {
-                    navigation.navigate("DetailAfterScan", {
-                      getproduct,
-                    });
-                    // console.log(res.status);
-                    
-                  }, 500);
+                let getproduct = res.data;
+                setTimeout(async () => {
+                  navigation.navigate("DetailAfterScan", {
+                    getproduct,
+                  });
+                  // console.log(res.status);
+
+                }, 500);
                 // };
                 // fetchData();
               } catch (error) {
@@ -198,7 +177,7 @@ const Scanner = (props: any) => {
               setTimeout(async () => {
                 // setItemRes(undefined);
                 // setoldItem(undefined);
-                setIsFinished(true);
+                //setIsFinished(true);
                 //setShowBarcodeUndefined(true);
               }, 500);
             }
@@ -211,20 +190,20 @@ const Scanner = (props: any) => {
     );
   };
 
-  const renderLoading = () => {
-    return (
-      <LottieView
-        resizeMode="contain"
-        style={{
-          flex: 1,
-          width: undefined,
-        }}
-        source={json.success}
-        autoPlay
-        loop={true}
-      />
-    );
-  };
+  // const renderLoading = () => {
+  //   return (
+  //     <LottieView
+  //       resizeMode="contain"
+  //       style={{
+  //         flex: 1,
+  //         width: undefined,
+  //       }}
+  //       source={json.success}
+  //       autoPlay
+  //       loop={true}
+  //     />
+  //   );
+  // };
 
 
   return (
@@ -234,7 +213,7 @@ const Scanner = (props: any) => {
         showbarcodeUndefined={showbarcodeUndefined}
         onScanAgain={onScanAgain}
         setShowBarcodeUndefined={setShowBarcodeUndefined}
-      
+
       />
       {
         showbarcodeUndefined &&
@@ -248,7 +227,7 @@ const Scanner = (props: any) => {
       }
 
       {device && permission && isFocused && renderScanner()}
-      {!permission && renderSetting()}
+      {!permission}
 
     </SafeAreaView>
   );

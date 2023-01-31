@@ -12,8 +12,8 @@ const { height } = Dimensions.get("window");
 const Modalload = (props: any) => {
   const { showModal, onPressLogin, setShowModal, onClose, statusUser, checked } = props;
   const [check, setCheck] = useState<any>()
-  console.log(statusUser);
-    console.log(checked);
+  // console.log(statusUser);
+  //   console.log(checked);
 
   useEffect(() => {
     

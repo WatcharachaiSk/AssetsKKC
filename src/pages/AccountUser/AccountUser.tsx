@@ -8,15 +8,12 @@ import ModalLogout from './ModalLogout/ModalLogout'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { BlurView } from "@react-native-community/blur";
 import { GetKanitFont } from '../../config/fonts'
-import { AppScreens } from '../../navigators/NavigeteEnum/NavigateEnum'
 import globleStyles from '../../config/globleStyles'
 import axios from 'axios'
 import configAxios from '../../axios/configAxios'
 import { API } from '../../axios/swr/endpoint'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { baseURL, PATH_IMAGE_PROFILE } from '../../axios/config';
-import images from '../../config/img'
-import { items } from '../../assets/json/items'
 import { RFPercentage } from "react-native-responsive-fontsize";
 const { height } = Dimensions.get("window");
 

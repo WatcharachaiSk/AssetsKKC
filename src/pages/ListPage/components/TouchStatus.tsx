@@ -77,7 +77,7 @@ const TouchStatus = (props: any) => {
           ชำรุด
         </Text>
       </TouchableOpacity>
-      <TouchableOpacity
+      {/* <TouchableOpacity
         onPress={() => setTouchStatus(4)}
         style={[
           styles.StyleTouchStatus,
@@ -96,7 +96,7 @@ const TouchStatus = (props: any) => {
         >
           รอหมายเลขครุภัณฑ์
         </Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
       <TouchableOpacity
         onPress={() => setTouchStatus(2)}
         style={[

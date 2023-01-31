@@ -10,7 +10,7 @@ import DetailAfterScan from '../../../pages/DetailAfterScan/DetailAfterScan';
 import DetailfromList from '../../../pages/DetailfromList/DetailfromList';
 import DetailfromListStack from '../DetailfromList/DetailfromList';
 import NavBottomTab from '../NavStack/NavBottomTab';
-
+import NavStack from '../NavStack/NavStack';
 const BottomTabStack = () => {
     const ButtomTab = createBottomTabNavigator();
 
@@ -62,8 +62,8 @@ const BottomTabStack = () => {
                 options={({ navigation, route }) => ({})}
             />
                  <ButtomTab.Screen
-                name="NavBottomTab"
-                component={NavBottomTab}
+                name="NavStack"
+                component={NavStack}
                 options={({ navigation, route }) => ({})}
             />
             
