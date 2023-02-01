@@ -3,6 +3,7 @@ import React, { useEffect, useMemo, useState } from 'react'
 import { colors } from '../../config/colors'
 import { heightOfWindow, widthOfWindow } from '../../utils/getDimension'
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
+import AntDesign from 'react-native-vector-icons/AntDesign'
 import Feather from 'react-native-vector-icons/Feather'
 import ModalLogout from './ModalLogout/ModalLogout'
 import { SafeAreaView } from 'react-native-safe-area-context'
@@ -104,15 +105,16 @@ const AccountUser = (props: any) => {
       <ScrollView>
 
 
-        <View style={globleStyles.headers}>
+        {/* <View style={globleStyles.headers}>
           <Text style={globleStyles.texthead}>ข้อมูลผู้ใช้งาน</Text>
-        </View>
+        </View> */}
 
 
-        {/* imageProfile */}
-        <View style={{ alignItems: 'center' }}>
+        <View style={{ flex: 2, flexDirection: 'row', margin: 10 }}>
+          {/* imageProfile */}
 
-          <View style={{ alignSelf: 'center', marginTop: 25 }}>
+
+          <View style={{ margin: 8 }}>
             {getProfile?.name_image ?
               <Image style={styles.viewImage}
                 source={{ uri: `${baseURL}${PATH_IMAGE_PROFILE}${getProfile.name_image}` }}
@@ -123,25 +125,30 @@ const AccountUser = (props: any) => {
                 </View>
               </>
             }
-
           </View>
+          <View style={{ flex: 1, justifyContent: 'flex-start' }}>
+            <View style={{ backgroundColor: colors.red, borderRadius: 30, width: height > 600 ?  widthOfWindow * 0.115 :widthOfWindow * 0.1  , height: heightOfWindow * 0.06, alignSelf: 'flex-end', flex: 0, }}>
+              <TouchableOpacity
+                onPress={onClickSwap}
+                style={styles.shadow}
+              >
+                <AntDesign name='logout'
+                  size={heightOfWindow * 0.035}
+                  style={{ color: "#fff", alignSelf: 'center', marginTop: height > 600 ?  8  : 6}} />
+              </TouchableOpacity>
 
-        </View>
-
-
-        <View style={{ margin: 10 }}>
-          <Text style={{ fontSize: RFPercentage(2.5), fontWeight: 'bold' }}>Username</Text>
-          <View style={{ alignItems: 'center' }}>
-            <View style={styles.nameAndPhone}>
-              <View style={styles.viewText}>
-                <Text style={styles.textShow}>{getProfile?.firstname} {getProfile?.lastname}</Text>
-              </View>
             </View>
+            <View style={{ alignItems: 'flex-start', marginTop: 10 }}>
+
+
+              <Text style={styles.textShow}>{getProfile?.firstname} {getProfile?.lastname}</Text>
+              <Text style={[styles.textShow, { fontSize: RFPercentage(2.4), color: colors.blackGray }]}>{getProfile?.email}</Text>
+            </View>
+
           </View>
         </View>
-
-        <View style={{ marginVertical: 10, margin: 10 }}>
-          <Text style={{ fontSize: RFPercentage(2.5), fontWeight: 'bold' }}>Phone Number</Text>
+        <View style={{ marginVertical: 10, margin: 15, backgroundColor: colors.blackGray, padding: 12, borderRadius: 15 }}>
+          <Text style={{ fontSize: RFPercentage(2.5), ...GetKanitFont('medium'), color: colors.white }}>เบอร์โทร</Text>
           <View style={{ alignItems: 'center' }}>
             <View style={styles.nameAndPhone}>
               <View style={styles.viewText}>
@@ -151,10 +158,31 @@ const AccountUser = (props: any) => {
             </View>
           </View>
         </View>
+        <View style={{ marginVertical: 10, margin: 15, backgroundColor: colors.blackGray, padding: 12, borderRadius: 15 }}>
+          <Text style={{ fontSize: RFPercentage(2.5), ...GetKanitFont('medium'), color: colors.white }}>คณะ</Text>
+          <View style={{ alignItems: 'center' }}>
+            <View style={styles.nameAndPhone}>
+              <View style={styles.viewText}>
+                <Text style={styles.textShow}>{getProfile?.faculty?.nameTH}</Text>
+              </View>
 
+            </View>
+          </View>
+        </View>
+        <View style={{ marginVertical: 5, margin: 15, backgroundColor: colors.blackGray, padding: 12, borderRadius: 15 }}>
+          <Text style={{ fontSize: RFPercentage(2.5), ...GetKanitFont('medium'), color: colors.white }}>สาขา</Text>
+          <View style={{ alignItems: 'center' }}>
+            <View style={styles.nameAndPhone}>
+              <View style={styles.viewText}>
+                <Text style={styles.textShow}>{getProfile?.department?.nameTH}</Text>
+              </View>
+
+            </View>
+          </View>
+        </View>
 
         {/* LogOut */}
-        <View style={{ alignItems: 'flex-end', flex: 2, left: 110 }}>
+        {/* <View style={{ alignItems: 'flex-end', flex: 2, left: 110 }}>
           <View style={{ marginVertical: 5 }}>
             <TouchableOpacity
               onPress={onClickSwap}
@@ -173,7 +201,7 @@ const AccountUser = (props: any) => {
 
           </View>
 
-        </View>
+        </View> */}
 
 
 
@@ -187,12 +215,12 @@ export default AccountUser
 const styles = StyleSheet.create({
   nameAndPhone: {
     flex: 0,
-    backgroundColor: colors.black,
+    backgroundColor: colors.white,
     width: widthOfWindow * 0.9,
-    height: heightOfWindow * 0.08,
+    height: heightOfWindow * 0.075,
     borderRadius: 5,
-    // borderColor : colors.blackGray,
-    // borderWidth:2,
+    borderColor: colors.blackGray,
+    borderWidth: 2,
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -241,12 +269,13 @@ const styles = StyleSheet.create({
   },
   viewImage: {
     backgroundColor: colors.black,
-    width: height > 600 ? widthOfWindow * 0.58 : widthOfWindow * 0.51,
-    height: heightOfWindow * 0.3,
+    width: height > 600 ? widthOfWindow * 0.385 : widthOfWindow * 0.313,
+    height: height > 600 ? heightOfWindow * 0.2 : heightOfWindow * 0.19,
     borderRadius: 300 / 2,
-    margin: 15,
-    alignItems: 'center',
-    justifyContent: 'center',
+    // marginHorizontal: 20,
+    // margin: 15,
+    // alignItems: 'center',
+    // justifyContent: 'center',
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -260,7 +289,17 @@ const styles = StyleSheet.create({
     fontSize: RFPercentage(3),
     textAlign: 'left',
     ...GetKanitFont('regular'),
-    color: colors.white
+    color: colors.black
   },
+  shadow: {
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+  }
 
 })
