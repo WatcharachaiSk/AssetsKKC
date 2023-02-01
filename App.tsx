@@ -27,7 +27,7 @@ const App = (props: any) => {
   const [settoken, setSettoken] = useState();
 
   // const { submit} = props;
-  console.log('isLoading=',isLoading);
+  // console.log('isLoading=',isLoading);
 
   // เช็ค Token
   useEffect(() => {
@@ -43,7 +43,7 @@ const App = (props: any) => {
         // console.log('ahgdyqwhbdquihdjn');
 
       }
-      console.log('token =', token);
+      // console.log('token =', token);
       setIsLoading(false)
     };
     checktoken();
