@@ -32,7 +32,6 @@ const ListPage = (props: any) => {
   const [fetching, setFetching] = useState(true);
   // const [isLoading, setIsLoading] = useState(false);
 
-
   useMemo(async () => {
     // console.log('fets');
     try {
