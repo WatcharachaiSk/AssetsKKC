@@ -77,14 +77,14 @@ const DetailfromList = (props: any) => {
   // }
   useEffect(() => {
     let arrImage = [];
-    console.log('item?.img_items', item?.img_items);
+    // console.log('item?.img_items', item?.img_items);
     if (isPage != 'Category') {
       for (let i = 0; i < item?.img_items?.length; i++) {
         arrImage.push({ img: `${baseURL}${PATH_IMAGE_ITEM}${item?.img_items[i].name_image_item}` })
       }
       setImageItems(arrImage)
     } else {
-      console.log('redefhytdasj');
+      // console.log('redefhytdasj');
       if (getItemByID) {
         for (let i = 0; i < getItemByID?.img_items?.length; i++) {
           arrImage.push({ img: `${baseURL}${PATH_IMAGE_ITEM}${getItemByID?.img_items[i].name_image_item}` })

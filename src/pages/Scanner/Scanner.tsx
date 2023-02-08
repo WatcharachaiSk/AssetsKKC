@@ -145,7 +145,7 @@ const Scanner = (props: any) => {
               try {
                 // const fetchData = async () => {
                 let qr = barC.slice(0,8)
-                console.log(qr);
+                // console.log(qr);
 
                 if (qr == 'getItem/') {
                   const res = await axios(

@@ -1,4 +1,4 @@
-const REACT_ENVIRONMENT:string = "testApi";
+const REACT_ENVIRONMENT:string = "PROD";
 
 /*
   android: "http://10.0.2.2:3500",

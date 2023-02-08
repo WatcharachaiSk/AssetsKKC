@@ -56,7 +56,7 @@ const LoginPage = (props: any) => {
             setShowModal(true);
             setChecked(false);
             setStatusUser(false);
-            console.log("เกิดข้อผิดพลาดกรุณาลองใหม่อีกครั้ง");
+            // console.log("เกิดข้อผิดพลาดกรุณาลองใหม่อีกครั้ง");
          }
 
          //console.log(res?.data?.user?.authentication_token);
