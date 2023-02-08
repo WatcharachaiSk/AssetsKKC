@@ -1,26 +1,26 @@
 import * as React from 'react';
-import { Dimensions, Image, SafeAreaView, StyleSheet, View } from 'react-native';
-import { Camera, useCameraDevices } from 'react-native-vision-camera';
+import {Dimensions, Image, SafeAreaView, StyleSheet, View} from 'react-native';
+import {Camera, useCameraDevices} from 'react-native-vision-camera';
 // import { DBRConfig, decode, TextResult } from 'vision-camera-dynamsoft-barcode-reader';
 // import * as REA from 'react-native-reanimated';
-import { useEffect, useState } from 'react';
-import { BarcodeFormat, useScanBarcodes } from 'vision-camera-code-scanner';
-import { useIsFocused } from '@react-navigation/native';
+import {useEffect, useState} from 'react';
+import {BarcodeFormat, useScanBarcodes} from 'vision-camera-code-scanner';
+import {useIsFocused} from '@react-navigation/native';
 import images from '../../config/img';
 import axios from 'axios';
 import configAxios from '../../axios/configAxios';
-import { baseURL } from '../../axios/config';
-import { colors } from '../../config/colors';
-import { GetKanitFont } from '../../config/fonts';
-import { checkMultiple, PERMISSIONS, RESULTS } from 'react-native-permissions';
+import {baseURL} from '../../axios/config';
+import {colors} from '../../config/colors';
+import {GetKanitFont} from '../../config/fonts';
+import {checkMultiple, PERMISSIONS, RESULTS} from 'react-native-permissions';
 //import { isIOS } from "@rneui/base";
-import { requestCameraBothPlatform } from '../../utils/Permission/RequestCameraBothPlatform';
-import { isIOS } from '@rneui/base';
+import {requestCameraBothPlatform} from '../../utils/Permission/RequestCameraBothPlatform';
+import {isIOS} from '@rneui/base';
 // import LottieView from 'lottie-react-native';
 // import json from '../../config/json';
 import ModalBarcodeUndefined from './Modal/ModalBarcodeUndefined';
-import { BlurView } from '@react-native-community/blur';
-const { height } = Dimensions.get('window');
+import {BlurView} from '@react-native-community/blur';
+const {height} = Dimensions.get('window');
 
 const Scanner = (props: any) => {
   const navigation = props.navigation;
@@ -110,7 +110,7 @@ const Scanner = (props: any) => {
           // device != null &&
           permission && (
             <Camera
-              style={[StyleSheet.absoluteFill, { marginVertical: height / 5 }]}
+              style={[StyleSheet.absoluteFill, {marginVertical: height / 5}]}
               device={device}
               isActive={true}
               frameProcessor={frameProcessor}
@@ -122,7 +122,7 @@ const Scanner = (props: any) => {
         <View
           style={[
             styles.item_Line,
-            { marginTop: props.route.params != undefined ? -20 : 0 },
+            {marginTop: props.route.params != undefined ? -20 : 0},
           ]}>
           <Image
             style={{
@@ -131,11 +131,12 @@ const Scanner = (props: any) => {
               width: undefined,
               top: height < 600 ? 12 : 5,
             }}
-            source={{ uri: images.scan_Web }}
+            source={{uri: images.scan_Web}}
             resizeMode="contain"
           />
         </View>
         {barcodes.map((barcode: any, id) => {
+          // console.log("barcode = ",barcode)
           let barC = '-';
           setTimeout(async () => {
             barC = barcode != undefined ? barcode.content.data : '-';
@@ -144,7 +145,7 @@ const Scanner = (props: any) => {
             if (barcode != undefined && barC != undefined) {
               try {
                 // const fetchData = async () => {
-                let qr = barC.slice(0,8)
+                let qr = barC.slice(0, 8);
                 // console.log(qr);
 
                 if (qr == 'getItem/') {
@@ -162,7 +163,6 @@ const Scanner = (props: any) => {
                 } else {
                   setShowBarcodeUndefined(true);
                 }
-
 
                 // };
                 // fetchData();
@@ -200,7 +200,7 @@ const Scanner = (props: any) => {
   // };
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: colors.black }}>
+    <SafeAreaView style={{flex: 1, backgroundColor: colors.black}}>
       <ModalBarcodeUndefined
         showbarcodeUndefined={showbarcodeUndefined}
         onScanAgain={onScanAgain}

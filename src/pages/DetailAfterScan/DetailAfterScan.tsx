@@ -44,6 +44,7 @@ const DetailAfterScan = (props: any) => {
   const [showModal, setShowModal] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
   const [location_nameTH, setLocation_nameTH] = useState('-');
+  const [location_nameTHNew, setLocation_nameTHNew] = useState('-');
   const [valueLocations, setValueLocations] = useState<any>();
   const [modalLocations, setModalLocations] = useState(false);
   const [getUpdateItem, setGetUpdateItem] = useState<[]>();
@@ -78,16 +79,21 @@ const DetailAfterScan = (props: any) => {
   }, []);
 
   useEffect(() => {
+    setImageProblem({...imageProblem, image1: null});
+  }, [statusNew]);
+  useEffect(() => {
     //console.log('tessssssssss');
 
     const unsubscribe = navigation.addListener('focus', async () => {
       const res = await axios(await configAxios('get', `${API.getProfile}`));
       setGetProfile(res?.data);
+
       // await mutate();
     });
     return unsubscribe;
   }, []);
-
+  // console.log(getProfile?.user?.admin);
+  // console.log(typeof getProfile?.user?.admin);
   // format วันที่ตรวจสอบล่าสุด
   useEffect(() => {
     var date = new Date(itemShow?.up_date_statuses[0]?.inspected_at).getDate(); //Current Date
@@ -146,27 +152,31 @@ const DetailAfterScan = (props: any) => {
   };
 
   const onClickSave = async () => {
-    if (itemShow?.departmentDId == getProfile?.departmentDId || conditionSave) {
+    if (
+      itemShow?.departmentDId == getProfile?.departmentDId ||
+      getProfile?.user?.admin == true
+    ) {
       var data = {
         itemItemId: itemShow?.item_id,
         locationLId: !valueLocations ? '' : valueLocations,
         status: statusNew,
         note: detailProblem + ' แก้ไขโดย Mobile',
       };
-      // Todo
 
-      const resizedImage = await ImageResizer.createResizedImage(
-        imageProblem?.image1.uri,
-        650,
-        650,
-        'JPEG',
-        100,
-      );
       // console.log('resizedImage = ', resizedImage);
       //
       let api, objImg;
       if (imageProblem.image1 != null) {
         api = API.updateStetusPhoto;
+        // Todo
+        const resizedImage = await ImageResizer.createResizedImage(
+          imageProblem?.image1.uri,
+          650,
+          650,
+          'JPEG',
+          100,
+        );
+        //
         objImg = {
           name: resizedImage.name,
           type: imageProblem?.image1.type,
@@ -228,7 +238,8 @@ const DetailAfterScan = (props: any) => {
   const checkValueModal = (item: any) => {
     setModalLocations(false);
     setValueLocations(item.l_id);
-    setLocation_nameTH(item.nameTH);
+    // setLocation_nameTH(item.nameTH);
+    setLocation_nameTHNew(item.nameTH);
   };
 
   //let nameItem = itemShow?.nameTH
@@ -251,27 +262,18 @@ const DetailAfterScan = (props: any) => {
   const [checkUser, setCheckUser] = useState<any>();
 
   useMemo(async () => {
-    let res = await axios(await configAxios('get', `${API.getLocation}`));
-    if (res != null || res != undefined || res.status != 200) {
-      if (res.data[0].building != undefined || res.data[0].building != null) {
-        setLocation_nameTH(
-          res.data[0].nameTH +
-            ' ' +
-            res.data[0].building.nameTH +
-            ' ชั้น' +
-            res.data[0].floor,
-        );
-      } else {
-        setLocation_nameTH(res.data[0].nameTH);
-      }
-
-      setValueLocations(res.data[0].id);
-      //console.log('res.data =', res.data);
-    } else {
-      return Alert.alert('มีบางอย่างผิดปกติ');
+    if (itemShow) {
+      let locate = '';
+      locate =
+        itemShow.location.nameTH +
+        ' ' +
+        itemShow.building.nameTH +
+        ' ชั้น' +
+        itemShow.location.floor;
+      setLocation_nameTH(locate);
     }
   }, []);
-
+  // console.log(itemShow);
   // useEffect(() => {
 
   //   if (itemShow?.departmentDId == getProfile?.departmentDId) {
@@ -338,7 +340,7 @@ const DetailAfterScan = (props: any) => {
         {
           switch (index) {
             case 1:
-              console.log(data);
+              // console.log(data);
 
               setImageProblem({...imageProblem, image1: data});
               break;
@@ -568,14 +570,21 @@ const DetailAfterScan = (props: any) => {
                       : itemShow?.up_date_statuses[0].note}
                   </Text>
                 </View>
-
+                <View style={styles.rowDetail}>
+                  <Text style={globleStyles.fonts}>
+                    สถานที่(เลือกเปลี่ยน) :{' '}
+                    {location_nameTHNew ? location_nameTHNew : 'ยังไม่ได้เลือก'}
+                  </Text>
+                </View>
+                {/* valueLocations */}
                 {/* List Detail */}
                 {statusNew == false &&
                   afterSelectStatus.showImageProblem &&
                   showSelectImage()}
 
                 {itemShow?.status_item != 3 &&
-                  itemShow?.departmentDId == getProfile?.departmentDId && (
+                  (itemShow?.departmentDId == getProfile?.departmentDId ||
+                    getProfile?.user?.admin) == true && (
                     <>
                       {/* button */}
                       <View
@@ -625,13 +634,21 @@ const DetailAfterScan = (props: any) => {
           <TouchableOpacity
             onPress={() => {
               //onPressExit();
-              onClickSave();
+              if (
+                itemShow?.departmentDId == getProfile?.departmentDId ||
+                getProfile?.user?.admin == true
+              ) {
+                onClickSave();
+              } else {
+                onScanAgain();
+              }
             }}
             style={[
               styles.btnConfirm,
               {
                 backgroundColor:
-                  itemShow?.departmentDId == getProfile?.departmentDId
+                  itemShow?.departmentDId == getProfile?.departmentDId ||
+                  getProfile?.user?.admin == true
                     ? colors.greenConfirm
                     : colors.red,
               },
@@ -644,7 +661,8 @@ const DetailAfterScan = (props: any) => {
                   fontSize: RFPercentage(3),
                 },
               ]}>
-              {itemShow?.departmentDId == getProfile?.departmentDId
+              {itemShow?.departmentDId == getProfile?.departmentDId ||
+              getProfile?.user?.admin == true
                 ? 'บันทึก'
                 : 'ออก'}{' '}
             </Text>
