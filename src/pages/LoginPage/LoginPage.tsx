@@ -11,6 +11,7 @@ import {
   ScrollView,
   Alert,
   Dimensions,
+  RefreshControl,
 } from 'react-native';
 import React, {useState, useEffect, useMemo} from 'react';
 import images from '../../config/img';
@@ -66,6 +67,8 @@ const LoginPage = (props: any) => {
           'accessToken',
           res?.data?.user?.authentication_token,
         );
+        setUsername('');
+        setPassword('');
         navigation.navigate('NavStack');
         setStatusUser(true);
         setChecked(true);
@@ -85,30 +88,36 @@ const LoginPage = (props: any) => {
     }
     setIsLoading(false);
   };
+  const [fetching, setFetching] = useState(true);
 
-  // useEffect(() => {
-  //    //console.log('euhrfu3jrfo2i3');
-
-  //    if (props.route.params == undefined) {
-  //       setStatusLogout(false);
-  //    } else {
-  //       setStatusLogout(true);
-  //    }navigation
-  //    // console.log(props.route.params);
-  // }, [props.route.params]);
-
-  // เช็ค Token
-  //   useEffect(() => {
-  //    const showtoke = async () => {
-  //      var token = await AsyncStorage.getItem("accessToken") ;
-  //      //console.log(token);
-  //      if (token != null) {
-  //        setIsLoading(true);
-  //        await onPressLogin();
-  //      }
-  //    };
-  //    showtoke();
-  //  }, []);
+  useMemo(async () => {
+    try {
+      if (fetching) {
+        const res = await axios(await configAxios('get', `${API.getProfile}`));
+        // setGetProfile(res?.data);
+        // setIsLoading(false);
+        setFetching(false);
+        if (res?.data?.user?.user_status == false) {
+          Alert.alert(
+            `บัญชีผู้ใช้(${res?.data?.firstname})โดนปิดการใช้งาน`,
+            'กรุณาติดต่อผู้ดูเเลระบบ',
+            [{text: 'ปิด'}],
+          );
+        } else {
+          navigation.navigate('NavStack');
+        }
+      }
+    } catch (error: any) {
+      if (error.request.status == 0) {
+        Alert.alert(
+          'อินเตอร์เน็ตของคุณมีปัญหา',
+          'กรุณาตรวจสอบอินเตอร์เน็ตของคุณ',
+          [{text: 'ปิด'}],
+        );
+      }
+      setFetching(false);
+    }
+  }, [fetching]);
 
   return (
     <SafeAreaView style={{flex: 1}}>
@@ -135,7 +144,16 @@ const LoginPage = (props: any) => {
         <View style={{flex: 1, alignItems: 'flex-end'}}>
           <Image source={images.BG1} resizeMode="stretch" />
         </View>
-        <ScrollView contentContainerStyle={{flexGrow: 1}}>
+        <ScrollView
+          refreshControl={
+            <RefreshControl
+              refreshing={fetching}
+              onRefresh={() => {
+                setFetching(true);
+              }}
+            />
+          }
+          contentContainerStyle={{flexGrow: 1}}>
           {/* logo */}
           <View style={styles.viewlogo}>
             <Image
