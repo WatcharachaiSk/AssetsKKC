@@ -7,9 +7,9 @@
 พัฒนาโดยใช้ React Native (ระบบปฏิบัติการแอนดรอยด์)
 
 <p align="center">
-  <a target="blank"><img src="https://sv1.picz.in.th/images/2023/02/16/L89N4z.png" width="200" height: "100%" alt="Nest Logo" /></a>
+  <a target="blank"><img src="https://sv1.picz.in.th/images/2023/02/16/L89N4z.png" width="200" height: "100%" alt="MobileLogo" /></a>
 </p>
 <p align="center">
-  <a target="blank"><img src="https://sv1.picz.in.th/images/2023/02/16/L8wDrl.png" width="200" height: "100%" alt="Nest Logo" /></a>
+  <a target="blank"><img src="https://sv1.picz.in.th/images/2023/02/16/L8wDrl.png" width="200" height: "100%" alt="MobileLogo" /></a>
 </p>
 
