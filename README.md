@@ -6,4 +6,6 @@
 
 พัฒนาโดยใช้ React Native (ระบบปฏิบัติการแอนดรอยด์)
 
-<img src="https://sv1.picz.in.th/images/2023/02/16/L89N4z.png" alt="L89N4z.png" border="0" />
+<p align="center">
+  <a target="blank"><img src="https://sv1.picz.in.th/images/2023/02/16/L89N4z.png" width="600" alt="Nest Logo" /></a>
+</p>
