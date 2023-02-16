@@ -7,6 +7,11 @@
 พัฒนาโดยใช้ React Native (ระบบปฏิบัติการแอนดรอยด์)
 
 <p align="center">
-  <a target="blank"><img src="https://sv1.picz.in.th/images/2023/02/16/L8wDrl.png" width="200" height: "100%" alt="MobileLogo" /></a>
+  <a target="blank"><img src="https://sv1.picz.in.th/images/2023/02/16/L8wDrl.png" width="500" height: "100%" alt="MobileLogo" /></a>
 </p>
+
+<p align="center">
+  <a target="blank"><img src="https://sv1.picz.in.th/images/2023/02/16/L81mIv.png" width="500" height: "100%" alt="MobileLogo" /></a>
+</p>
+
 
