@@ -90,7 +90,9 @@
 ## ถ้าหากว่า path ของระบบ Backend เปลี่ยน
 - แก้ไขในไฟล์ **config.ts** ในตัวแปล <*APP_API_URL_PROD*>
 	> ที่อยู่ไฟล์ **AssetsKKC\src\axios\config.ts**
+	> 
 	> APP_API_URL_PROD = "new path"
+	> 
 	> ทำการ **react-native run-android** อีกรอบ
 	 
 #### *สงวนลิขสิทธิ์ ใช้ภายใน มหาวิทยาลัยเทคโนโลยี ราชมงคลอีสานวิทยาเขต ขอนแก่น.
