@@ -7,6 +7,10 @@
 
 พัฒนาโดยใช้ React Native (ระบบปฏิบัติการแอนดรอยด์)
 
+# เครดิต
+#### Watcharachai Samkhan
+#### Isariya Roopkhan
+
 <p align="center">
   <a target="blank"><img src="https://sv1.picz.in.th/images/2023/02/16/L8wDrl.png" width="200" height: "100%" alt="MobileLogo" /></a>
 </p>
